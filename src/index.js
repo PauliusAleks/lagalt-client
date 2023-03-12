@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import { initialize } from "./keycloak";
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import reduxStore from './reduxParts/reduxStore';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<p>Connecting to keycloak ...</p>)
@@ -12,7 +14,9 @@ initialize()
   .then(() => { // If No Keycloak Error occurred - Display the App
     root.render(
       <React.StrictMode>
-        <App />
+        <Provider store={reduxStore}>
+          <App />
+        </Provider>
       </React.StrictMode>
     );
   })
