@@ -1,11 +1,16 @@
 import React from 'react'
+import keycloak from '../keycloak'
+import { Button } from 'react-bootstrap'
 
-const ProfilePage = () => {
+
+function ProfilePage() {
+
+    function handleLogout() {
+        keycloak.logout()
+    }
 
     return (
-        <>
-            <h1>Header</h1>
-        </>
+        <Button onClick={handleLogout}>Logg ut</Button>
         )
 }
 
