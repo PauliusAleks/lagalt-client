@@ -1,25 +1,15 @@
 import React from "react";
+import { ProgressBar } from "react-bootstrap";
 
 function ProjectPage() {
 
-    var test = [1,2,3]
-
-    var projects = test.map(function(item) {
-        return (
-            <div>
-                <h1> item </h1>
-                <label for="projectStatus">Downloading progress:</label>
-                <progress id="file" value="2" max="4"> Status </progress>
-            </div>
-        );
-    });
-    
-
     return (
-        <div class="projectPage">
-            <div class="projectBanner"> 
-                {projects}
-            </div>
+        <div class="p-3">
+        <h1 class="text-center">Title</h1>
+        <ProgressBar variant="info" now={20} />
+        <h4>Skills vi trenger:</h4>
+        <h3>Om prosjektet</h3>
+        <p></p>
         </div>
     )
 }
