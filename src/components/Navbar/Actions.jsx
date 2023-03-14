@@ -12,9 +12,9 @@ function Actions() {
     }
 
     return(
-        <div className="actions">
+        <div class="p-3">
           <Button size="lg" variant="primary" onClick={handleLogin}>Logg inn</Button>
-          <Button size="lg" variant="primary" oncClick={handleLogout}>Logg ut</Button>
+          <Button size="lg" variant="primary" onClick={handleLogout}>Logg ut</Button>
         <div className="profile">
         </div>
       </div>

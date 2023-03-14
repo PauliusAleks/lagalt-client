@@ -22,9 +22,9 @@ const NavbarHeader = () => {
     // }
     return(
         <div className="navbar" class="d-flex justify-content-between bg-secondary p-3">
-            <Logo/>
-            <Searchbar/>
-            <Actions/>
+            <Logo />
+            <Searchbar />
+            <Actions />
         </div>
 
 

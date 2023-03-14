@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import KeycloakConnectingPage from './pages/KeycloakConnectingPage';
 import { initialize } from "./keycloak";
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
@@ -10,7 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<p>Connecting to keycloak ...</p>)
+root.render(<KeycloakConnectingPage />)
 // Initialize Keycloak
 initialize()
   .then(() => { // If No Keycloak Error occurred - Display the App
