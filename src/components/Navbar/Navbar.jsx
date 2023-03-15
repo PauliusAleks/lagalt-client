@@ -1,6 +1,6 @@
 import React from "react";
 import keycloak from "../../keycloak";
-import Logo from "./Logo";
+import Logo from "./logo/Logo";
 import Searchbar from "./searchbar/Searchbar";
 import Actions from "./Actions";
 import { NavLink } from "react-router-dom";
