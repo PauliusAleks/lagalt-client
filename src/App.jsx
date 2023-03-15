@@ -5,6 +5,7 @@ import ProjectPage from './pages/ProjectPage';
 import ProfilePage from './pages/ProfilePage';
 import NavbarHeader from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage';
+import { ROLES } from './const/roles';
 import './App.css';
 
 
@@ -15,8 +16,14 @@ function App() {
       <NavbarHeader />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/project" element={<ProjectPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/project" element={
+          <KeycloakRoute role={ ROLES.User }> 
+            <ProjectPage /> 
+          </KeycloakRoute>} />
+        <Route path="/profile" element={
+        <KeycloakRoute role={ ROLES.User }> 
+          <ProfilePage /> 
+        </KeycloakRoute>} />
       </Routes>
     </div>
     </BrowserRouter>

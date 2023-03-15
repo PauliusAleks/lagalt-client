@@ -10,7 +10,6 @@ function KeycloakRoute({ children, role, redirectTo = "/" }) {
   if (keycloak.hasRealmRole(role)) {
     return <>{children}</>;
   }
-
   return <Navigate replace to={redirectTo} />;
 }
 
