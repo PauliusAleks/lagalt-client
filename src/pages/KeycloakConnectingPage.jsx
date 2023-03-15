@@ -1,5 +1,4 @@
 import React from 'react'
-import keycloak from "../keycloak";
 import { Spinner } from 'react-bootstrap';
 
 function KeycloakConnectingPage() {

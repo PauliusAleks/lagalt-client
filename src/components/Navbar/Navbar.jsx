@@ -4,7 +4,6 @@ import Logo from "./Logo";
 import Searchbar from "./searchbar/Searchbar";
 import Actions from "./Actions";
 import { NavLink } from "react-router-dom";
-import { Figure } from "react-bootstrap";
 
 
 const NavbarHeader = () => {
@@ -14,8 +13,8 @@ const NavbarHeader = () => {
             <Logo />
             <Searchbar />
             {!keycloak.authenticated && <Actions />}  
-            {keycloak.authenticated && <NavLink to="/profile">
-            <img src="https://www.pngitem.com/pimgs/m/508-5087336_person-man-user-account-profile-employee-profile-template.png" alt="..." width="50"class="rounded-circle"/>
+            {keycloak.authenticated && <NavLink to="/profile" style={{ padding: '16px' }}>
+            <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="..." width="50"class="rounded-circle"/>
                 </NavLink>}
             
         </div>
