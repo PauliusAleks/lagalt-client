@@ -4,63 +4,71 @@ import { ProgressBar, Container, Row, Col } from "react-bootstrap"
 import { Figure } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { getProjectBannersAsync } from '../../reduxParts/projectReducer';
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { PROGRESS } from "../../const/progress"
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import './ProjectBanner.css'
 
 const ProjectBanner = () => {
-    const [ projects, setProjects] = useState([])
-    const project = useSelector((state) => state.project)
+    const projects = useSelector((state) => state.banner)
     const dispatch = useDispatch()
-    
 
-    
-
-    //Dummy data
-    var test = ["Project 1","Project 2","Project 3","Project 4","Project 5","Project 6","Project 7","Project 8","Project 9","Project 10","Project 11","Project 12"]
-
-    var image = "https://picsum.photos/200"
-
-    var skills = test.map(function(skill) {
-        return (
-            <li>{skill}</li>
-        )
-    })
-    //End Dummy data
-
-    const handleGetProjects = async () => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/getProjectBanners`)
-        if(response.ok){
-            const result = response.json()
-            return result;
-        } 
-        
-        //dispatch(getProjectBannersAsync())    
-    }
-
-
-
-    let testProject = Object.values(projects).map(project => {
-        setProjects(handleGetProjects)
+    useEffect(()=> {
+        dispatch(getProjectBannersAsync())
         console.log(projects)
+    }, [])
+    
+
+
+    let testProject = projects.project.map(project => {
+        let progress = 0;
+        if (project.progress === PROGRESS.founding) {
+            progress = 1
+        } else if (project.progress === PROGRESS.inProgress) {
+            progress = 2
+        } else if (project.progress === PROGRESS.stalled) {
+            progress = 0
+        } else if (project.progress === PROGRESS.completed) {
+            progress = 4
+        }
+
+        let skills = project.neededSkillsName.map((skill,key) => {
+            return (
+                <li key={key}> {` ${skill}`} </li>
+            )
+        })
+
         return (
             <Container fluid="p-2 m-3 bg-light border border-dark rounded">
                 <Row class="d-flex flex-row">
                     <Col>
                         <Figure> 
-                            <img class="figure-img img-fluid rounded" alt="Project image"src={image}/>
+                            <img class="figure-img img-fluid rounded" alt="Project image"src={project.bannerImage}/>
                         </Figure>
                     </Col>
                     <Col>
-                     {!keycloak.authenticated && <h1>{"title"}</h1>}  
-                     {keycloak.authenticated && <NavLink to="/project"><h1>{"title"}</h1></NavLink>}
+                     {!keycloak.authenticated && <h1>{project.name}</h1>}  
+                     {keycloak.authenticated && <NavLink to="/project"><h1>{project.name}</h1></NavLink>}
                     </Col>
                     <Col> 
-                        <p class="projectDescription">lalala</p>
+                        <p class="projectDescription">{project.description}</p>
                     </Col>
                     <Col >
-                        <ul class="mr-5 d-flex">{skills}</ul>
+                        <ul class="mr-5 d-flex list-unstyled">{skills}</ul>
                     </Col>
                     <Col>
-                        <ProgressBar animated now={45} label={`${"status"}`} />
+                        <div style={{ width: 100, height: 100 }}>
+                        <CircularProgressbar value={progress} maxValue={4} text={`${project.progress}`} 
+                        styles={buildStyles({
+                                textSize: '10px', 
+                                pathColor: `rgba(62, 152, 199, )`,
+                                textColor: '',
+                                trailColor: '#d6d6d6',
+                                backgroundColor: '#3e98c7',})} />
+                        
+                        </div>
+                        
                     </Col>
                 </Row>
             </Container>
