@@ -5,9 +5,9 @@ function KeycloakConnectingPage() {
  
 
 return (
-    <div class="text-center pt-5">
+    <div className="text-center pt-5">
         <h1>Connecting to keycloak ...</h1>
-        <div class="p-5">
+        <div className="p-5">
             <Spinner animation="grow" role="status">
             </Spinner>
             <Spinner animation="grow" role="status">

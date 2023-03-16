@@ -4,13 +4,14 @@ import Logo from "./logo/Logo";
 import Searchbar from "./searchbar/Searchbar";
 import Actions from "./Actions";
 import { NavLink } from "react-router-dom";
-
+import FilterSearch from "./FilterSearch";
 
 const NavbarHeader = () => {
 
     return(
         <div className="navbar" class="d-flex justify-content-between bg-secondary p-3">
             <Logo />
+            <FilterSearch />
             <Searchbar />
             {!keycloak.authenticated && <Actions />}  
             {keycloak.authenticated && <NavLink to="/profile" style={{ padding: '16px' }}>

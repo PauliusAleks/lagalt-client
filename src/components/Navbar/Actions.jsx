@@ -7,12 +7,12 @@ function Actions() {
         keycloak.login()
     }
 
-    function handleSearch() {
-
-    }
+    //  handleSearch() {
+    
+    // }
 
     return(
-      <div class="p-3">
+      <div className="p-3">
           <Button size="lg" variant="outline-light" onClick={handleLogin}>Logg inn</Button>
         <div className="profile">
         </div>
