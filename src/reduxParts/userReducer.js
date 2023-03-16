@@ -12,7 +12,7 @@ export const getUserAsync = createAsyncThunk(
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        id: null,
+        //id: null,
         username: "username",
         firstName: "firstName",
         lastName: "lastName",
