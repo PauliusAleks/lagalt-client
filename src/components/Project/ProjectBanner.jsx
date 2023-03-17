@@ -62,15 +62,15 @@ const ProjectBanner = () => {
                                 </Figure>}
                         </Col>
                         <Col>
-                        {!keycloak.authenticated && <h2>{project.name}</h2>}  
-                        {keycloak.authenticated && <NavLink to="/project"><h2>{project.name}</h2></NavLink>}
+                        {!keycloak.authenticated && <h2 class="p-2">{project.name}</h2>}  
+                        {keycloak.authenticated && <NavLink to="/project"><h2 class="p-2">{project.name}</h2></NavLink>}
                         <p class="lead">{project.category}</p>
                         </Col>
                         <Col> 
-                            <p class="projectDescription">{project.description}</p>
+                            <p class="p-2">{project.description}</p>
                         </Col>
                         <Col >
-                            <ul class="mr-5 d-flex list-unstyled">{skillsTest}</ul>
+                            <ul class="p-2 mr-5 d-flex list-unstyled">{skillsTest}</ul>
                         </Col>
                         <Col xs={6} md={1}>
                             <div style={{ width: 70, height: 70 }}>
