@@ -49,9 +49,17 @@ const ProjectBanner = () => {
                 <Container fluid="p-3 m-3 bg-light border border-dark rounded">
                     <Row class="d-flex flex-row p-3">
                         <Col xs={6} md={2}>
-                            <Figure> 
-                                <img class="figure-img img-fluid rounded" alt="Project image"src={project.bannerImage}/>
-                            </Figure>
+                            {project.bannerImage === null ? 
+                                <Figure> 
+                                    <img class="figure-img img-fluid rounded" 
+                                    alt="Project"
+                                    src="/templateImage.jpg" />
+                                </Figure> :
+                                <Figure> 
+                                    <img class="figure-img img-fluid rounded" 
+                                    alt="Project"
+                                    src={project.bannerImage} />
+                                </Figure>}
                         </Col>
                         <Col>
                         {!keycloak.authenticated && <h2>{project.name}</h2>}  
@@ -66,7 +74,8 @@ const ProjectBanner = () => {
                         </Col>
                         <Col xs={6} md={1}>
                             <div style={{ width: 70, height: 70 }}>
-                            <CircularProgressbar value={progress} maxValue={4} text={`${project.progress}`} 
+                            <CircularProgressbar value={progress} maxValue={4} 
+                            text={`${project.progress}`} 
                             styles={buildStyles({
                                     textSize: '10px', 
                                     pathColor: `rgba(62, 152, 199, )`,
@@ -82,7 +91,6 @@ const ProjectBanner = () => {
             );
         }
     });
-
 
     return (
         <div>
