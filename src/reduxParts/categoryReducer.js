@@ -1,5 +1,3 @@
-import { createSlice } from "@reduxjs/toolkit";
-
 export const setMusic = () => {
     return {
       type: "MUSIC",
