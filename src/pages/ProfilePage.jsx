@@ -2,11 +2,12 @@ import { React, useState } from 'react'
 import keycloak from '../keycloak'
 import { Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAdminProjectAsync, getProjectBannersAsync } from '../reduxParts/projectReducer';
+import { changeIsHidden, getUserAsync } from '../reduxParts/userReducer';
+import  ProfileInfo  from '../components/Profile/ProfileInfo'
 
 function ProfilePage() {
     const [ projects, setProjects] = useState([])
-    const project = useSelector((state) => state.project)
+    const user = useSelector((state) => state.user)
     const dispatch = useDispatch();
     
     function handleLogout() {
@@ -14,41 +15,38 @@ function ProfilePage() {
     }
 
     function tokenLog() {
-        keycloak.token()
+        console.log(keycloak.token)
     }
     function tokenParsed() {
-        keycloak.tokenParsed()
+        console.log(keycloak.tokenParsed)
     }
-    const handleGetProjects = async () => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/getProjectBanners`)
-        if(response.ok){
-            const result = response.json()
-            return result;
-        } 
-
-        //dispatch(getProjectBannersAsync())    
+    const handleGetUser = () => {
+        dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
     }
-    const handleShowProjects = () => {
-        setProjects(handleGetProjects)
-        console.log(projects)
+    const handleIsHidden = () =>  {
+        dispatch(changeIsHidden())
     }
-    
 
     return (
         <>
         <div class="container">
             <Form>
                 <div class="form-check form-switch form-check-inline">
-                    <input type="checkbox" id="hidden" class="form-check-input" />
+                    <input 
+                        type="checkbox" 
+                        id="hidden" 
+                        class="form-check-input" 
+                        checked={!user.isHidden} 
+                        onChange={handleIsHidden}/>
                     <label for="hidden" class="form-check-label">Hidden</label>
                 </div>
                 <Button onClick={handleLogout}>Logg ut</Button>
                 <Button onClick={tokenLog}>Token</Button>
                 <Button onClick={tokenParsed}>Token Parsed</Button>
-                <Button onClick={handleGetProjects}>Prosjekter </Button>
-                <Button onClick={handleShowProjects}>Show </Button>
+                <Button onClick={handleGetUser}>Show user name</Button>
             </Form>
-            <p>{project.name}</p>
+            
+            <ProfileInfo user={user}></ProfileInfo>
         </div>
         
         </>
