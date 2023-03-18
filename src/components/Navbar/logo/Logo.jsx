@@ -1,11 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import PenLogoSVG from "./PenLogoSVG";
+import { useDispatch } from "react-redux";
+import { search } from "../../../reduxParts/searchReducer";
 
-function Logo() {
+const Logo = () => {
+  const dispatch = useDispatch()
+
+  const handleSearchReset = () => {
+    dispatch(search(""))
+  }
+
     return(
     <div class="p-3" style={{ display: 'flex' }}>
-      <NavLink to="/" style={{ textDecoration: 'none' }}>
+      <NavLink to="/" onClick={handleSearchReset} style={{ textDecoration: 'none' }}>
         <h1 class="text-decoration-none text-dark"><PenLogoSVG />Lagalt</h1>
       </NavLink>
     </div>
