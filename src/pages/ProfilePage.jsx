@@ -6,7 +6,6 @@ import { changeIsHidden, getUserAsync } from '../reduxParts/userReducer';
 import  ProfileInfo  from '../components/Profile/ProfileInfo'
 
 function ProfilePage() {
-    const [ projects, setProjects] = useState([])
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch();
     
@@ -26,7 +25,9 @@ function ProfilePage() {
     const handleIsHidden = () =>  {
         dispatch(changeIsHidden())
     }
-
+    const handleEditProfile = () => {
+        //Profile editing stuff
+    }
     return (
         <>
         <div class="container">
@@ -40,13 +41,16 @@ function ProfilePage() {
                         onChange={handleIsHidden}/>
                     <label for="hidden" class="form-check-label">Hidden</label>
                 </div>
-                <Button onClick={handleLogout}>Logg ut</Button>
-                <Button onClick={tokenLog}>Token</Button>
-                <Button onClick={tokenParsed}>Token Parsed</Button>
-                <Button onClick={handleGetUser}>Show user name</Button>
+                <div style={{float:'right'}}>
+                    <Button onClick={handleLogout}>Logg ut</Button>
+                    <Button onClick={tokenLog}>Token</Button>
+                    <Button onClick={tokenParsed}>Token Parsed</Button>
+                    <Button onClick={handleGetUser}>Fetch user</Button>
+                </div>
+                
             </Form>
-            
             <ProfileInfo user={user}></ProfileInfo>
+            <Button style={{float:'right'}} onClick={handleEditProfile} >Rediger Profil</Button>
         </div>
         
         </>
