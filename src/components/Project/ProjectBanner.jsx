@@ -38,7 +38,7 @@ const ProjectBanner = () => {
                 </div>
             )
         })
-        if (project.name.toLowerCase().includes(search.toLowerCase()) || search === "") {
+        if (project.name.toLowerCase().includes(search.text.toLowerCase()) || search === "") {
             if (project.category === category || category === "All" || category === "Choose category") {
                 return (
                     <Container fluid="p-3 m-3 bg-light border border-dark rounded">
@@ -90,8 +90,10 @@ const ProjectBanner = () => {
                     </Container>
                 );
             }
-            return <> </>
-    }});
+        }
+    return <> </>
+});
+    
 
     return (
         <div>

@@ -1,22 +1,39 @@
 export const search = (text) => {
     return {
       type: "SEARCH",
+      show: true,
       text
     };
   };
 
-export const reset = () => {
+export const setSearchShowTrue = () => {
     return {
-      type: "RESET",
+      type: "SHOW_TRUE",
+      show: true,
+      text: ""
+    };
+  };
+  export const setSearchShowFalse = () => {
+    return {
+      type: "SHOW_FALSE",
+      show: false,
+      text: ""
     };
   };
 
-  const searchReducer = (state = "", action) => {
+const INITIAL_STATE = {
+    show: true,
+    text: ""
+  };
+
+  const searchReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
       case "SEARCH":
-        return state = action.text
-      case "RESET":
-        return (state = "all");
+        return state = action
+      case "SHOW_TRUE":
+        return state = action
+      case "SHOW_FALSE":
+        return state = action
       default:
         return state;
     }
