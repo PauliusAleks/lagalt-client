@@ -3,12 +3,14 @@ import { NavLink } from "react-router-dom";
 import PenLogoSVG from "./PenLogoSVG";
 import { useDispatch } from "react-redux";
 import { search } from "../../../reduxParts/searchReducer";
+import { resetCategory } from "../../../reduxParts/categoryReducer";
 
 const Logo = () => {
   const dispatch = useDispatch()
 
   const handleSearchReset = () => {
     dispatch(search(""))
+    dispatch(resetCategory())
   }
 
     return(

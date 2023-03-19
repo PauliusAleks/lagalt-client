@@ -41,7 +41,7 @@ const ProjectBanner = () => {
         if (project.name.toLowerCase().includes(search.text.toLowerCase()) || search === "") {
             if (project.category === category || category === "All" || category === "Choose category") {
                 return (
-                    <Container fluid="p-3 m-3 bg-light border border-dark rounded">
+                    <Container fluid="p-3 m-3 bg-light border border-2 border-dark rounded">
                         <Row class="d-flex flex-row p-3">
                             <Col xs={6} md={2}>
                                 {project.bannerImage === null ?

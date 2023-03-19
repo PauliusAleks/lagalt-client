@@ -26,6 +26,12 @@ export const setMusic = () => {
     };
   };
 
+  export const resetCategory = () => {
+    return {
+      type: "RESET",
+    };
+  };
+
 
 const categoryReducer = (state = "Choose category", action) => {
     switch (action.type) {
@@ -39,6 +45,8 @@ const categoryReducer = (state = "Choose category", action) => {
         return (state = "WebDevelopment");
       case "ALL":
         return (state = "All");
+      case "RESET":
+        return (state = "Choose category");
       default:
         return state;
     }

@@ -11,7 +11,7 @@ const NavbarHeader = () => {
     const search = useSelector((state) => state.search)
 
     return(
-        <div className="navbar" class="d-flex justify-content-between bg-secondary p-3">
+        <div className="navbar" class="d-flex justify-content-between bg-secondary p-3 sticky-top border-bottom border-3">
             <Logo />
             <FilterSearch />
             {search.show === true && <Searchbar /> }
