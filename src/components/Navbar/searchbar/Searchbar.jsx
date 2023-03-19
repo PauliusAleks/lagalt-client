@@ -13,7 +13,7 @@ function SearchBar() {
     const dispatch = useDispatch()
 
     const handleClickOutside = () => {
-        setQuery("")
+        //setQuery("")
     };
 
     useEffect(() => {
