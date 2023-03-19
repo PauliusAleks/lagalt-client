@@ -1,9 +1,16 @@
 import React from "react";
+import { useEffect } from "react";
 import ProjectBanner from "../components/Project/ProjectBanner";
 import CategoryDropdown from "../components/Project/CategoryDropdown";
+import { setSearchShowTrue } from "../reduxParts/searchReducer";
+import { useDispatch } from "react-redux";
 
 function ProjectBannerPage() {
-    
+    const dispatch = useDispatch();
+
+    useEffect(()=> {
+        dispatch(setSearchShowTrue())
+    },[dispatch])
 
     return (
         <div className="projectPage">

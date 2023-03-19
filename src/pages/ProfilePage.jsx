@@ -1,13 +1,19 @@
-import { React, useState } from 'react'
+import { React, useEffect } from 'react'
 import keycloak from '../keycloak'
 import { Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { changeIsHidden, getUserAsync } from '../reduxParts/userReducer';
 import  ProfileInfo  from '../components/Profile/ProfileInfo'
+import { setSearchShowFalse } from '../reduxParts/searchReducer';
 
 function ProfilePage() {
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch();
+
+    useEffect(()=> {
+        dispatch(setSearchShowFalse())
+    },[dispatch])
+
     
     function handleLogout() {
         keycloak.logout()

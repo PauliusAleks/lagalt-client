@@ -1,8 +1,16 @@
 import React from "react";
+import { useEffect } from "react";
 import { Button, ProgressBar } from "react-bootstrap";
 import { NavLink } from "react-router-dom"
+import { setSearchShowFalse } from '../reduxParts/searchReducer';
+import { useDispatch } from 'react-redux';
 
 function ProjectPage() {
+    const dispatch = useDispatch();
+
+    useEffect(()=> {
+        dispatch(setSearchShowFalse())
+    },[dispatch])
 
     var test = ["Java", "C#", "Python", "Music", "ASP.NET"]
 
