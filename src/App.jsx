@@ -24,7 +24,11 @@ function App() {
         <KeycloakRoute role={ ROLES.User }> 
           <ProfilePage /> 
         </KeycloakRoute>} />
-        <Route path="/chat" element={<ChatPanel />} />
+        <Route path="/chat" element={
+          <KeycloakRoute role={ ROLES.User }> 
+            <ChatPanel /> 
+          </KeycloakRoute>
+        } />
       </Routes>
     </div>
     </BrowserRouter>
