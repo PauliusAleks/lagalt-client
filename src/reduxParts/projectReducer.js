@@ -23,7 +23,7 @@ export const getAdminProjectAsync = createAsyncThunk(
 export const getContributorProjectAsync = createAsyncThunk(
     'project/getProjectAsync',
     async (id) => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/${id}`)
+        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/contributor/${id}`)
         if(response.ok){
             const result = response.json()
             return result;
@@ -41,34 +41,35 @@ export const projectSlice = createSlice({
         progress: "", //enum
         description: "",
         gitURL: "",
-        imageURLs: [],
-        neededSkills: [],
+        imageUrls: [],
+        neededSkillsName: [],
         admins:[],
         contributors: []
     },
     reducers: {
         setProject: (state, action) => {
+            state.id = action.payload.id;
             state.name = action.payload.name;
             state.category = action.payload.category;
             state.progress = action.payload.progress;
             state.description = action.payload.description;
             state.gitURL = action.payload.gitURL;
-            state.imageURLs = action.payload.imageURLs;
-            state.neededSkills = action.payload.neededSkills;
+            state.imageUrls = action.payload.imageUrls;
+            state.neededSkillsName = action.payload.neededSkillsName;
             state.admins = action.payload.admins;
             state.contributors = action.payload.contributors;
         }
     },
     extraReducers: {
         [getAdminProjectAsync.fulfilled] : (state, action) => {
-            //state.id = action.payload.id;
+            state.id = action.payload.id;
             state.name = action.payload.name;
             state.category = action.payload.category;
             state.progress = action.payload.progress;
             state.description = action.payload.description;
             state.gitURL = action.payload.gitURL;
-            state.imageURLs = action.payload.imageURLs;
-            state.neededSkills = action.payload.neededSkills;
+            state.imageUrls = action.payload.imageUrls;
+            state.neededSkillsName = action.payload.neededSkillsName;
             state.admins = action.payload.admins;
             state.contributors = action.payload.contributors;
         },
@@ -78,8 +79,8 @@ export const projectSlice = createSlice({
             state.progress = action.payload.progress;
             state.description = action.payload.description;
             state.gitURL = action.payload.gitURL;
-            state.imageURLs = action.payload.imageURLs;
-            state.neededSkills = action.payload.neededSkills;
+            state.imageUrls = action.payload.imageUrls;
+            state.neededSkillsName = action.payload.neededSkillsName;
             state.admins = action.payload.admins;
             state.contributors = action.payload.contributors;
         }

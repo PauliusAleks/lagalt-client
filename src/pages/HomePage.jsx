@@ -14,9 +14,9 @@ function ProjectBannerPage() {
 
     return (
         <div className="projectPage">
-            <div class="d-flex justify-content-between">
-                <h1 class="mr-1 p-3">Prosjektoversikt</h1>
-                <div class="ml-auto p-3">
+            <div className="d-flex justify-content-between">
+                <h1 className="mr-1 p-3">Prosjektoversikt</h1>
+                <div className="ml-auto p-3">
                 <CategoryDropdown />
                 </div>
             </div>

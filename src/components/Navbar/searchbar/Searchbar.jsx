@@ -26,7 +26,7 @@ function SearchBar() {
         dispatch(search(query))
     }
     return(
-        <div class="my-auto w-50">
+        <div className="my-auto w-50">
             <InputGroup className="mb-2">
                 {/* <Button variant="white" style={{ backgroundColor: 'white'}}>
                     <SearchSVG/>
@@ -39,17 +39,17 @@ function SearchBar() {
                 <Button size="lg" variant="primary" onClick={handleSearch}>Søk</Button>
             </InputGroup>
             {query.length > 0 && (
-            <div class="bg-light rounded ml-5 position-absolute border border-1 border-dark">
+            <div className="bg-light rounded ml-5 position-absolute border border-1 border-dark">
                {toggle && 
-                <div class="d-flex justify-content-end">
+                <div className="d-flex justify-content-end">
                     <CloseButton onClick={handleSetToggleFalse} /> 
                 </div>
                }
-                {projects.project.slice(0,5).map((value) => {
+                {projects.project.slice(0,5).map((value, key) => {
                     if(toggle) {
                         if (value.name.toLowerCase().includes(query.toLowerCase())) {
                             return (
-                                <div class="border-bottom">
+                                <div className="border-bottom" key={key}>
                                     <Button variant="light" style={{ width: '100%' , display: 'flex', justifyContent: 'left', padding: '16px'}} >
                                         {value.name}
                                     </Button>
