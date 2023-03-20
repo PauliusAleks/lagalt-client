@@ -23,7 +23,7 @@ function SearchBar() {
         dispatch(search(query))
     }
     const handleOptionSearch = () => {
-        dispatch(search(query))
+        dispatch(search(optQuery))
     }
     return(
         <div className="my-auto w-50">
@@ -50,12 +50,11 @@ function SearchBar() {
                         if (value.name.toLowerCase().includes(query.toLowerCase())) {
                             return (
                                 <div className="border-bottom" key={key}>
-                                    <Button variant="light" style={{ width: '100%' , display: 'flex', justifyContent: 'left', padding: '16px'}} >
+                                    <Button variant="light" onClick={() => dispatch(search(value.name))}style={{ width: '100%' , display: 'flex', justifyContent: 'left', padding: '16px'}} >
                                         {value.name}
                                     </Button>
                                 </div>
                                 ); 
-                                
                             }
                         } 
                     return <></>
