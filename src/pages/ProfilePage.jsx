@@ -61,7 +61,7 @@ function ProfilePage() {
             </Form>
             <ProfileInfo user={user}></ProfileInfo>
             <Button style={{float:'right'}} onClick={handleEditProfile} >Opprett prosjekt</Button>
-            <Button style={{float:'right'}} onClick={handleEditProfile} >Rediger Profil</Button>
+            <Button style={{float:'right'}} onClick={handleEditProfile} >Rediger profil</Button>
         </div>
         
         </>

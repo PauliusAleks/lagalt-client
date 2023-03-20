@@ -57,8 +57,8 @@ function ChatPanel() {
             }}
             className="form "
           >
-            <label htmlFor="message-input-form">Message</label>
-            <input placeholder={"Enter your message here."}></input>
+            <label htmlFor="message-input-form">Melding</label>
+            <input placeholder={"Skriv her"}></input>
             <button>Send</button>
           </form>
         </div>
