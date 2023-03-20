@@ -26,18 +26,18 @@ function ProjectPage() {
     })
 
     let images = project.imageUrls.map((image, key) => {
-        return (
-            <Carousel.Item>
-                <img
-                className="d-block w-30"
-                src={image}
-                alt="image"
-                />
-            </Carousel.Item>
-        )
+        if(project.imageUrls.length > 0) {
+            return (
+                <Carousel.Item className="d-flex justify-content-center">
+                    <img
+                    className="d-block w-25"
+                    src={image}
+                    alt="project figure"
+                    />
+                </Carousel.Item>
+            )
+        }   
     })
-
-    console.log(project)
 
     //if stalled progress equal to 0
     let progress = 0;
@@ -55,9 +55,10 @@ function ProjectPage() {
             <NavLink to="/">Tilbake</NavLink>
             <div className="p-3">
                 <h1 className="text-center p-2">{project.name}</h1>
-                <ProgressBar variant="info" now={progress} max={4}/>
+                <ProgressBar variant="info" label={project.progress} now={progress} max={4}/>
                 <h5 className="p-4">Kategori: {project.category} </h5>
-                <Carousel variant="dark" slide={false}>{images}</Carousel>
+                {project.imageUrls.length > 0 && 
+                <Carousel variant="dark" slide={false}>{images}</Carousel>}
                 <h4 className="p-2">Skills vi trenger:</h4>
                 <div className="p-2">{skillsTest}</div>
                 <h3 className="p-2">Om prosjektet:</h3>

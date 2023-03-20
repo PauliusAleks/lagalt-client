@@ -7,11 +7,13 @@ import { useEffect, useState } from "react"
 import { PROGRESS } from "../../const/progress"
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
 
 const ProjectBanner = () => {
     const projects = useSelector((state) => state.banners)
     const category = useSelector((state) => state.category)
     const search = useSelector((state) => state.search)
+    const user = useSelector((state) => state.user)
 
     const [projectId, setProjectId] = useState("");
 
@@ -34,13 +36,24 @@ const ProjectBanner = () => {
         }
 
         let skillsTest = project.neededSkillsName.map((skill, key) => {
-            return (
-                <div key={key} className="p-1 d-inline">
-                    <Button variant="secondary" size="sm" disabled>
-                        {skill}
-                    </Button>
-                </div>
-            )
+            if (user.skills.includes(skill)) {
+                return (
+                    <div key={key} className="p-1 d-inline">
+                        <Button variant="success" size="sm" disabled>
+                            {skill}
+                        </Button>
+                    </div>
+                )
+            }
+            else {
+                return (
+                    <div key={key} className="p-1 d-inline">
+                        <Button variant="secondary" size="sm" disabled>
+                            {skill}
+                        </Button>
+                    </div>
+                )
+            }
         })
         if (project.name.toLowerCase().includes(search.text.toLowerCase()) || search === "") {
             if (project.category === category || category === "Alle" || category === "Velg kategori") {
@@ -78,7 +91,7 @@ const ProjectBanner = () => {
                             <Col>
                                 <div className="p-2">{skillsTest}</div>
                             </Col>
-                            <Col xs={3} md={1}>
+                            <Col xs={5} md={2}>
                                 <div className="p-2">
                                 <CircularProgressbar value={progress} maxValue={4} 
                                 text={`${project.progress}`} 

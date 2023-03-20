@@ -3,7 +3,7 @@ import keycloak from "../keycloak";
 export const getUserAsync = createAsyncThunk(
     'user/getUserAsync',
     async (username) => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/users/getByUsername/${username}`)
+        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/users/username/${username}`)
         if(response.ok){
             const result = response.json()
             return result;
