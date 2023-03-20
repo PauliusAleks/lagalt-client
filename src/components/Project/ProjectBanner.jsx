@@ -2,24 +2,27 @@ import keycloak from "../../keycloak"
 import { NavLink } from "react-router-dom"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
-import { getProjectBannersAsync } from '../../reduxParts/projectReducer';
-import { useEffect } from "react"
+import { getProjectBannersAsync, getContributorProjectAsync, getAdminProjectAsync } from '../../reduxParts/projectReducer';
+import { useEffect, useState } from "react"
 import { PROGRESS } from "../../const/progress"
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const ProjectBanner = () => {
     const projects = useSelector((state) => state.banners)
-    const pr = useSelector((state) => state.project)
     const category = useSelector((state) => state.category)
     const search = useSelector((state) => state.search)
+
+    const [projectId, setProjectId] = useState("");
+
     const dispatch = useDispatch()
 
+    
     useEffect(()=> {
         dispatch(getProjectBannersAsync())
-    })
+    },[])
     
-    let testProject = projects.project.map(project => {
+    let testProject = projects.project.map((project,key) => {
         //if stalled progress equal to 0
         let progress = 0;
         if (project.progress === PROGRESS.founding) {
@@ -32,7 +35,7 @@ const ProjectBanner = () => {
 
         let skillsTest = project.neededSkillsName.map((skill, key) => {
             return (
-                <div class="p-1 d-inline">
+                <div key={key} className="p-1 d-inline">
                     <Button variant="secondary" size="sm" disabled>
                         {skill}
                     </Button>
@@ -42,17 +45,17 @@ const ProjectBanner = () => {
         if (project.name.toLowerCase().includes(search.text.toLowerCase()) || search === "") {
             if (project.category === category || category === "Alle" || category === "Velg kategori") {
                 return (
-                    <Container fluid="p-3 m-3 bg-light border border-2 border-dark rounded">
-                        <Row class="d-flex flex-row p-3">
+                    <Container key={key} fluid="p-3 m-3 bg-light border border-2 border-dark rounded">
+                        <Row className="d-flex flex-row p-3">
                             <Col xs={6} md={2}>
                                 {project.bannerImage === null ?
-                                    <div class="p-2">
-                                        <img class="img-fluid rounded" alt="Project"
+                                    <div className="p-2">
+                                        <img className="img-fluid rounded" alt="Project"
                                         src="/templateImage.jpg" />
                                     </div>
                                     :
-                                    <div class="p-2">
-                                        <img class="figure-img img-fluid rounded" alt="Project"
+                                    <div className="p-2">
+                                        <img className="figure-img img-fluid rounded" alt="Project"
                                         src={project.bannerImage} />
                                     </div>
                                     }
@@ -60,23 +63,23 @@ const ProjectBanner = () => {
                             <Col>
                                 {!keycloak.authenticated && 
                                     <div>
-                                        <h2 class="p-2">{project.name}</h2>
-                                        <p class="lead p-2">{project.category}</p>
+                                        <h2 className="p-2">{project.name}</h2>
+                                        <p className="lead p-2">{project.category}</p>
                                     </div>}  
                                 {keycloak.authenticated && 
-                                    <NavLink to="/project" style={{ textDecoration: 'none', color: 'black' }}>
-                                        <h2 class="p-2">{project.name}</h2>
-                                        <p class="lead p-2">{project.category}</p>
+                                    <NavLink to="/project" onClick={() => dispatch(getAdminProjectAsync(project.id))} style={{ textDecoration: 'none', color: 'black' }}>
+                                        <h2 className="p-2">{project.name}</h2>
+                                        <p className="lead p-2">{project.category}</p>
                                     </NavLink>}
                             </Col>
                             <Col> 
-                                <p class="p-2">{project.description}</p>
+                                <p className="p-2">{project.description}</p>
                             </Col>
                             <Col>
-                                <div class="p-2">{skillsTest}</div>
+                                <div className="p-2">{skillsTest}</div>
                             </Col>
                             <Col xs={3} md={1}>
-                                <div class="p-2">
+                                <div className="p-2">
                                 <CircularProgressbar value={progress} maxValue={4} 
                                 text={`${project.progress}`} 
                                 styles={buildStyles({
@@ -94,8 +97,6 @@ const ProjectBanner = () => {
         }
     return <> </>
 });
-    
-
     return (
         <div>
                 {testProject}

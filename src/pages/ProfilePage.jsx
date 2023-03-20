@@ -1,10 +1,13 @@
-import { React, useEffect } from 'react'
+import { React, useEffect, useState } from 'react'
 import keycloak from '../keycloak'
 import { Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { changeIsHidden, getUserAsync } from '../reduxParts/userReducer';
 import  ProfileInfo  from '../components/Profile/ProfileInfo'
 import { setSearchShowFalse } from '../reduxParts/searchReducer';
+import CreateProject from '../components/Project/CreateProject';
+// import Modal from 'react-bootstrap/Modal';
+
 
 function ProfilePage() {
     const user = useSelector((state) => state.user)
@@ -34,15 +37,21 @@ function ProfilePage() {
     const handleEditProfile = () => {
         //Profile editing stuff
     }
-    const handleCreateProject = () => {
-        //Creating a new project
-        //Pop up eller ny page?
-    }
+
+    // const [show, setShow] = useState(false);
+
+    // const handleClose = () => setShow(false);
+    // const handleShow = () => setShow(true);
+
+    // const handleCreateProject = () => {
+    //     setShow(true);
+    // }
+
     return (
         <>
-        <div class="container">
+        <div className="container">
             <Form>
-                <div class="form-check form-switch form-check-inline">
+                <div className="form-check form-switch form-check-inline">
                     <input 
                         type="checkbox" 
                         id="hidden" 
@@ -60,7 +69,9 @@ function ProfilePage() {
                 
             </Form>
             <ProfileInfo user={user}></ProfileInfo>
-            <Button style={{float:'right'}} onClick={handleEditProfile} >Opprett prosjekt</Button>
+            {/* <Button style={{float:'right'}} onClick={handleShow} >Opprett prosjekt</Button>
+            {show ? <CreateProject /> : null} */}
+            <CreateProject />
             <Button style={{float:'right'}} onClick={handleEditProfile} >Rediger profil</Button>
         </div>
         
