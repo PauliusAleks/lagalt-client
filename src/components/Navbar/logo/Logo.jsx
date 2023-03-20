@@ -16,7 +16,7 @@ const Logo = () => {
     return(
     <div class="p-3" style={{ display: 'flex' }}>
       <NavLink to="/" onClick={handleSearchReset} style={{ textDecoration: 'none' }}>
-        <h1 class="text-decoration-none text-dark"><PenLogoSVG />Lagalt</h1>
+        <h1 class="text-decoration-none text-dark" ><PenLogoSVG />Lagalt</h1>
       </NavLink>
     </div>
     );

@@ -16,7 +16,7 @@ const ProjectBanner = () => {
 
     useEffect(()=> {
         dispatch(getProjectBannersAsync())
-    },[dispatch])
+    })
     
     let testProject = projects.project.map(project => {
         //if stalled progress equal to 0
@@ -29,7 +29,7 @@ const ProjectBanner = () => {
             progress = 4
         }
 
-        let skillsTest = project.neededSkillsName.map((skill) => {
+        let skillsTest = project.neededSkillsName.map((skill, key) => {
             return (
                 <div class="p-1 d-inline">
                 <Button variant="secondary" size="sm" disabled>

@@ -9,11 +9,12 @@ import { NavLink } from "react-router-dom";
 
 function SearchBar() {
     const [query, setQuery] = useState("");
+    const [toggle, setToggle] = useState(false);
     const projects = useSelector((state) => state.banners)
     const dispatch = useDispatch()
 
     const handleClickOutside = () => {
-        //setQuery("")
+        //setToggle(true)
     };
 
     useEffect(() => {
@@ -39,6 +40,7 @@ function SearchBar() {
             {query.length > 0 && (
             <div class="bg-light rounded ml-5 position-absolute border border-1 border-dark">
                 {projects.project.slice(0,5).map((value) => {
+                   
                     if (value.name.toLowerCase().includes(query.toLowerCase())) {
                             return (
                                 <div class="link-secondary">
@@ -49,6 +51,7 @@ function SearchBar() {
                                 );
                             }
                         })}
+                        
             </div>
            )}
         </div>

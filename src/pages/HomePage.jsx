@@ -10,12 +10,12 @@ function ProjectBannerPage() {
 
     useEffect(()=> {
         dispatch(setSearchShowTrue())
-    },[dispatch])
+    })
 
     return (
         <div className="projectPage">
             <div class="d-flex justify-content-between">
-                <h1 class="mr-1 p-3">Projesktoversikt</h1>
+                <h1 class="mr-1 p-3">Prosjektoversikt</h1>
                 <div class="ml-auto p-3">
                 <CategoryDropdown />
                 </div>

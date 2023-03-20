@@ -12,7 +12,7 @@ function ProfilePage() {
 
     useEffect(()=> {
         dispatch(setSearchShowFalse())
-    },[dispatch])
+    })
 
     
     function handleLogout() {
