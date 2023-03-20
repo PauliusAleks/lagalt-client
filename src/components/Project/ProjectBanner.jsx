@@ -10,6 +10,7 @@ import 'react-circular-progressbar/dist/styles.css';
 
 const ProjectBanner = () => {
     const projects = useSelector((state) => state.banners)
+    const pr = useSelector((state) => state.project)
     const category = useSelector((state) => state.category)
     const search = useSelector((state) => state.search)
     const dispatch = useDispatch()
@@ -32,14 +33,14 @@ const ProjectBanner = () => {
         let skillsTest = project.neededSkillsName.map((skill, key) => {
             return (
                 <div class="p-1 d-inline">
-                <Button variant="secondary" size="sm" disabled>
-                    {skill}
-                </Button>
+                    <Button variant="secondary" size="sm" disabled>
+                        {skill}
+                    </Button>
                 </div>
             )
         })
         if (project.name.toLowerCase().includes(search.text.toLowerCase()) || search === "") {
-            if (project.category === category || category === "All" || category === "Choose category") {
+            if (project.category === category || category === "Alle" || category === "Velg kategori") {
                 return (
                     <Container fluid="p-3 m-3 bg-light border border-2 border-dark rounded">
                         <Row class="d-flex flex-row p-3">

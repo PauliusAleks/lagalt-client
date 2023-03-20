@@ -1,61 +1,71 @@
 import React, { useEffect } from "react";
-import { Form, InputGroup, Button } from "react-bootstrap";
+import { Form, InputGroup, Button, CloseButton } from "react-bootstrap";
 import SearchSVG from "./SearchSVG";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { search } from "../../../reduxParts/searchReducer";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 
 function SearchBar() {
     const [query, setQuery] = useState("");
-    const [toggle, setToggle] = useState(false);
+    const [optQuery, setOptQuery] = useState("")
+    const [toggle, setToggle] = useState(true);
     const projects = useSelector((state) => state.banners)
     const dispatch = useDispatch()
 
-    const handleClickOutside = () => {
-        //setToggle(true)
+    const handleSetToggleFalse = () => {
+        setToggle(false)
     };
-
-    useEffect(() => {
-        document.addEventListener('click', handleClickOutside, true);
-        return () => {
-            document.removeEventListener('click', handleClickOutside, true);
-        };
-    }, []);
-    
-
+    const handleSetToggleTrue = () => {
+        setToggle(true)
+    }
     const handleSearch = () =>  {
+        dispatch(search(query))
+    }
+    const handleOptionSearch = () => {
         dispatch(search(query))
     }
     return(
         <div class="my-auto w-50">
             <InputGroup className="mb-2">
-                {/* <Button variant="light" id="button-addon1" active>
+                {/* <Button variant="white" style={{ backgroundColor: 'white'}}>
                     <SearchSVG/>
                 </Button> */}
-                <Form.Control type="text" onChange={e => setQuery(e.target.value)} placeholder="Søk etter prosjekt"/>
+                <Form.Control type="text" 
+                onClick={handleSetToggleTrue} 
+                onChange={e => setQuery(e.target.value)} 
+                onKeyPress={e => e.key === "Enter" && handleSearch()} 
+                placeholder="Søk etter prosjekt"/>
                 <Button size="lg" variant="primary" onClick={handleSearch}>Søk</Button>
             </InputGroup>
             {query.length > 0 && (
             <div class="bg-light rounded ml-5 position-absolute border border-1 border-dark">
+               {toggle && 
+                <div class="d-flex justify-content-end">
+                    <CloseButton onClick={handleSetToggleFalse} /> 
+                </div>
+               }
                 {projects.project.slice(0,5).map((value) => {
-                   
-                    if (value.name.toLowerCase().includes(query.toLowerCase())) {
+                    if(toggle) {
+                        if (value.name.toLowerCase().includes(query.toLowerCase())) {
                             return (
-                                <div class="link-secondary">
-                                    <NavLink to="/project" style={{ textDecoration: 'none'}} >
-                                        <p class="p-2 rounded border-bottom link-secondary">{value.name} </p>
-                                    </NavLink>
+                                <div class="border-bottom">
+                                    <Button variant="light" style={{ width: '100%' , display: 'flex', justifyContent: 'left', padding: '16px'}} >
+                                        {value.name}
+                                    </Button>
                                 </div>
                                 );
+                                
                             }
-                        })}
-                        
+                        } 
+                    return <></>
+                })
+            }     
             </div>
            )}
         </div>
     );
+    
 }
 export default SearchBar
 

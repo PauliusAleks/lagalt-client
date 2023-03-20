@@ -9,7 +9,8 @@ import { useSelector } from "react-redux";
 
 const NavbarHeader = () => {
     const search = useSelector((state) => state.search)
-
+    console.log("Navbar check if authenticated", keycloak.authenticated)
+    console.log("navbar check token", keycloak.token)
     return(
         <div className="navbar" class="d-flex justify-content-between bg-secondary p-3 sticky-top border-bottom border-3">
             <Logo />

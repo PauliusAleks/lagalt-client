@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const getProjectBannersAsync = createAsyncThunk(
     'project/getProjectBannersAsync',
     async () => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/getProjectBanners`)
+        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/banners`)
         if(response.ok){
             const result = response.json()
             return result;

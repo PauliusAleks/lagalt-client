@@ -5,7 +5,7 @@ export const getProjectBannersAsync = createAsyncThunk(
     'project/getProjectBannersAsync',
     async (arg, {rejectWithValue}) => {
         try {
-            const {project}= await axios.get(`https://lagaltapi.azurewebsites.net/api/projects/getProjectBanners`)
+            const {project}= await axios.get(`https://lagaltapi.azurewebsites.net/api/projects/banners`)
             return project;
         }
         catch (error) {

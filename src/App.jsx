@@ -5,9 +5,9 @@ import ProjectPage from './pages/ProjectPage';
 import ProfilePage from './pages/ProfilePage';
 import NavbarHeader from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage';
+import ChatPanel from './components/Chat/ChatPanel.jsx';
 import { ROLES } from './const/roles';
 import './App.css';
-
 
 function App() {
   return (        
@@ -24,6 +24,7 @@ function App() {
         <KeycloakRoute role={ ROLES.User }> 
           <ProfilePage /> 
         </KeycloakRoute>} />
+        <Route path="/chat" element={<ChatPanel />} />
       </Routes>
     </div>
     </BrowserRouter>

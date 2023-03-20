@@ -12,12 +12,12 @@ const CategoryDropdown = () => {
         <Dropdown >
             <Dropdown.Toggle variant="white" id="dropdown-basic">{category}</Dropdown.Toggle>
             <Dropdown.Menu>
-                <Dropdown.Item as="button" onClick={() => dispatch(setMusic())}>Music</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={() => dispatch(setMusic())}>Musikk</Dropdown.Item>
                 <Dropdown.Item as="button" onClick={() => dispatch(setFilm())}>Film</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => dispatch(setGamedev())}>Game Development</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={() => dispatch(setWebdev())}>Web Development</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={() => dispatch(setGamedev())}>Spillutvikling</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={() => dispatch(setWebdev())}>Nettutvikling</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item as="button" onClick={() => dispatch(setAll())}> View all</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={() => dispatch(setAll())}> Vis alle</Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
     );

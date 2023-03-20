@@ -33,20 +33,20 @@ export const setMusic = () => {
   };
 
 
-const categoryReducer = (state = "Choose category", action) => {
+const categoryReducer = (state = "Velg kategori", action) => {
     switch (action.type) {
       case "MUSIC":
-        return (state = "Music");
+        return (state = "Musikk");
       case "FILM":
         return (state = "Film");
       case "GAMEDEV":
-        return (state = "GameDevelopment");
+        return (state = "SpillUtvikling");
       case "WEBDEV":
-        return (state = "WebDevelopment");
+        return (state = "NettUtvikling");
       case "ALL":
-        return (state = "All");
+        return (state = "Alle");
       case "RESET":
-        return (state = "Choose category");
+        return (state = "Velg kategori");
       default:
         return state;
     }

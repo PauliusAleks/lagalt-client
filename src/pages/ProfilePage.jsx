@@ -34,6 +34,10 @@ function ProfilePage() {
     const handleEditProfile = () => {
         //Profile editing stuff
     }
+    const handleCreateProject = () => {
+        //Creating a new project
+        //Pop up eller ny page?
+    }
     return (
         <>
         <div class="container">
@@ -45,7 +49,7 @@ function ProfilePage() {
                         class="form-check-input" 
                         checked={!user.isHidden} 
                         onChange={handleIsHidden}/>
-                    <label for="hidden" class="form-check-label">Hidden</label>
+                    <label for="hidden" class="form-check-label">Offentlig/Privat</label>
                 </div>
                 <div style={{float:'right'}}>
                     <Button onClick={handleLogout}>Logg ut</Button>
@@ -56,6 +60,7 @@ function ProfilePage() {
                 
             </Form>
             <ProfileInfo user={user}></ProfileInfo>
+            <Button style={{float:'right'}} onClick={handleEditProfile} >Opprett prosjekt</Button>
             <Button style={{float:'right'}} onClick={handleEditProfile} >Rediger Profil</Button>
         </div>
         

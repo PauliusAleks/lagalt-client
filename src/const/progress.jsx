@@ -1,6 +1,6 @@
 export const PROGRESS = {
-    founding: "Founding",
-    inProgress: "InProgress",
-    stalled: "Stalled",
-    completed: "Completed"
+    founding: "Oppstart",
+    inProgress: "UnderUtvikling",
+    stalled: "Utsatt",
+    completed: "Ferdig"
 }
