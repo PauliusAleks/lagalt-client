@@ -54,7 +54,7 @@ function SearchBar() {
                                         {value.name}
                                     </Button>
                                 </div>
-                                );
+                                ); 
                                 
                             }
                         } 
