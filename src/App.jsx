@@ -8,29 +8,43 @@ import HomePage from './pages/HomePage';
 //import ChatPanel from './components/Chat/ChatPanel.jsx';
 import { ROLES } from './const/roles';
 import './App.css';
+import { useState, useCallback } from 'react';
+import { ReactKeycloakProvider } from '@react-keycloak/web';
+import keycloak from './keycloak';
 
 function App() {
+
+  const [, setTokenUpdateCount] = useState(0);
+    
+    const onUpdateToken = useCallback(() => {
+        setTokenUpdateCount((value) => value + 1);
+    }, []);
+ 
   return (        
     <BrowserRouter>
-    <div className="App">
-      <NavbarHeader />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/project" element={
-          <KeycloakRoute role={ ROLES.User }> 
-            <ProjectPage /> 
-          </KeycloakRoute>} />
-        <Route path="/profile" element={
-        <KeycloakRoute role={ ROLES.User }> 
-          <ProfilePage /> 
-        </KeycloakRoute>} />
+      <div className="App">
+        <NavbarHeader />
+          <ReactKeycloakProvider
+                authClient={keycloak}
+                onTokens={onUpdateToken}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/project" element={
+                <KeycloakRoute role={ ROLES.User }>
+                    <ProjectPage /> 
+                </KeycloakRoute>} />
+              <Route path="/profile" element={
+                <KeycloakRoute role={ ROLES.User }> 
+                  <ProfilePage /> 
+                </KeycloakRoute>} />
         {/* <Route path="/chat" element={
           <KeycloakRoute role={ ROLES.User }> 
             <ChatPanel /> 
           </KeycloakRoute>
         } /> */}
-      </Routes>
-    </div>
+          </Routes>
+        </ReactKeycloakProvider>
+      </div>
     </BrowserRouter>
   );
 }

@@ -60,7 +60,7 @@ const ProjectBanner = () => {
                 return (
                     <Container key={key} fluid="p-3 m-3 bg-light border border-2 border-dark rounded">
                         <Row className="d-flex flex-row p-3">
-                            <Col xs={6} md={2}>
+                            <Col xs={6} md={2} lg={2} xl={2} xxl={1}>
                                 {project.bannerImage === null ?
                                     <div className="p-2">
                                         <img className="img-fluid rounded" alt="Project"
@@ -91,7 +91,7 @@ const ProjectBanner = () => {
                             <Col>
                                 <div className="p-2">{skillsTest}</div>
                             </Col>
-                            <Col xs={5} md={2}>
+                            <Col xs={2} md={2} lg={2} xl={2} xxl={1}>
                                 <div className="p-2">
                                 <CircularProgressbar value={progress} maxValue={4} 
                                 text={`${project.progress}`} 
