@@ -21,8 +21,6 @@ const NavbarHeader = () => {
             <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" alt="..." width="50"className="rounded-circle"/>
             <h4 className="" >{user.username}</h4>
                 </NavLink>}
-                
-            
         </div>
 
     )

@@ -45,7 +45,7 @@ function SearchBar() {
                     <CloseButton onClick={handleSetToggleFalse} /> 
                 </div>
                }
-                {projects.project.slice(0,5).map((value, key) => {
+                {projects.project.slice(0,10).map((value, key) => {
                     if(toggle) {
                         if (value.name.toLowerCase().includes(query.toLowerCase())) {
                             return (

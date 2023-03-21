@@ -35,9 +35,6 @@ function ProfilePage() {
     const handleIsHidden = () =>  {
         dispatch(changeIsHidden())
     }
-    const handleCheckUser = () => {
-        dispatch(checkForUserAsync(keycloak.tokenParsed.preferred_username))
-    }
     const handlePostUser = () => {
             dispatch(createUserAsync(keycloak.tokenParsed))
     }
@@ -64,7 +61,6 @@ function ProfilePage() {
                     <Button onClick={tokenLog}>Token</Button>
                     <Button onClick={tokenParsed}>Token Parsed</Button>
                     <Button onClick={handleGetUser}>Fetch user</Button>
-                    <Button onClick={handleCheckUser}>Check if user</Button>
                     <Button onClick={handlePostUser}>Post user</Button>
                 </div>
                 

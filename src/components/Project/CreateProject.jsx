@@ -1,19 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { setProject } from '../../reduxParts/projectReducer';
+import { createProjectAsync } from '../../reduxParts/projectReducer';
 
 function CreateProject() {
   const [show, setShow] = useState(false);
   const project = useSelector((state) => state.project)
   const dispatch = useDispatch();
 
+
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = () => {
     // handle form submission
+    dispatch(createProjectAsync(project));
+    console.log('Submitted name:', project.name)
     console.log('Submitted image URLs:', project.ImageUrls);
     console.log('Submitted skills:', project.NeededSkills)
     handleClose();
@@ -80,7 +85,7 @@ function CreateProject() {
               <Form.Control type="text" value={project.ImageUrls} onChange={handleChange} placeholder="Separer med komma (link, link, link)" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="Form.ControlInput4">
-              <Form.Label>Skills prosjektet ser etter</Form.Label>
+              <Form.Label>Ferdigheter prosjektet ser etter</Form.Label>
               <Form.Control type="text" value={project.NeededSkills} onChange={handleChange} placeholder="Java, Fifa, C#, Photoshop"/>
             </Form.Group>
           </Form>

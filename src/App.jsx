@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useEffect} from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import KeycloakRoute from './routes/KeycloakRoute';
 import ProjectPage from './pages/ProjectPage';
@@ -10,17 +10,19 @@ import EditProfilePage from './pages/EditProfilePage'
 import { ROLES } from './const/roles';
 import './App.css';
 import { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './keycloak';
 
 function App() {
-
+  const dispatch = useDispatch()
+  const projects = useSelector((state) => state.banners)
   const [, setTokenUpdateCount] = useState(0);
     
     const onUpdateToken = useCallback(() => {
         setTokenUpdateCount((value) => value + 1);
     }, []);
- 
+
   return (        
     <BrowserRouter>
       <div className="App">
@@ -35,8 +37,7 @@ function App() {
                     <ProjectPage /> 
                 </KeycloakRoute>} />
               <Route path="/profile" element={
-                <KeycloakRoute role={ ROLES.User }> 
-                  <ProfilePage /> 
+                <KeycloakRoute role={ ROLES.User }>                   <ProfilePage /> 
                 </KeycloakRoute>} />
                 <Route path="/editProfilePage" element={
                 <KeycloakRoute role={ ROLES.User }> 

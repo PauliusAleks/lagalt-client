@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 export const ProjectSkills = () => {
     const project = useSelector((state) => state.project)
 
-    let skills = project.neededSkillsName.map((skill, key) => {
+    let skills = project.neededSkills.map((skill, key) => {
         return (
             <div key={key} className="p-1 d-inline">
                 <Button variant="secondary" size="sm" disabled>

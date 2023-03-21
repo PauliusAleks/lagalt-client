@@ -28,7 +28,6 @@ export const checkForUserAsync = createAsyncThunk(
             else if(!response.ok) {
                 return false;
             }
-        
     }
 )
 

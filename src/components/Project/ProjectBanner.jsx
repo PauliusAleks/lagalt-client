@@ -14,26 +14,26 @@ import { storageRead, storageSave } from "../../utils/storage";
 
 
 const ProjectBanner = () => {
+    const dispatch = useDispatch()
     const projects = useSelector((state) => state.banners)
+    //storageRead("banners") === null ? dispatch(getProjectBannersAsync()) : storageRead("banners")
     const category = useSelector((state) => state.category)
     const search = useSelector((state) => state.search)
     const user = useSelector((state) => state.user)
 
-    useEffect(()=> {
-        if(storageRead("user") === null && keycloak.authenticated){
-            storageSave("user", user)
-        } else if (storageRead("banners") === null){
-            storageSave("banners", projects)
-        }
-    },[])
 
     const [projectId, setProjectId] = useState("");
 
-    const dispatch = useDispatch()
 
     
     useEffect(()=> {
         dispatch(getProjectBannersAsync())
+        /*
+        storageSave("banners",null)
+        if(storageRead("banners") === null){
+            
+        }
+        */
     },[])
     
     let testProject = projects.project.map((project,key) => {
@@ -47,7 +47,7 @@ const ProjectBanner = () => {
             progress = 4
         }
 
-        let skillsTest = project.neededSkillsName.map((skill, key) => {
+        let skillsTest = project.neededSkills.map((skill, key) => {
             if (user.skills.includes(skill)) {
                 return (
                     <div key={key} className="p-1 d-inline">
@@ -103,7 +103,7 @@ const ProjectBanner = () => {
                             <Col>
                                 <div className="p-2">{skillsTest}</div>
                             </Col>
-                            {SkillCompare(project.neededSkillsName, user.skills) &&
+                            {SkillCompare(project.neededSkills, user.skills) &&
                                 <Col xs={2} md={2} lg={2} xl={2} xxl={1}>
                                     <h3 className="text-center text-success">Match!</h3>
                                 <div className="p-2">
@@ -118,7 +118,7 @@ const ProjectBanner = () => {
                                 </div>
                             </Col>
                             }
-                            {!SkillCompare(project.neededSkillsName, user.skills) &&
+                            {!SkillCompare(project.neededSkills, user.skills) &&
                             <Col xs={2} md={2} lg={2} xl={2} xxl={1}>
                                 <div className="p-2">
                                 <CircularProgressbar value={progress} maxValue={4} 

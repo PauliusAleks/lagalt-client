@@ -21,7 +21,7 @@ const ProfileInfo = ({user}) => {
             consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
         </p>
         <h5 style= {{paddingTop:30}}>
-            Mine skills
+            Mine ferdigheter
         </h5>
             <UserSkills/>
         <h5 style= {{paddingTop:40}}>

@@ -34,7 +34,7 @@ function ApplyProject() {
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Mine skills</Form.Label>
+              <Form.Label>Mine ferdigheter</Form.Label>
               <h4> <UserSkills /></h4>
 
               <Form.Label>Motivasjonsbrev</Form.Label>

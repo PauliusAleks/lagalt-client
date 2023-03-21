@@ -45,6 +45,9 @@ function ProjectPage() {
 
         <div className="p-2">
             <NavLink to="/">Tilbake</NavLink>
+            <div className="p-2" style={{float:'right'}}>
+                <ApplyProject />
+            </div>
             <div className="p-3">
                 <h1 className="text-center p-2">{project.name}</h1>
                 <ProgressBar variant="info" label={project.progress} now={progress} max={4}/>
@@ -55,9 +58,6 @@ function ProjectPage() {
                 <div className="p-2"><ProjectSkills/></div>
                 <h3 className="p-2">Om prosjektet:</h3>
                 <p className="p-2">{project.description}</p>
-            </div>
-            <div className="p-2" style={{float:'right'}}>
-                <ApplyProject />
             </div>
         </div>
     )
