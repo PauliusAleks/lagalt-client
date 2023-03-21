@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react'
 import keycloak from '../keycloak'
 import { Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-import { changeIsHidden, getUserAsync } from '../reduxParts/userReducer';
+import { changeIsHidden, checkForUserAsync, getUserAsync, loginUserAsync, createUserAsync } from '../reduxParts/userReducer';
 import  ProfileInfo  from '../components/Profile/ProfileInfo'
 import { setSearchShowFalse } from '../reduxParts/searchReducer';
 import CreateProject from '../components/Project/CreateProject';
@@ -34,6 +34,13 @@ function ProfilePage() {
     const handleIsHidden = () =>  {
         dispatch(changeIsHidden())
     }
+    const handleCheckUser = () => {
+        dispatch(checkForUserAsync(keycloak.tokenParsed.preferred_username))
+    }
+    const handlePostUser = () => {
+            dispatch(createUserAsync(keycloak.tokenParsed))
+    }
+
     const handleEditProfile = () => {
         //Profile editing stuff
     }
@@ -56,12 +63,15 @@ function ProfilePage() {
                     <Button onClick={tokenLog}>Token</Button>
                     <Button onClick={tokenParsed}>Token Parsed</Button>
                     <Button onClick={handleGetUser}>Fetch user</Button>
+                    <Button onClick={handleCheckUser}>Check if user</Button>
+                    <Button onClick={handlePostUser}>Post user</Button>
                 </div>
                 
             </Form>
             <ProfileInfo user={user}></ProfileInfo>
             <CreateProject />
-            <Button style={{float:'right'}} onClick={handleEditProfile} >Rediger profil</Button>
+        
+            <Button style={{float:'right'}} onClick={handleEditProfile}>Rediger profil</Button>
         </div>
         
         </>

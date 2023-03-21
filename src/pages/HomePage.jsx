@@ -11,6 +11,7 @@ function ProjectBannerPage() {
     useEffect(()=> {
         dispatch(setSearchShowTrue())
     })
+    
 
     return (
         <div className="projectPage">

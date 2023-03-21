@@ -8,12 +8,24 @@ import { PROGRESS } from "../../const/progress"
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
+import SkillCompare from "./SkillCompare";
+import { storageRead, storageSave } from "../../utils/storage";
+
+
 
 const ProjectBanner = () => {
     const projects = useSelector((state) => state.banners)
     const category = useSelector((state) => state.category)
     const search = useSelector((state) => state.search)
     const user = useSelector((state) => state.user)
+
+    useEffect(()=> {
+        if(storageRead("user") === null && keycloak.authenticated){
+            storageSave("user", user)
+        } else if (storageRead("banners") === null){
+            storageSave("banners", projects)
+        }
+    },[])
 
     const [projectId, setProjectId] = useState("");
 
@@ -91,6 +103,22 @@ const ProjectBanner = () => {
                             <Col>
                                 <div className="p-2">{skillsTest}</div>
                             </Col>
+                            {SkillCompare(project.neededSkillsName, user.skills) &&
+                                <Col xs={2} md={2} lg={2} xl={2} xxl={1}>
+                                    <h3 className="text-center text-success">Match!</h3>
+                                <div className="p-2">
+                                <CircularProgressbar value={progress} maxValue={4} 
+                                text={`${project.progress}`} 
+                                styles={buildStyles({
+                                        textSize: '10px', 
+                                        pathColor: `#228C22`,
+                                        textColor: '#228C22',
+                                        trailColor: '#d6d6d6',
+                                        backgroundColor: '#00FF00',})} />
+                                </div>
+                            </Col>
+                            }
+                            {!SkillCompare(project.neededSkillsName, user.skills) &&
                             <Col xs={2} md={2} lg={2} xl={2} xxl={1}>
                                 <div className="p-2">
                                 <CircularProgressbar value={progress} maxValue={4} 
@@ -103,6 +131,7 @@ const ProjectBanner = () => {
                                         backgroundColor: '#3e98c7',})} />
                                 </div>
                             </Col>
+                            }
                         </Row>
                     </Container>
                 );

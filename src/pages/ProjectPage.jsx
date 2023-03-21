@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PROGRESS } from "../const/progress";
 import { Carousel } from "react-bootstrap";
 import ApplyProject from "../components/Project/ApplyProject";
+import ProjectSkills from "../components/Project/ProjectSkills";
 
 function ProjectPage() {
     const project = useSelector((state) => state.project)
@@ -14,16 +15,6 @@ function ProjectPage() {
 
     useEffect(()=> {
         dispatch(setSearchShowFalse())
-    })
-
-    let skillsTest = project.neededSkillsName.map((skill, key) => {
-        return (
-            <div key={key} className="p-1 d-inline">
-                <Button variant="secondary" size="sm" disabled>
-                    {skill}
-                </Button>
-            </div>
-        )
     })
 
     let images = project.imageUrls.map((image, key) => {
@@ -61,7 +52,7 @@ function ProjectPage() {
                 {project.imageUrls.length > 0 && 
                 <Carousel variant="dark" slide={false}>{images}</Carousel>}
                 <h4 className="p-2">Skills vi trenger:</h4>
-                <div className="p-2">{skillsTest}</div>
+                <div className="p-2"><ProjectSkills/></div>
                 <h3 className="p-2">Om prosjektet:</h3>
                 <p className="p-2">{project.description}</p>
             </div>
