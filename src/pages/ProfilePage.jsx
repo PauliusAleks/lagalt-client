@@ -38,15 +38,6 @@ function ProfilePage() {
         //Profile editing stuff
     }
 
-    // const [show, setShow] = useState(false);
-
-    // const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
-
-    // const handleCreateProject = () => {
-    //     setShow(true);
-    // }
-
     return (
         <>
         <div className="container">
@@ -69,8 +60,6 @@ function ProfilePage() {
                 
             </Form>
             <ProfileInfo user={user}></ProfileInfo>
-            {/* <Button style={{float:'right'}} onClick={handleShow} >Opprett prosjekt</Button>
-            {show ? <CreateProject /> : null} */}
             <CreateProject />
             <Button style={{float:'right'}} onClick={handleEditProfile} >Rediger profil</Button>
         </div>
