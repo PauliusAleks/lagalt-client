@@ -6,6 +6,7 @@ import { setSearchShowFalse } from '../reduxParts/searchReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { PROGRESS } from "../const/progress";
 import { Carousel } from "react-bootstrap";
+import ApplyProject from "../components/Project/ApplyProject";
 
 function ProjectPage() {
     const project = useSelector((state) => state.project)
@@ -63,6 +64,9 @@ function ProjectPage() {
                 <div className="p-2">{skillsTest}</div>
                 <h3 className="p-2">Om prosjektet:</h3>
                 <p className="p-2">{project.description}</p>
+            </div>
+            <div className="p-2" style={{float:'right'}}>
+                <ApplyProject />
             </div>
         </div>
     )
