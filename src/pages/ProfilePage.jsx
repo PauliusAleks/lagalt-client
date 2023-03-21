@@ -6,6 +6,7 @@ import { changeIsHidden, checkForUserAsync, getUserAsync, loginUserAsync, create
 import  ProfileInfo  from '../components/Profile/ProfileInfo'
 import { setSearchShowFalse } from '../reduxParts/searchReducer';
 import CreateProject from '../components/Project/CreateProject';
+import { NavLink } from "react-router-dom";
 // import Modal from 'react-bootstrap/Modal';
 
 
@@ -42,7 +43,7 @@ function ProfilePage() {
     }
 
     const handleEditProfile = () => {
-        //Profile editing stuff
+        
     }
 
     return (
@@ -70,8 +71,9 @@ function ProfilePage() {
             </Form>
             <ProfileInfo user={user}></ProfileInfo>
             <CreateProject />
-        
-            <Button style={{float:'right'}} onClick={handleEditProfile}>Rediger profil</Button>
+            <NavLink to="/EditProfilePage">
+                <Button style={{float:'right'}} onClick={handleEditProfile}>Rediger profil</Button>
+            </NavLink>
         </div>
         
         </>
