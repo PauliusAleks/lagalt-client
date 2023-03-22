@@ -76,17 +76,6 @@ function ProfilePage() {
                 <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" 
                 alt="offentlig" width="200" className="rounded-circle"/>}
                 
-<<<<<<< HEAD
-            </Form>
-            <ProfileInfo user={user}></ProfileInfo>
-            <CreateProject />
-            <NavLink to="/EditProfilePage">
-                <Button style={{float:'right'}} onClick={handleEditProfile}><SettingsSVG/></Button>
-
-            </NavLink>
-        </div>
-=======
->>>>>>> 42a7480cf4f270565b7f876bdc323af059294f7d
         
                 <ProfileInfo user={user}></ProfileInfo>
             
