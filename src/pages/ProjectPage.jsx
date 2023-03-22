@@ -20,15 +20,17 @@ function ProjectPage() {
     let images = project.imageUrls.map((image, key) => {
         if(project.imageUrls.length > 0) {
             return (
-                <Carousel.Item className="d-flex justify-content-center">
+                <Carousel.Item>
                     <img
-                    className="d-block w-25"
+                    className="img-responsive center-block"
+                    width={300} height={300}
                     src={image}
                     alt="project figure"
                     />
                 </Carousel.Item>
             )
         }   
+        else return <></>
     })
 
     //if stalled progress equal to 0
@@ -43,21 +45,23 @@ function ProjectPage() {
 
     return (
 
-        <div className="p-2">
+        <div className="p-2" style={{fontFamily: 'Arial, sans-serif'}} >
             <NavLink to="/">Tilbake</NavLink>
             <div className="p-2" style={{float:'right'}}>
-                <ApplyProject />
+                <ApplyProject/>
             </div>
             <div className="p-3">
                 <h1 className="text-center p-2">{project.name}</h1>
                 <ProgressBar variant="info" label={project.progress} now={progress} max={4}/>
                 <h5 className="p-4">Kategori: {project.category} </h5>
                 {project.imageUrls.length > 0 && 
-                <Carousel variant="dark" slide={false}>{images}</Carousel>}
-                <h4 className="p-2">Skills vi trenger:</h4>
+                    <Carousel variant="dark" slide={false}>{images}</Carousel>}
+                <h4 className="p-2">Ferdigheter vi trenger:</h4>
                 <div className="p-2"><ProjectSkills/></div>
                 <h3 className="p-2">Om prosjektet:</h3>
                 <p className="p-2">{project.description}</p>
+                <h3 className="p-2">GitURL:</h3>
+                <a href={project.gitURL} className="p-2">{project.gitURL}</a>
             </div>
         </div>
     )

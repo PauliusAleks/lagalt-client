@@ -1,18 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { storageSave } from "../utils/storage";
 import axios from "axios";
 
 export const getProjectBannersAsync = createAsyncThunk(
     'project/getProjectBannersAsync',
-    async (arg, {rejectWithValue}) => {
-        try {
-            const {project}= await axios.get(`https://lagaltapi.azurewebsites.net/api/projects/banners`)
-            return project;
-        }
-        catch (error) {
-            rejectWithValue(error.response.data);
+    async () => {
+        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/banners`)
+        if(response.ok){
+            const result = response.json()
+            return result;
         }
     }
-);
+)
 
 export const projectSlice = createSlice({
     name: 'projects',
@@ -24,6 +23,11 @@ export const projectSlice = createSlice({
         [getProjectBannersAsync.fulfilled] : (state, {payload}) => {
             state.project = payload;
         }
+        /*
+        ,
+        [getProjectBannersAsync.fulfilled]: (state, action) =>{
+            storageSave("banners", action.payload)
+        } */
     }
 })
 
