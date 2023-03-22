@@ -7,6 +7,7 @@ import  ProfileInfo  from '../components/Profile/ProfileInfo'
 import { setSearchShowFalse } from '../reduxParts/searchReducer';
 import CreateProject from '../components/Project/CreateProject';
 import { NavLink } from "react-router-dom";
+import SettingsSVG from '../components/Profile/SettingsSVG';
 // import Modal from 'react-bootstrap/Modal';
 
 
@@ -68,7 +69,8 @@ function ProfilePage() {
             <ProfileInfo user={user}></ProfileInfo>
             <CreateProject />
             <NavLink to="/EditProfilePage">
-                <Button style={{float:'right'}} onClick={handleEditProfile}>Rediger profil</Button>
+                <Button style={{float:'right'}} onClick={handleEditProfile}><SettingsSVG/></Button>
+
             </NavLink>
         </div>
         
