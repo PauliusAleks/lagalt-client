@@ -1,20 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import UserSkills from "../Profile/UserSkills";
+import { createApplicationAsync } from "../../reduxParts/applicationReducer";
 
-function ApplyProject() {
+function ApplyProject({projectID}) {
   const project = useSelector((state) => state.project);
   const user = useSelector((state) => state.user);
-
+  const dispatch = useDispatch();
+  const [applicationToCreate, setApplicationToCreate] = useState({
+    projectId: null,
+    userId: null,
+    motivationLetter: ""
+  })
+  
+  const handleMotivationLetterChange = (event) => {
+    setApplicationToCreate({...applicationToCreate, motivationLetter : event.target.value})
+    //  console.log(applicationToCreate)
+  }
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setApplicationToCreate({...applicationToCreate, projectId: project.id, userId:user.id})
+    setShow(true)
+  };
 
+  const handleSubmit = () => {
+    console.log(applicationToCreate)
+    dispatch(createApplicationAsync(applicationToCreate))
+    handleClose();
+  }
 
+  
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -29,7 +48,7 @@ function ApplyProject() {
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Brukernavn</Form.Label>
-              <Form.Control type="username" autoFocus value={user.username} />
+              <Form.Control type="username" autoFocus value={user.username} disabled={true} />
             </Form.Group>
             <Form.Group
               className="mb-3"
@@ -37,8 +56,8 @@ function ApplyProject() {
               <Form.Label>Mine ferdigheter</Form.Label>
               <h4> <UserSkills /></h4>
 
-              <Form.Label>Motivasjonsbrev</Form.Label>
-              <Form.Control as="textarea" rows={5} placeholder="Hvorfor vil du bli med ..."/>
+              <Form.Label>Motivasjonsbrev *</Form.Label>
+              <Form.Control as="textarea" rows={5} onChange={handleMotivationLetterChange} placeholder="Hvorfor vil du bli med ..."/>
 
             </Form.Group>
           </Form>
@@ -47,7 +66,7 @@ function ApplyProject() {
           <Button variant="secondary" onClick={handleClose}>
             Lukk
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSubmit}>
             Send søknad
           </Button>
         </Modal.Footer>

@@ -18,16 +18,6 @@ export const createProjectAsync = createAsyncThunk(
     }
 )
 
-export const getProjectBannersAsync = createAsyncThunk(
-    'project/getProjectBannersAsync',
-    async () => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/banners`)
-        if(response.ok){
-            const result = response.json()
-            return result;
-        }
-    }
-)
 export const getAdminProjectAsync = createAsyncThunk(
     'project/getProjectAsync',
     async (id) => {
@@ -92,6 +82,7 @@ export const projectSlice = createSlice({
             state.contributors = action.payload.contributors;
         },
         [getContributorProjectAsync.fulfilled] : (state, action) => {
+            state.id = action.payload.id;
             state.name = action.payload.name;
             state.category = action.payload.category;
             state.progress = action.payload.progress;
@@ -102,7 +93,7 @@ export const projectSlice = createSlice({
             state.admins = action.payload.admins;
             state.contributors = action.payload.contributors;
         },
-        [createProjectAsync.fulfilled] : (state, action) => {
+        /*[createProjectAsync.fulfilled] : (state, action) => {
             const newProject = action.payload;
             state.name = newProject.name;
             state.category = newProject.category;
@@ -111,12 +102,9 @@ export const projectSlice = createSlice({
             state.gitURL = newProject.gitURL;
             state.imageUrls = newProject.imageUrls;
             state.neededSkills = newProject.neededSkills;
-        },
+        },*/
         [createProjectAsync.rejected] : (state, action) => {
             state.error = action.error.message;
-        },
-        [getProjectBannersAsync.fulfilled]: (state, action) =>{
-            storageSave("banners", action.payload)
         }
     }
 })

@@ -21,6 +21,7 @@ export const getUserAsync = createAsyncThunk(
 export const checkForUserAsync = createAsyncThunk(
     'user/checkForUser',
      async (username) => {
+        try {
             const response = await fetch(`https://lagaltapi.azurewebsites.net/api/users/username/${username}`)
             if(response.ok){
                 return true;
@@ -28,6 +29,10 @@ export const checkForUserAsync = createAsyncThunk(
             else if(!response.ok) {
                 return false;
             }
+        }
+        catch(error){
+            return
+        }
     }
 )
 
@@ -62,10 +67,30 @@ export const createUserAsync = createAsyncThunk(
     }
 )
 
+export const updateUserAsync = createAsyncThunk(
+    'user/updateUserAsync',
+    async (user) => {
+        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/users/editWithUsername/${user.username}`, {
+            method: 'PUT',
+            headers: createHeaders(),
+            body: JSON.stringify({
+                id: user.id,
+                portfolio: user.portfolio,
+                isHidden: user.isHidden,
+                skills: user.skills 
+                })
+            })
+        if(response.ok){
+            const result = response.json()
+            return result;
+        }
+    }
+)
+
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        //id: null,
+        id: null,
         username: "",
         firstName: "",
         lastName: "",
@@ -73,7 +98,8 @@ export const userSlice = createSlice({
         email: "",
         portfolio: "",
         skills: [],
-        applications: []
+        applications: [],
+        updated: false
     },
     reducers: {
         setUser: (state, action) => {
@@ -86,7 +112,14 @@ export const userSlice = createSlice({
         },
         changeIsHidden: (state) => {
             state.isHidden = !state.isHidden;
+        },
+        setPortfolio: (state, action) => {
+            state.portfolio = action.payload;
+        },
+        setUpdated: (state, action) => {
+            state.updated = action.payload;
         }
+        
     },
     extraReducers: {
         [checkForUserAsync.fulfilled] : (state, action) => {
@@ -99,7 +132,7 @@ export const userSlice = createSlice({
             state.email = action.payload.email;
         },
         [getUserAsync.fulfilled] : (state, action) => {
-            //state.id = action.payload.id;
+            state.id = action.payload.id;
             state.username = action.payload.username;
             state.firstName = action.payload.firstName;
             state.lastName = action.payload.lastName;
@@ -112,5 +145,5 @@ export const userSlice = createSlice({
     }
 })
 
-export const {setUser, changeIsHidden} = userSlice.actions
+export const {setUser, changeIsHidden, setPortfolio, setUpdated} = userSlice.actions
 export default userSlice.reducer

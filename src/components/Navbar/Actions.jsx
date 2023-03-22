@@ -9,7 +9,7 @@ function Actions() {
     
     return(
       <div className="p-3">
-          <Button size="lg" variant="outline-light" onClick={handleLogin}>Logg inn</Button>
+          <Button size="lg" variant="outline-dark" onClick={handleLogin}>Logg inn</Button>
         <div className="profile">
         </div>
       </div>

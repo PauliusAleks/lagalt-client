@@ -4,6 +4,10 @@ import projectReducer from "./projectReducer";
 import projectBannersReducer from "./projectBannersReducer";
 import categoryReducer from "./categoryReducer";
 import searchReducer from "./searchReducer";
+import skillsReducer from "./skillsReducer";
+import applicationsReducer from "./applicationsReducer"
+import applicationReducer from "./applicationReducer"
+
 
 export default configureStore({
     reducer: {
@@ -11,6 +15,9 @@ export default configureStore({
         project: projectReducer,
         banners: projectBannersReducer,
         category: categoryReducer,
-        search: searchReducer
+        search: searchReducer,
+        skills: skillsReducer,
+        applications: applicationsReducer,
+        application: applicationReducer,
     }
 })
