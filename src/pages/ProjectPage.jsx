@@ -20,14 +20,18 @@ function ProjectPage() {
     let images = project.imageUrls.map((image, key) => {
         if(project.imageUrls.length > 0) {
             return (
-                <Carousel.Item>
+                <div style={{
+                    flex:'0 0 100%',
+                    padding:'24px',
+                    borderRadius:'8px',
+                    scrollSnapAlign:'start'}}>
                     <img
                     className="img-responsive center-block"
                     width={300} height={300}
                     src={image}
                     alt="project figure"
                     />
-                </Carousel.Item>
+                </div>
             )
         }   
         else return <></>
@@ -55,7 +59,18 @@ function ProjectPage() {
                 <ProgressBar variant="info" label={project.progress} now={progress} max={4}/>
                 <h5 className="p-4">Kategori: {project.category} </h5>
                 {project.imageUrls.length > 0 && 
-                    <Carousel variant="dark" slide={false}>{images}</Carousel>}
+                <div style={{padding: '0px', margin:'0px', boxSizing:'border-box'}}>
+                    <div style={{display:'flex',
+                     overflowX:'scroll',
+                      padding:'24px',
+                       width:'300px',
+                        height:'400px',
+                        scrollSnapType:'x mandatory',
+                        scrollPadding:'24px',
+                        borderRadius:'8px',
+                        gap:'12px',
+                        margin:'2rem auto'}}>{images}</div>
+                        </div>}
                 <h4 className="p-2">Ferdigheter vi trenger:</h4>
                 <div className="p-2"><ProjectSkills/></div>
                 <h3 className="p-2">Om prosjektet:</h3>

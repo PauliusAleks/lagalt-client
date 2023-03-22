@@ -37,11 +37,12 @@ function App() {
                     <ProjectPage /> 
                 </KeycloakRoute>} />
               <Route path="/profile" element={
-                <KeycloakRoute role={ ROLES.User }>                   <ProfilePage /> 
+                <KeycloakRoute role={ ROLES.User }>                   
+                    <ProfilePage /> 
                 </KeycloakRoute>} />
                 <Route path="/editProfilePage" element={
                 <KeycloakRoute role={ ROLES.User }> 
-                  <EditProfilePage/> 
+                   <EditProfilePage/> 
                 </KeycloakRoute>} />
         {/* <Route path="/chat" element={
           <KeycloakRoute role={ ROLES.User }> 
