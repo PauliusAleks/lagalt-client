@@ -16,19 +16,12 @@ function ProjectBannerPage() {
         dispatch(setSearchShowTrue())
         if(keycloak.authenticated) {
             const checkError =  dispatch(checkForUserAsync(keycloak.tokenParsed.preferred_username));
-            
-            if(!checkError.payload) {
+            checkError.then(error => {
                 dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
-            }
-            if(keycloak.preferred_username === undefined){
-                console.log()
-            }
-            else {   
-                console.log("yeah")
-                if(checkError.payload) {
+                if(error.payload) {
                     dispatch(createUserAsync(keycloak.tokenParsed))
                 }
-            }
+            }) 
         }
     })
 

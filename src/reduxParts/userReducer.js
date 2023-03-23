@@ -37,7 +37,7 @@ export const createUserAsync = createAsyncThunk(
     async (token, { dispatch }) => {
         
             const checkError = await dispatch(checkForUserAsync(token.preferred_username));
-            if (!checkError.payload) {
+            if (checkError.payload) {
             const response = await fetch("https://lagaltapi.azurewebsites.net/api/users/CreateUser", {
                 method: 'POST',
                 headers: createHeaders(),

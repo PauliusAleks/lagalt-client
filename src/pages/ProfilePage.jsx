@@ -18,8 +18,6 @@ const ProfilePage =() => {
     useEffect(()=> {
         dispatch(setSearchShowFalse())
     })
-
-    
     const handleLogout = () => {
         keycloak.logout()
     }
@@ -30,12 +28,9 @@ const ProfilePage =() => {
     const tokenParsed = () => {
         console.log(keycloak.tokenParsed)
     }
-    const handleEditProfile = () => {
-        
-    }
 
     return (
-        <div style={{ backgroundColor: '#c7c7c7'}}>
+        <div className="p-3" style={{ backgroundColor: '#c7c7c7'}}>
         {user.updated &&
         <div className="d-flex justify-content-center p-3">
             <Alert variant="success" 
@@ -80,7 +75,7 @@ const ProfilePage =() => {
         
                 <ProfileInfo user={user}></ProfileInfo>
             
-                <Button variant="danger" style={{float:'right'}} onClick={handleLogout}>Logg ut</Button>
+                <Button variant="danger" style={{float:'right', marginBottom:'-50px'}} onClick={handleLogout}>Logg ut</Button>
             </div>
         </div>
         )
