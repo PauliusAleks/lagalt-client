@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeIsHidden, checkForUserAsync, getUserAsync, loginUserAsync, createUserAsync, setUpdated } from '../reduxParts/userReducer';
 import  ProfileInfo  from '../components/Profile/ProfileInfo'
 import { setSearchShowFalse } from '../reduxParts/searchReducer';
-import CreateProject from '../components/Project/CreateProject';
 import { NavLink } from "react-router-dom";
 import SettingsSVG from '../components/Profile/SettingsSVG';
+import BackArrowSVG from './BackArrowSVG';
 // import Modal from 'react-bootstrap/Modal';
 
 
-function ProfilePage() {
+const ProfilePage =() => {
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch();
 
@@ -20,14 +20,14 @@ function ProfilePage() {
     })
 
     
-    function handleLogout() {
+    const handleLogout = () => {
         keycloak.logout()
     }
 
-    function tokenLog() {
+    const tokenLog = () => {
         console.log(keycloak.token)
     }
-    function tokenParsed() {
+    const tokenParsed = () => {
         console.log(keycloak.tokenParsed)
     }
     const handleEditProfile = () => {
@@ -51,13 +51,14 @@ function ProfilePage() {
             </div>
             }
             <div className="container p-3 rounded" style={{fontFamily: 'Arial, sans-serif', backgroundColor: '#F8F9FA'}}>
+            <NavLink to="/"><BackArrowSVG/></NavLink>
             <NavLink to="/EditProfilePage" onClick={() => dispatch(setUpdated(false))} >
                     <Button className="rounded-circle" variant="light" style={{ alignItems:'center',
                     float:'right',
                     width:'60px',
                     height:'60px',
                     padding: '0px',
-                    marginLeft: '30px'}} onClick={handleEditProfile}><SettingsSVG/></Button>
+                    marginLeft: '30px'}}><SettingsSVG/></Button>
                 </NavLink>
                 <Form>
                     
@@ -79,7 +80,6 @@ function ProfilePage() {
         
                 <ProfileInfo user={user}></ProfileInfo>
             
-                <CreateProject />
                 <Button variant="danger" style={{float:'right'}} onClick={handleLogout}>Logg ut</Button>
             </div>
         </div>

@@ -15,8 +15,6 @@ import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './keycloak';
 
 function App() {
-  const dispatch = useDispatch()
-  const projects = useSelector((state) => state.banners)
   const [, setTokenUpdateCount] = useState(0);
     
     const onUpdateToken = useCallback(() => {

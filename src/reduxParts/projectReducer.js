@@ -18,6 +18,25 @@ export const createProjectAsync = createAsyncThunk(
     }
 )
 
+export const deleteProjectAsync = createAsyncThunk(
+    'project/deleteProjectAsync',
+    async ({projectId, adminId}, thunkAPI) => {
+        const state = thunkAPI.getState()
+
+        const response = await fetch(`https://lagaltapi.azurewebsites.net/aspi/project/${projectId}`,{
+            method: 'DELETE',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({adminId})
+        })
+        if(response.ok){
+            const result = response.json()
+            return result;
+        }
+    }
+)
+
 export const getAdminProjectAsync = createAsyncThunk(
     'project/getProjectAsync',
     async (id) => {

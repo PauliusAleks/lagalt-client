@@ -2,34 +2,33 @@ import { React, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button, Badge, Alert, CloseButton } from 'react-bootstrap'
 import { NavLink } from "react-router-dom"
-import { updateUserAsync, changeIsHidden, setPortfolio, setUpdated } from '../reduxParts/userReducer';
+import { updateUserAsync, setUser , setUpdated } from '../reduxParts/userReducer';
 import  ProfileInfo  from '../components/Profile/ProfileInfo'
 
 const EditProfilePage = () => {
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch();
+    const [editUser, setEditUser] = useState(user);
 
     const [inputText, setInputText] = useState("");
     const [characterLimit] = useState(1250);
 
 
-    const handleChange = event => {
+    const handlePortfolioChange = event => {
       setInputText(event.target.value);
-      dispatch(setPortfolio(inputText))
-      console.log(user.portfolio)
-      //user.portfolio = event.target.value
+      setEditUser({...editUser, portfolio:event.target.value})
     };
 
     const handleSubmit = () => {
-      dispatch(setUpdated(true))
-      dispatch(updateUserAsync(user))
-      //console.log(user)
+      if(user !== editUser){
+        dispatch(setUpdated(true))
+      }
+      dispatch(setUser(editUser))
+      dispatch(updateUserAsync(editUser))
     }
 
     const handleIsHidden = () =>  {
-      console.log(user.isHidden)
-      //user.isHidden = !user.isHidden;
-      dispatch(changeIsHidden())
+      setEditUser({...editUser, isHidden: !editUser.isHidden})
     }
 
   return (
@@ -57,7 +56,7 @@ const EditProfilePage = () => {
                           id="hidden"
                           style={{ height: '30px', width: '60px'}}
                           className="form-check-input" 
-                          checked={!user.isHidden} 
+                          checked={!editUser.isHidden} 
                           onChange={handleIsHidden}/>
             </div>
             {user.isHidden &&
@@ -72,8 +71,9 @@ const EditProfilePage = () => {
             <h4>Beskrivelse:</h4>
             <Form.Control style={{width:'100%', height:'200px'}} 
               as="textarea"
+              defaultValue={editUser.portfolio}
               maxLength={characterLimit}
-              onChange={handleChange}/>
+              onChange={handlePortfolioChange}/>
             <Badge className='mt-2 bg-secondary'>{inputText.length}/{characterLimit}</Badge>
         </Form.Group>
         <div className="row">

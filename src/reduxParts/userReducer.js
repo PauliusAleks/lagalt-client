@@ -21,27 +21,22 @@ export const getUserAsync = createAsyncThunk(
 export const checkForUserAsync = createAsyncThunk(
     'user/checkForUser',
      async (username) => {
-        try {
             const response = await fetch(`https://lagaltapi.azurewebsites.net/api/users/username/${username}`)
             if(response.ok){
-                return true;
-            }
-            else if(!response.ok) {
                 return false;
             }
+            else if(!response.ok) {
+                return true;
+            }
         }
-        catch(error){
-            return
-        }
-    }
+    
 )
 
 export const createUserAsync = createAsyncThunk(
     'user/createUserAsync',
     async (token, { dispatch }) => {
-        try {
+        
             const checkError = await dispatch(checkForUserAsync(token.preferred_username));
-
             if (!checkError.payload) {
             const response = await fetch("https://lagaltapi.azurewebsites.net/api/users/CreateUser", {
                 method: 'POST',
@@ -61,10 +56,8 @@ export const createUserAsync = createAsyncThunk(
                 return [null, data]
             }
         }
-        catch(error) {
-            return [error.message, []]
-        }
-    }
+        
+    
 )
 
 export const updateUserAsync = createAsyncThunk(
@@ -103,12 +96,15 @@ export const userSlice = createSlice({
     },
     reducers: {
         setUser: (state, action) => {
+            state.id = action.payload.id;
+            state.username = action.payload.username;
             state.firstName = action.payload.firstName;
             state.lastName = action.payload.lastName;
             state.email = action.payload.email;
             state.portfolio = action.payload.portfolio;
             state.isHidden = action.payload.isHidden;
             state.skills = action.payload.skills;
+            state.applications = action.payload.applications
         },
         changeIsHidden: (state) => {
             state.isHidden = !state.isHidden;

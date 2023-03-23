@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Form, Button, ListGroup, Modal } from 'react-bootstrap';
+import { Form, Button, ListGroup, Modal, InputGroup } from 'react-bootstrap';
 import { setProject } from '../../reduxParts/projectReducer';
 import { createProjectAsync } from '../../reduxParts/projectReducer';
 import { getSkillsAsync } from '../../reduxParts/skillsReducer'
 import { storageSave, storageRead } from '../../utils/storage';
 import DatalistInput from 'react-datalist-input';
+import PlussSVG from './PlussSVG';
 
 function CreateProject() {
   const [show, setShow] = useState(false);
@@ -85,12 +86,12 @@ function CreateProject() {
   
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Opprett prosjekt
+      <Button variant="white" onClick={handleShow}> <PlussSVG/> 
+            Opprett prosjekt
       </Button>
-      <Button variant="primary" onClick={handleAddSkillsToSessionStorage}>
+      {/* <Button variant="primary" onClick={handleAddSkillsToSessionStorage}>
         SkillsSessionStorage
-      </Button>
+      </Button> */}
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -135,8 +136,10 @@ function CreateProject() {
               </Form.Group>             
             <Form.Group className="mb-3">
               <Form.Label>Bilder</Form.Label>
-              <Form.Control type="text" id="imageUrls" value={project.ImageUrls} onChange={handleChanges} placeholder="Legg til en link" />
-              <Button variant="secondary" style={{float:'right'}} onClick={handleAddImage}>Add</Button>
+              <InputGroup>
+                <Form.Control type="text" id="imageUrls" value={project.ImageUrls} onChange={handleChanges} placeholder="Legg til en link" />
+                <Button variant="secondary" onClick={handleAddImage}>Add</Button>
+              </InputGroup>
               <ul>
                 {project1.imageUrls.map((url, index) => (
                   <li key={index}>
@@ -146,8 +149,10 @@ function CreateProject() {
               </ul>
 
               <Form.Label>Ferdigheter prosjektet ser etter</Form.Label>
+              <InputGroup>
               <Form.Control type="text" id="NeededSkills" value={project.NeededSkills} onChange={handleChanges} placeholder="Legg til en skill" />
               <Button variant="secondary" style={{float:'right'}} onClick={handleAddSkill}>Add</Button>
+              </InputGroup>
               <ListGroup horizontal>
                 {project1.NeededSkills.map((skill, index) => (
                   <ListGroup.Item key={index}>
