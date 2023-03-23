@@ -30,7 +30,7 @@ const ProfilePage =() => {
     }
 
     return (
-        <div className="p-3" style={{ backgroundColor: '#c7c7c7'}}>
+        <div className="p-3" style={{ backgroundColor: '#EEEEEE'}}>
         {user.updated &&
         <div className="d-flex justify-content-center p-3">
             <Alert variant="success" 

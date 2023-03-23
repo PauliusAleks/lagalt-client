@@ -82,7 +82,7 @@ function ProjectPage() {
     }
 
     return (
-        <div style={{ backgroundColor: '#c7c7c7', padding:'16px'}}>
+        <div style={{ backgroundColor: '#EEEEEE', padding:'16px'}}>
         <div className="p-2 container rounded" style={{fontFamily: 'Arial, sans-serif', backgroundColor: '#F8F9FA'}} >
             <NavLink to="/"><BackArrowSVG/></NavLink>
             <div className="p-2" style={{float:'right'}}>

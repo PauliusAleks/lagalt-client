@@ -71,8 +71,8 @@ const ProjectBanner = () => {
         if (project.name.toLowerCase().includes(search.text.toLowerCase()) || search === "") {
             if (project.category === category || category === "Alle" || category === "Velg kategori") {
                 return (
-                    <Container key={key} fluid="p-3 m-3 bg-light border border-2 border-grey rounded">
-                        <Row className="d-flex flex-row p-3">
+                    <Container key={key} fluid="p-3 m-3 bg-light border border-2 border-grey rounded" style={{filter: 'drop-shadow(8px 8px 5px grey)'}}>
+                        <Row className="d-flex flex-row p-3" >
                             <Col xs={6} md={2} lg={2} xl={2} xxl={1}>
                                 {project.bannerImage === null ?
                                     <div className="p-2">

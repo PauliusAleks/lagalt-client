@@ -41,7 +41,7 @@ function SearchBar() {
             </InputGroup>
             {query.length > 0 && (
             <div className="bg-light w-50 rounded ml-5 position-absolute border border-1 border-dark" 
-            style={{overflowY: 'auto', maxHeight: '500px'}}>
+            style={{overflowY: 'auto', maxHeight: '500px', zIndex:'99 !important'}}>
                {toggle && 
                 <div className="d-flex justify-content-end">
                     <CloseButton onClick={handleSetToggleFalse} /> 

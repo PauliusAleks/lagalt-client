@@ -69,7 +69,7 @@ const EditProfilePage = () => {
 
 
   return (
-    <div className="p-3" style={{ backgroundColor: '#c7c7c7'}}>
+    <div className="p-3" style={{ backgroundColor: '#EEEEEE'}}>
       <div className="p-3 container rounded" style={{ backgroundColor: '#F8F9FA'}}>
         <div className="d-flex justify-content-end">
           <NavLink to="/profile">

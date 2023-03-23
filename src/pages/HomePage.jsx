@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import keycloak from "../keycloak"
 import { getUserAsync, createUserAsync, checkForUserAsync } from '../reduxParts/userReducer';
 import CreateProject from '../components/Project/CreateProject';
+import { Container } from "react-bootstrap";
 
 
 function ProjectBannerPage() {
@@ -27,7 +28,8 @@ function ProjectBannerPage() {
 
 
     return (
-        <div className="projectPage" style={{fontFamily: 'Arial, sans-serif',  backgroundColor: '#c7c7c7'}}>
+        <div className="projectPage" style={{fontFamily: 'Arial, sans-serif',  backgroundColor: '#EEEEEE'}}>
+            <Container>
             <div className="d-flex justify-content-between">
                 <div className="d-flex">
                 <h1 className="mr-1 p-3">Prosjektoversikt</h1>
@@ -37,8 +39,11 @@ function ProjectBannerPage() {
                 <div className="ml-auto p-3">
                 <CategoryDropdown/>
                 </div>
+               
             </div>
-            <ProjectBanner />
+            <div style={{backgroundColor:'#000000', height:'2px', width:'95%', marginLeft:'25px'}}></div>
+                <ProjectBanner />
+            </Container>
         </div>
     )
 }

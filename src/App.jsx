@@ -21,7 +21,8 @@ function App() {
         setTokenUpdateCount((value) => value + 1);
     }, []);
 
-  return (        
+  return (    
+    <div style={{backgroundColor: '#EEEEEE'}}>   
     <BrowserRouter>
       <div className="App">
         <NavbarHeader />
@@ -51,6 +52,7 @@ function App() {
         </ReactKeycloakProvider>
       </div>
     </BrowserRouter>
+    </div> 
   );
 }
 
