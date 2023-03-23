@@ -14,6 +14,8 @@ import BackArrowSVG from "./BackArrowSVG";
 
 function ProjectPage() {
     const project = useSelector((state) => state.project)
+    const user = useSelector((state) => state.user)
+
     const dispatch = useDispatch();
 
     const [scrollAmountLeft, setScrollAmountLeft] = useState(-500);
@@ -76,7 +78,7 @@ function ProjectPage() {
     }
 
     const checkProjectAdmin = () => {
-
+        return project.admins.includes(user.username)
     }
 
     return (
@@ -107,7 +109,7 @@ function ProjectPage() {
                 }
                 <div className="p-2" style={{float:'right'}}>
                     {checkProjectAdmin(project.id) && (
-                    <Button variant="danger">Delete Project</Button>
+                    <DeleteProject/>
                     )}
                 </div>
                 <h4 className="p-2">Ferdigheter vi trenger:</h4>
@@ -117,6 +119,7 @@ function ProjectPage() {
                 <h3 className="p-2">GitURL:</h3>
                 <a href={project.gitURL} className="p-2">{project.gitURL}</a>
             </div>
+
         </div>
         </Container>
     )
