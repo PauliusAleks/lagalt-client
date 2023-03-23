@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button, ListGroup, Modal, InputGroup } from 'react-bootstrap';
 import { setProject } from '../../reduxParts/projectReducer';
-import { createProjectAsync } from '../../reduxParts/projectReducer';
+import { createProjectAsync, addAdmin } from '../../reduxParts/projectReducer';
 import { getSkillsAsync } from '../../reduxParts/skillsReducer'
 import { storageSave, storageRead } from '../../utils/storage';
 import DatalistInput from 'react-datalist-input';
 import PlussSVG from './PlussSVG';
 
+
 function CreateProject() {
   const [show, setShow] = useState(false);
   const project = useSelector((state) => state.project)
+  const user = useSelector((state) => state.user)
   const skills = useSelector((state) => state.skills);
   const dispatch = useDispatch();
   const [project1, setProject1] = useState({
@@ -21,16 +23,17 @@ function CreateProject() {
     gitUrl:"",
     imageUrls:[],
     NeededSkills:[],
-
+    adminId: -1
   })
-  
+ 
   // useEffect(() => {
   //   dispatch(getSkillsAsync())
   // },[])
-  
+ 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = () => {
+   
     // handle form submission
     dispatch(createProjectAsync(project1));
     handleClose();
@@ -45,53 +48,39 @@ function CreateProject() {
       propertyValue = parseInt(propertyValue)
     }
     setProject1({...project1, [propertyName] : propertyValue})
-    //console.log(skills)
-    //console.log(project1)
   };
 
-  const [imageUrl, setImageUrl] = useState([]);
-  const [NeededSkills, setNeededSkills] = useState([])
 
-  const handleChanges = (event) => {
-    if (event.target.id === 'imageUrls') {
-      setImageUrl(event.target.value);
-    } else if (event.target.id === 'NeededSkills') {
-      setNeededSkills(event.target.value);
-    }
-  }
-  const addImageUrlToList = () => {
-    if (imageUrl.trim() !== ""){
-      setProject1({...project1, imageUrls: [...project1.imageUrls, imageUrl.trim()],       
-      });
-      setImageUrl("");
-      document.getElementById('imageUrls').value = "";
-      // console.log(project1)
-    }
-  }
+ 
   const handleAddImage = () => {
-    addImageUrlToList();
-  };
-  const addSkillsToList = () => {
-    if (NeededSkills.trim() !== ""){
-      setProject1({...project1, NeededSkills: [...project1.NeededSkills, NeededSkills.trim()],
-      });
-      setNeededSkills("");
-      document.getElementById('NeededSkills').value = "";
+    let newUrl = document.getElementById('imageUrls').value.trim()
+    if(!project1.imageUrls.includes(newUrl)){
+      setProject1({...project1, adminId: user.id, imageUrls: [...project1.imageUrls,newUrl]})
     }
+    document.getElementById('imageUrls').value = "";
   }
+
 
   const handleAddSkill = () => {
-    addSkillsToList();
+    let newSkill = document.getElementById('neededSkills').value.trim()
+    if(!project1.NeededSkills.includes(newSkill)){
+      setProject1({...project1, NeededSkills: [...project1.NeededSkills,newSkill]})
+    }
+    document.getElementById('neededSkills').value = "";
   }
-  
+
+
+ 
+ 
   return (
     <>
-      <Button variant="white" onClick={handleShow}> <PlussSVG/> 
+      <Button variant="white" onClick={handleShow}> <PlussSVG/>
             Opprett prosjekt
       </Button>
       {/* <Button variant="primary" onClick={handleAddSkillsToSessionStorage}>
         SkillsSessionStorage
       </Button> */}
+
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -116,6 +105,7 @@ function CreateProject() {
                 <option value={3}>NettUtvikling</option>
               </Form.Select>
 
+
               <Form.Label>Status *</Form.Label>
               <Form.Select className="mb-3 mt-2"  onChange={handleChange1} name="progress">
                 <option hidden>Velg prosjekt status</option>
@@ -124,20 +114,20 @@ function CreateProject() {
                 <option value={2}>Under Utvikling</option>
                 <option value={3}>Ferdig</option>
               </Form.Select>
-              
+             
               <Form.Label>Beskrivelse *</Form.Label>
-              <Form.Control as="textarea" rows={3} placeholder="Hva går prosjektet ut på? 
+              <Form.Control as="textarea" rows={3} placeholder="Hva går prosjektet ut på?
               Hva ser du etter? ..."
               onChange={handleChange1} name="description"
               />
                        
               <Form.Label>GitURL</Form.Label>
               <Form.Control type="text" placeholder="https://gitlab.com/brukernavn/prosjektnavn"  onChange={handleChange1} name="gitUrl" />
-              </Form.Group>             
+              </Form.Group>            
             <Form.Group className="mb-3">
               <Form.Label>Bilder</Form.Label>
               <InputGroup>
-                <Form.Control type="text" id="imageUrls" value={project.ImageUrls} onChange={handleChanges} placeholder="Legg til en link" />
+                <Form.Control type="text" id="imageUrls" placeholder="Legg til en link" />
                 <Button variant="secondary" onClick={handleAddImage}>Add</Button>
               </InputGroup>
               <ul>
@@ -148,9 +138,10 @@ function CreateProject() {
                 ))}
               </ul>
 
+
               <Form.Label>Ferdigheter prosjektet ser etter</Form.Label>
               <InputGroup>
-              <Form.Control type="text" id="NeededSkills" value={project.NeededSkills} onChange={handleChanges} placeholder="Legg til en skill" />
+              <Form.Control type="text" id="neededSkills" placeholder="Legg til en skill" />
               <Button variant="secondary" style={{float:'right'}} onClick={handleAddSkill}>Add</Button>
               </InputGroup>
               <ListGroup horizontal>
@@ -160,9 +151,9 @@ function CreateProject() {
                   </ListGroup.Item>
                 ))}
               </ListGroup>
-              
+             
             </Form.Group>
-            
+           
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -173,6 +164,9 @@ function CreateProject() {
     </>
   );
 }
+
+
+
 
 
 
