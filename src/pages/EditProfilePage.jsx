@@ -1,23 +1,30 @@
 import { React, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { Form, Button, Badge, Alert, CloseButton } from 'react-bootstrap'
+import { Form, Button, Badge, Alert, CloseButton, InputGroup, ListGroup } from 'react-bootstrap'
 import { NavLink } from "react-router-dom"
 import { updateUserAsync, setUser , setUpdated } from '../reduxParts/userReducer';
 import  ProfileInfo  from '../components/Profile/ProfileInfo'
 
+
 const EditProfilePage = () => {
     const user = useSelector((state) => state.user)
+    const [UserSkills, setUserSkills] = useState([])
     const dispatch = useDispatch();
     const [editUser, setEditUser] = useState(user);
+    const [alreadyInList, setAlreadyInList] = useState(false);
+
 
     const [inputText, setInputText] = useState("");
     const [characterLimit] = useState(1250);
+
+
 
 
     const handlePortfolioChange = event => {
       setInputText(event.target.value);
       setEditUser({...editUser, portfolio:event.target.value})
     };
+
 
     const handleSubmit = () => {
       if(user !== editUser){
@@ -27,9 +34,39 @@ const EditProfilePage = () => {
       dispatch(updateUserAsync(editUser))
     }
 
+
     const handleIsHidden = () =>  {
       setEditUser({...editUser, isHidden: !editUser.isHidden})
     }
+
+
+    const handleChanges = (event) => {
+      setAlreadyInList(false)
+      setUserSkills(event.target.value);
+    }
+
+
+    const addSkillsToList = () => {
+      if (UserSkills.trim() !== ""){
+        if (editUser.skills.includes(UserSkills)){
+          setAlreadyInList(true)
+        } else {
+          setEditUser({...editUser, skills: [...editUser.skills, UserSkills]});
+          setUserSkills("");
+          document.getElementById('Skills').value = "";
+        }
+       
+      }
+    }
+   
+    const handleRemoveItem = (event) => {
+      setEditUser({...editUser, skills: editUser.skills.filter(sk=>sk !== event.target.id)})
+    }
+ 
+    const handleAddSkill = () => {
+      addSkillsToList();
+    }
+
 
   return (
     <div className="p-3" style={{ backgroundColor: '#c7c7c7'}}>
@@ -44,6 +81,7 @@ const EditProfilePage = () => {
           <h4>Profil status:</h4>
           <div className="d-flex justify-content-center align-items-center">
 
+
             {user.isHidden &&
                <Button className='m-2' variant='danger'>Privat</Button>
             }
@@ -51,12 +89,12 @@ const EditProfilePage = () => {
                <Button className='m-2' disabled variant='danger'>Privat</Button>
             }
             <div className="form-check form-switch ">
-                      <input 
-                          type="checkbox" 
+                      <input
+                          type="checkbox"
                           id="hidden"
                           style={{ height: '30px', width: '60px'}}
-                          className="form-check-input" 
-                          checked={!editUser.isHidden} 
+                          className="form-check-input"
+                          checked={!editUser.isHidden}
                           onChange={handleIsHidden}/>
             </div>
             {user.isHidden &&
@@ -69,13 +107,26 @@ const EditProfilePage = () => {
         </div>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <h4>Beskrivelse:</h4>
-            <Form.Control style={{width:'100%', height:'200px'}} 
+            <Form.Control style={{width:'100%', height:'200px'}}
               as="textarea"
               defaultValue={editUser.portfolio}
               maxLength={characterLimit}
               onChange={handlePortfolioChange}/>
             <Badge className='mt-2 bg-secondary'>{inputText.length}/{characterLimit}</Badge>
         </Form.Group>
+        {alreadyInList &&
+                <h4 style={{color:'red'}}>Du har allerede denne skillen!!!</h4>}
+        <InputGroup>
+              <Form.Control type="text" id="Skills" onChange={handleChanges} placeholder="Legg til en skill" />
+              <Button variant="secondary" style={{float:'right'}} onClick={handleAddSkill}>Add</Button>
+              </InputGroup>
+              <ListGroup horizontal>
+                {editUser.skills.map((skill, index) => (
+                  <ListGroup.Item key={index} style={{display:'flex', justifyContent:'center', alignContent:'center'}}>
+                    {skill}<CloseButton id={skill} onClick={handleRemoveItem} style={{width:'5px', height:'5px'}} />
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
         <div className="row">
            <div className="col">
            <NavLink to="/profile">
@@ -88,7 +139,7 @@ const EditProfilePage = () => {
   )
 }
 
-export default EditProfilePage
 
+export default EditProfilePage
 
 
