@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { storageSave } from "../utils/storage";
 
 export const createApplicationAsync = createAsyncThunk(
     'project/createApplicationAsync',

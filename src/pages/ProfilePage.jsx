@@ -9,28 +9,41 @@ import { NavLink } from "react-router-dom";
 import SettingsSVG from '../components/Profile/SettingsSVG';
 import BackArrowSVG from './BackArrowSVG';
 // import Modal from 'react-bootstrap/Modal';
+import { getContributorProjectsAsync } from '../reduxParts/userProjectsReducer';
 
 
 const ProfilePage =() => {
     const user = useSelector((state) => state.user)
+    const contributorProjects = useSelector((state => state.userProjects.project))
+    const projects = useSelector((state => state.banners.project))
+
     const dispatch = useDispatch();
 
     useEffect(()=> {
+        dispatch(getContributorProjectsAsync(user.id))
         dispatch(setSearchShowFalse())
-    })
+    },[])
+
+    
     const handleLogout = () => {
         keycloak.logout()
     }
 
     const tokenLog = () => {
-        console.log(keycloak.token)
+        console.log("cons",contributorProjects)
+        console.log("projects",projects)
+
+        //console.log(keycloak.token)
     }
     const tokenParsed = () => {
         console.log(keycloak.tokenParsed)
     }
+    const handleEditProfile = () => {
+        
+    }
 
     return (
-        <div className="p-3" style={{ backgroundColor: '#EEEEEE'}}>
+        <div style={{ backgroundColor: '#EEEEE', padding:'16px'}}>
         {user.updated &&
         <div className="d-flex justify-content-center p-3">
             <Alert variant="success" 
@@ -71,13 +84,14 @@ const ProfilePage =() => {
                 {!user.isHidden && 
                 <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" 
                 alt="offentlig" width="200" className="rounded-circle"/>}
-                
-        
-                <ProfileInfo user={user}></ProfileInfo>
-            
-                <Button variant="danger" style={{float:'right', marginBottom:'-50px'}} onClick={handleLogout}>Logg ut</Button>
+               
+                <ProfileInfo user={user} contributorProjects={contributorProjects}></ProfileInfo>
+                <div style={{marginBottom:'40px'}}>
+                    <Button variant="danger" style={{float:'right'}} onClick={handleLogout}>Logg ut</Button>
+                </div>
             </div>
         </div>
+        
         )
 }
 

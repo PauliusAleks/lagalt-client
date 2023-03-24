@@ -1,6 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { storageSave } from "../utils/storage";
 
+//for auth???
+export const createHeaders = () => {
+    return {
+        'Content-Type': 'application/json'
+        //'x-api-key': "???"
+    }
+}
+
 export const createProjectAsync = createAsyncThunk(
     'project/createProjectAsync',
     async (projectData) => {
@@ -30,6 +38,30 @@ export const deleteProjectAsync = createAsyncThunk(
             },
             body: JSON.stringify({adminId})
         })
+        if(response.ok){
+            const result = response.json()
+            return result;
+        }
+    }
+)
+
+export const updateProjectAsync = createAsyncThunk(
+    'project/updateProjectAsync',
+    async (project) => {
+        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/updateProject/${project.id}`, {
+            method: 'PUT',
+            headers: createHeaders(),
+            body: JSON.stringify({
+                id: project.id,
+                name: project.name,
+                description: project.description,
+                category: project.category,
+                progress: project.progress,
+                gitURL: project.gitURL,
+                imageUrls: project.imageUrls,
+                neededSkills: project.neededSkills
+                })
+            })
         if(response.ok){
             const result = response.json()
             return result;
@@ -85,6 +117,15 @@ export const projectSlice = createSlice({
             state.neededSkills = action.payload.neededSkills;
             state.admins = action.payload.admins;
             state.contributors = action.payload.contributors;
+        },
+        setName: (state, action) => {
+            state.name = action.payload
+        },
+        setDescription: (state, action) => {
+            state.description = action.payload;
+        },
+        setUpdated: (state, action) => {
+            state.updated = action.payload;
         }
     },
     extraReducers: {
@@ -128,5 +169,5 @@ export const projectSlice = createSlice({
     }
 })
 
-export const {setProject} = projectSlice.actions
+export const {setProject, setDescription, setUpdated, setName} = projectSlice.actions
 export default projectSlice.reducer

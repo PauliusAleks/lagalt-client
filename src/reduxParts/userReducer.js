@@ -18,6 +18,8 @@ export const getUserAsync = createAsyncThunk(
         }
     }
 )
+
+
 export const checkForUserAsync = createAsyncThunk(
     'user/checkForUser',
      async (username) => {
@@ -91,7 +93,8 @@ export const userSlice = createSlice({
         email: "",
         portfolio: "",
         skills: [],
-        applications: [],
+        contributorProjects:[],
+        adminProjects:[],
         updated: false
     },
     reducers: {
@@ -104,7 +107,8 @@ export const userSlice = createSlice({
             state.portfolio = action.payload.portfolio;
             state.isHidden = action.payload.isHidden;
             state.skills = action.payload.skills;
-            state.applications = action.payload.applications
+            state.contributorProjects = action.payload.contributorProjects;
+            state.adminProjects = action.payload.adminProjects;
         },
         changeIsHidden: (state) => {
             state.isHidden = !state.isHidden;
@@ -122,10 +126,16 @@ export const userSlice = createSlice({
             state.username = action.payload.username;
         },
         [createUserAsync.fulfilled] : (state, action) => {
+            state.id = action.payload.id;
             state.username = action.payload.username;
             state.firstName = action.payload.firstName;
             state.lastName = action.payload.lastName;
             state.email = action.payload.email;
+            state.portfolio = action.payload.portfolio;
+            state.isHidden = action.payload.isHidden;
+            state.skills = action.payload.skills;
+            state.contributorProjects = action.payload.contributorProjects;
+            state.adminProjects = action.payload.adminProjects;
         },
         [getUserAsync.fulfilled] : (state, action) => {
             state.id = action.payload.id;
@@ -136,7 +146,8 @@ export const userSlice = createSlice({
             state.portfolio = action.payload.portfolio;
             state.isHidden = action.payload.isHidden;
             state.skills = action.payload.skills;
-            state.applications = action.payload.applications
+            state.contributorProjects = action.payload.contributorProjects;
+            state.adminProjects = action.payload.adminProjects;
         }
     }
 })

@@ -28,7 +28,7 @@ const NavbarHeader = () => {
             {keycloak.authenticated && 
                 <NavLink to="/profile" className="link-dark" style={{ padding: '16px',
                 textDecoration: 'none',
-                color: 'black',
+                color: '#393E46',
                 textAlign: 'center'}}>
                     {!user.isHidden &&
                     <div>
@@ -36,7 +36,7 @@ const NavbarHeader = () => {
                     alt="..." 
                     width="50"
                     className="rounded-circle border border-2 border-dark"/>
-                    <h4>{user.username}</h4>
+                    <h4>{keycloak.tokenParsed.preferred_username}</h4>
                     </div>}
                     {user.isHidden &&
                     <div>
@@ -44,13 +44,12 @@ const NavbarHeader = () => {
                     alt="..." 
                     width="50"
                     className="rounded-circle border border-2 border-dark"/>
-                    <h4>{user.username}</h4>
+                    <h4>{keycloak.tokenParsed.preferred_username}</h4>
                     </div>}
-                </NavLink>}
-                
+                </NavLink>}      
          </div>
          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M1200 0L0 0 892.25 114.72 1200 0z" class="shape-fill"></path>
+            <path d="M1200 0L0 0 892.25 114.72 1200 0z" className="shape-fill"></path>
         </svg>
         </div>
     )

@@ -26,7 +26,7 @@ function SearchBar() {
         dispatch(search(optQuery))
     }
     return(
-        <div className="my-auto w-50" >
+        <div className="my-auto w-50">
             <InputGroup className="mb-2">
                 {/* <Button variant="white" style={{ backgroundColor: 'white'}}>
                     <SearchSVG/>
@@ -40,8 +40,8 @@ function SearchBar() {
                 <Button size="lg" variant="primary" onClick={handleSearch}  style={{fontFamily: 'Arial, sans-serif'}}>Søk</Button>
             </InputGroup>
             {query.length > 0 && (
-            <div className="bg-light w-50 rounded ml-5 position-absolute border border-1 border-dark" 
-            style={{overflowY: 'auto', maxHeight: '500px', zIndex:'99 !important'}}>
+            <div id="results" className="bg-light w-50 rounded ml-5 position-absolute border border-1 border-dark" 
+            style={{overflowY: 'auto', maxHeight: '500px', zIndex:'10'}}>
                {toggle && 
                 <div className="d-flex justify-content-end">
                     <CloseButton onClick={handleSetToggleFalse} /> 
