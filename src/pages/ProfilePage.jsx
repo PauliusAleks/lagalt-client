@@ -1,14 +1,13 @@
-import { React, useEffect, useState } from 'react'
+import { React, useEffect } from 'react'
 import keycloak from '../keycloak'
 import { Button, Form, Alert, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-import { changeIsHidden, checkForUserAsync, getUserAsync, loginUserAsync, createUserAsync, setUpdated } from '../reduxParts/userReducer';
+import {  setUpdated } from '../reduxParts/userReducer';
 import  ProfileInfo  from '../components/Profile/ProfileInfo'
 import { setSearchShowFalse } from '../reduxParts/searchReducer';
 import { NavLink } from "react-router-dom";
 import SettingsSVG from '../components/Profile/SettingsSVG';
 import BackArrowSVG from './BackArrowSVG';
-// import Modal from 'react-bootstrap/Modal';
 import { getContributorProjectsAsync } from '../reduxParts/userProjectsReducer';
 
 
@@ -22,7 +21,7 @@ const ProfilePage =() => {
     useEffect(()=> {
         dispatch(getContributorProjectsAsync(user.id))
         dispatch(setSearchShowFalse())
-    },[])
+    })
 
     const tokenLog = () => {
         console.log("cons",contributorProjects)
@@ -32,9 +31,6 @@ const ProfilePage =() => {
     }
     const tokenParsed = () => {
         console.log(keycloak.tokenParsed)
-    }
-    const handleEditProfile = () => {
-        
     }
 
     return (
@@ -80,11 +76,9 @@ const ProfilePage =() => {
                 <img src="https://icon-library.com/images/incognito-icon/incognito-icon-19.jpg"
                 alt="privat" width="200" className="rounded-circle"/>
                     }
-                
                 {!user.isHidden && 
                 <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" 
                 alt="offentlig" width="200" className="rounded-circle"/>}
-               
                 <ProfileInfo user={user} contributorProjects={contributorProjects}></ProfileInfo>
             </div>
             </Container>

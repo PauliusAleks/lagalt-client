@@ -1,6 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { storageSave } from "../utils/storage";
-import axios from "axios";
 
 export const getProjectBannersAsync = createAsyncThunk(
     'projects/getProjectBannersAsync',

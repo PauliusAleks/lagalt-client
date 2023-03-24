@@ -3,12 +3,9 @@ import { NavLink } from "react-router-dom"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { getAdminProjectAsync } from '../../reduxParts/projectReducer';
-import { getProjectBannersAsync } from '../../reduxParts/projectBannersReducer';
-import { useEffect, useState } from "react"
 import { PROGRESS } from "../../const/progress"
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
 import SkillCompare from "./SkillCompare";
 
 

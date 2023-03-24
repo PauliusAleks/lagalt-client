@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button, ListGroup, Modal, InputGroup, CloseButton, Badge } from 'react-bootstrap';
-import { setProject } from '../../reduxParts/projectReducer';
-import { createProjectAsync, addAdmin } from '../../reduxParts/projectReducer';
-import { getSkillsAsync } from '../../reduxParts/skillsReducer'
-import { storageSave, storageRead } from '../../utils/storage';
-import DatalistInput from 'react-datalist-input';
+import { createProjectAsync } from '../../reduxParts/projectReducer';
 import PlussSVG from './PlussSVG';
 
 
@@ -13,7 +9,7 @@ function CreateProject() {
   const [show, setshow] = useState(false);
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch();
-  const [characterLimit] = useState(1250);
+  const [characterLimit] = useState(250);
 
   const [createProject, setCreateProject] = useState({
     name:"",
@@ -133,7 +129,7 @@ function CreateProject() {
               </Form.Select>
              
               <Form.Label><div className="d-flex">Beskrivelse<p style={{color:'red'}}>*</p></div></Form.Label>
-              <Form.Control as="textarea" rows={3} placeholder="Hva går prosjektet ut på?
+              <Form.Control as="textarea" maxLength={characterLimit} rows={3} placeholder="Hva går prosjektet ut på?
               Hva ser du etter? ..."
               onChange={handleChange1} name="description"
               /><Badge className='mt-2 bg-secondary'>{createProject.description.length}/{characterLimit}</Badge>

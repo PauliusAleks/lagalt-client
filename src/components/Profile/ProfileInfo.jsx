@@ -1,14 +1,12 @@
 import React from 'react'
 import {  Button } from "react-bootstrap"
 import UserSkills from './UserSkills'
-import { useSelector, useDispatch } from 'react-redux'
 import ProjectBanner from '../Project/ProjectBanner'
 import keycloak from '../../keycloak'
 
 const handleLogout = () => {
     keycloak.logout()
 }
-
 
 const ProfileInfo = ({user, contributorProjects}) => {
   return (

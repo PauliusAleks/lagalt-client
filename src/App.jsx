@@ -1,4 +1,4 @@
-import {React, useEffect} from 'react';
+import { React } from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import KeycloakRoute from './routes/KeycloakRoute';
 import ProjectPage from './pages/ProjectPage';

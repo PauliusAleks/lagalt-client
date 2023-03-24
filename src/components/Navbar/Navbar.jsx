@@ -5,8 +5,6 @@ import Searchbar from "./searchbar/Searchbar";
 import Actions from "./Actions";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button } from "react-bootstrap";
-import CategoryDropdown from "../Project/CategoryDropdown";
 import './Navbar.css'
 
 const NavbarHeader = () => {

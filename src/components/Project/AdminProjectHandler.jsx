@@ -13,7 +13,6 @@ import EditProjectSelect from "./EditProjectSelect";
 function AdminProjectHandler() {
     const dispatch = useDispatch();
     const project = useSelector((state) => state.project);
-    const user = useSelector((state) => state.user);
 
     const [editProject, setEditProject] = useState(project)
 
@@ -34,13 +33,14 @@ function AdminProjectHandler() {
       dispatch(updateProjectAsync(editProject))
       handleClose();
     }
+    /*
     const handleApplicationAccept = () => {
 
     }
     const handleApplicationDenied = () => {
 
     }
-
+ */
 
     return(
         <div>

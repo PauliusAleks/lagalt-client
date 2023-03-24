@@ -29,10 +29,8 @@ function ProjectBannerPage() {
 
     useEffect(()=> {
         dispatch(getProjectBannersAsync())
-    },[])
+    })
     
-
-
     return (
         <div className="projectPage" style={{fontFamily: 'Arial, sans-serif',  backgroundColor: '#EEEEEE', zIndex:'-2'}}>
             <Container >

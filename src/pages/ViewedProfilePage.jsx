@@ -1,15 +1,9 @@
-import { React, useEffect, useState } from 'react'
-import keycloak from '../keycloak'
-import { Button, Form, Alert, Container } from 'react-bootstrap'
+import { React, useEffect } from 'react'
+import { Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-import { changeIsHidden, checkForUserAsync, getUserAsync, loginUserAsync, createUserAsync, setUpdated } from '../reduxParts/userReducer';
-import  ProfileInfo  from '../components/Profile/ProfileInfo'
 import { setSearchShowFalse } from '../reduxParts/searchReducer';
 import { NavLink } from "react-router-dom";
-import SettingsSVG from '../components/Profile/SettingsSVG';
 import BackArrowSVG from './BackArrowSVG';
-// import Modal from 'react-bootstrap/Modal';
-import { getContributorProjectsAsync } from '../reduxParts/userProjectsReducer';
 import ViewedProfileInfo from '../components/Profile/ViewedProfileInfo';
 
 
@@ -20,7 +14,7 @@ const ViewedProfilePage =() => {
 
     useEffect(()=> {
         dispatch(setSearchShowFalse())
-    },[])
+    })
 
     return (
         <div>
@@ -37,24 +31,19 @@ const ViewedProfilePage =() => {
                 <img src="https://icon-library.com/images/incognito-icon/incognito-icon-19.jpg"
                 alt="privat" width="200" className="rounded-circle"/>
                 <p>Profilen til {viewedUser.username} er privat</p>
-                </div>
-                    }
+                </div>}
             <div>
             {!viewedUser.isHidden && 
                 <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" 
                 alt="offentlig" width="200" className="rounded-circle"/>}
-            
             {!viewedUser.isHidden && 
             <div>
                 <ViewedProfileInfo user={viewedUser}></ViewedProfileInfo>
                 </div> }
                 </div>
             </div>
-            
             </Container>
-       
          </div>
-        
         </div>
         )
 }

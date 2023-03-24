@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-
-import {
-  Form,
-  Button,
-  CloseButton,
-  InputGroup,
-  ListGroup,
-} from "react-bootstrap";
+import { Form, Button, CloseButton, InputGroup, ListGroup } from "react-bootstrap";
 
 function EditProjectList({editProject, setEditProject}) {
   const [alreadyInList, setAlreadyInList] = useState(false);

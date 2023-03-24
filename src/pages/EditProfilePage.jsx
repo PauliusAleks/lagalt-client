@@ -1,6 +1,6 @@
-import { React, useEffect, useState } from 'react'
+import { React, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { Form, Button, Badge, Alert, CloseButton, InputGroup, ListGroup } from 'react-bootstrap'
+import { Form, Button, Badge, CloseButton, InputGroup, ListGroup } from 'react-bootstrap'
 import { NavLink } from "react-router-dom"
 import { updateUserAsync, setUser , setUpdated } from '../reduxParts/userReducer';
 
@@ -129,11 +129,11 @@ const EditProfilePage = () => {
                   </ListGroup.Item>
                 ))}
               </ListGroup>
-        <div className="row">
-           <div className="col">
-           <NavLink to="/profile">
-              <Button className='m-2' onClick={handleSubmit} style={{float:'right'}}>Lagre</Button>
-            </NavLink>
+           <div className="row">
+            <div className="col">
+            <NavLink to="/profile">
+                <Button className='m-2' onClick={handleSubmit} style={{float:'right'}}>Lagre</Button>
+              </NavLink>
             </div>
         </div>
       </div>

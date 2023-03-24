@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { storageSave } from "../utils/storage";
 
 //for auth???
 export const createHeaders = () => {
@@ -29,7 +28,7 @@ export const createProjectAsync = createAsyncThunk(
 export const deleteProjectAsync = createAsyncThunk(
     'project/deleteProjectAsync',
     async ({projectId, adminId}, thunkAPI) => {
-        const state = thunkAPI.getState()
+        //const state = thunkAPI.getState()
         const response = await fetch(`https://lagaltapi.azurewebsites.net/api/project/${projectId}`,{
             method: 'DELETE',
             headers:{

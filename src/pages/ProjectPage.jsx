@@ -6,11 +6,9 @@ import { setSearchShowFalse } from '../reduxParts/searchReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getViewedUserAsync } from "../reduxParts/viewedUserReducer";
 import { PROGRESS } from "../const/progress";
-import { Carousel } from "react-bootstrap";
 import ApplyProject from "../components/Project/ApplyProject";
 import ProjectSkills from "../components/Project/ProjectSkills";
 import ImageArrowSVG from "./ImageArrowSVG";
-import DeleteProject from "../components/Project/DeleteProject";
 import AdminProjectHandler from "../components/Project/AdminProjectHandler";
 import BackArrowSVG from "./BackArrowSVG";
 import './ScrollBar.css'
@@ -92,9 +90,10 @@ function ProjectPage() {
     const checkProjectAdmin = () => {
         return project.admins.includes(user.username)
     }
+    /*
     const checkProjectContributor = () => {
         return project.contributors.includes(user.username)
-    }
+    }*/
 
     return (
         

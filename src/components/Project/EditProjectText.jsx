@@ -1,15 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Modal from "react-bootstrap/Modal";
-import {
-  Form,
-  Button,
-  Badge,
-  Alert,
-  CloseButton,
-  InputGroup,
-  ListGroup,
-} from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { Form, Badge } from "react-bootstrap";
 
 function EditProjectTexts({editProject, setEditProject}) {
     //const project = useSelector((state) => state.project);
