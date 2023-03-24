@@ -3,8 +3,9 @@ import { useEffect } from "react";
 import ProjectBanner from "../components/Project/ProjectBanner";
 import CategoryDropdown from "../components/Project/CategoryDropdown";
 import { setSearchShowTrue } from "../reduxParts/searchReducer";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import keycloak from "../keycloak"
+import { getProjectBannersAsync } from "../reduxParts/projectBannersReducer";
 import { getUserAsync, createUserAsync, checkForUserAsync } from '../reduxParts/userReducer';
 import CreateProject from '../components/Project/CreateProject';
 import { Container } from "react-bootstrap";
@@ -12,7 +13,6 @@ import { Container } from "react-bootstrap";
 
 function ProjectBannerPage() {
     const dispatch = useDispatch();
-
     useEffect(()=> {
         dispatch(setSearchShowTrue())
         if(keycloak.authenticated) {
@@ -25,10 +25,16 @@ function ProjectBannerPage() {
             }) 
         }
     })
+    const projects = useSelector((state) => state.banners)
+
+    useEffect(()=> {
+        dispatch(getProjectBannersAsync())
+    },[])
+    
 
 
     return (
-        <div className="projectPage" style={{fontFamily: 'Arial, sans-serif',  backgroundColor: '#EEEEEE'}}>
+        <div className="projectPage" style={{fontFamily: 'Arial, sans-serif',  backgroundColor: '#EEEEEE', zIndex:'-2'}}>
             <Container>
             <div className="d-flex justify-content-between">
                 <div className="d-flex">
@@ -37,12 +43,11 @@ function ProjectBannerPage() {
                     <CreateProject />
                 }</div>
                 <div className="ml-auto p-3">
-                <CategoryDropdown/>
+                    <CategoryDropdown/>
                 </div>
-               
             </div>
             <div style={{backgroundColor:'#000000', height:'2px', width:'95%', marginLeft:'25px'}}></div>
-                <ProjectBanner />
+                <ProjectBanner projects={projects}/>
             </Container>
         </div>
     )

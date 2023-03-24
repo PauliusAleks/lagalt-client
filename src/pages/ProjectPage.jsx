@@ -10,7 +10,9 @@ import ApplyProject from "../components/Project/ApplyProject";
 import ProjectSkills from "../components/Project/ProjectSkills";
 import ImageArrowSVG from "./ImageArrowSVG";
 import DeleteProject from "../components/Project/DeleteProject";
+import AdminProjectHandler from "../components/Project/AdminProjectHandler";
 import BackArrowSVG from "./BackArrowSVG";
+import './ScrollBar.css'
 
 function ProjectPage() {
     const project = useSelector((state) => state.project)
@@ -80,13 +82,22 @@ function ProjectPage() {
     const checkProjectAdmin = () => {
         return project.admins.includes(user.username)
     }
+    const checkProjectContributor = () => {
+        return project.contributors.includes(user.username)
+    }
 
     return (
+        
         <div style={{ backgroundColor: '#EEEEEE', padding:'16px'}}>
         <div className="p-2 container rounded" style={{fontFamily: 'Arial, sans-serif', backgroundColor: '#F8F9FA'}} >
             <NavLink to="/"><BackArrowSVG/></NavLink>
             <div className="p-2" style={{float:'right'}}>
                 <ApplyProject/>
+            </div>
+            <div className="p-2" style={{float:'right'}}>
+                {checkProjectAdmin(project.id) && (
+                <h1>Hei {user.username}, du er administrator!</h1>
+                )}
             </div>
             <div className="p-3">
                 <h1 className="text-center p-2">{project.name}</h1>
@@ -97,7 +108,7 @@ function ProjectPage() {
                 <div style={{padding: '0px', margin:'0px', boxSizing:'border-box',}}>
                     <div style={{ display:'flex', justifyContent:'center', alignItems:'center'}}>
                         <Button variant="light" style={{float:'left', height:'50px', transform:'rotate(-180deg)'}} onClick={handleClickLeft}><ImageArrowSVG/></Button>
-                                <div id="MAIN" style={{display:'flex',
+                                <div id="MAIN" className="scrollbar" style={{display:'flex',
                                 overflowX:'scroll', padding:'24px',
                                 width:'400px', height:'400px',
                                 scrollSnapType:'x mandatory', scrollPadding:'24px',
@@ -109,7 +120,7 @@ function ProjectPage() {
                 }
                 <div className="p-2" style={{float:'right'}}>
                     {checkProjectAdmin(project.id) && (
-                    <DeleteProject/>
+                    <AdminProjectHandler/>
                     )}
                 </div>
                 <h4 className="p-2">Ferdigheter vi trenger:</h4>

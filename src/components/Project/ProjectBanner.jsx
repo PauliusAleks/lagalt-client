@@ -2,7 +2,7 @@ import keycloak from "../../keycloak"
 import { NavLink } from "react-router-dom"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
-import { getContributorProjectAsync, getAdminProjectAsync } from '../../reduxParts/projectReducer';
+import { getAdminProjectAsync } from '../../reduxParts/projectReducer';
 import { getProjectBannersAsync } from '../../reduxParts/projectBannersReducer';
 import { useEffect, useState } from "react"
 import { PROGRESS } from "../../const/progress"
@@ -10,33 +10,20 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
 import SkillCompare from "./SkillCompare";
-import { storageRead, storageSave } from "../../utils/storage";
 
 
 
-const ProjectBanner = () => {
+const ProjectBanner = ({projects}) => {
     const dispatch = useDispatch()
-    const projects = useSelector((state) => state.banners)
-    //storageRead("banners") === null ? dispatch(getProjectBannersAsync()) : storageRead("banners")
+    //const projects = useSelector((state) => state.banners)
     const category = useSelector((state) => state.category)
     const search = useSelector((state) => state.search)
     const user = useSelector((state) => state.user)
-
-
-    const [projectId, setProjectId] = useState("");
-
-
-    
+    /*
     useEffect(()=> {
         dispatch(getProjectBannersAsync())
-        /*
-        storageSave("banners",null)
-        if(storageRead("banners") === null){
-            
-        }
-        */
     },[])
-    
+    */
     let testProject = projects.project.map((project,key) => {
         //if stalled progress equal to 0
         let progress = 0;
@@ -71,10 +58,10 @@ const ProjectBanner = () => {
         if (project.name.toLowerCase().includes(search.text.toLowerCase()) || search === "") {
             if (project.category === category || category === "Alle" || category === "Velg kategori") {
                 return (
-                    <Container key={key} fluid="p-3 m-3 bg-light border border-2 border-grey rounded" style={{filter: 'drop-shadow(8px 8px 5px grey)'}}>
+                    <Container key={key} fluid="p-3 m-3 bg-light border border-2 border-grey rounded" style={{filter: 'drop-shadow(8px 8px 5px grey)', zIndex:'-1'}}>
                         <Row className="d-flex flex-row p-3" >
                             <Col xs={6} md={2} lg={2} xl={2} xxl={1}>
-                                {project.bannerImage === null ?
+                                {project.bannerImage === null || project.bannerImage === "" || project.bannerImage.trim().includes(" ") ?
                                     <div className="p-2">
                                         <img className="img-fluid rounded" alt="Project"
                                         src="/templateImage.jpg" />

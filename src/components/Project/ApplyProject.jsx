@@ -18,7 +18,6 @@ function ApplyProject({projectID}) {
   
   const handleMotivationLetterChange = (event) => {
     setApplicationToCreate({...applicationToCreate, motivationLetter : event.target.value})
-    //  console.log(applicationToCreate)
   }
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -28,7 +27,6 @@ function ApplyProject({projectID}) {
   };
 
   const handleSubmit = () => {
-    console.log(applicationToCreate)
     dispatch(createApplicationAsync(applicationToCreate))
     handleClose();
   }
