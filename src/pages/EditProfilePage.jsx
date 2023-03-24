@@ -13,14 +13,12 @@ const EditProfilePage = () => {
     const [alreadyInList, setAlreadyInList] = useState(false);
 
 
-    const [inputText, setInputText] = useState("");
     const [characterLimit] = useState(1250);
 
 
 
 
     const handlePortfolioChange = event => {
-      setInputText(event.target.value);
       setEditUser({...editUser, portfolio:event.target.value})
     };
 
@@ -111,7 +109,7 @@ const EditProfilePage = () => {
               defaultValue={editUser.portfolio}
               maxLength={characterLimit}
               onChange={handlePortfolioChange}/>
-            <Badge className='mt-2 bg-secondary'>{inputText.length}/{characterLimit}</Badge>
+            <Badge className='mt-2 bg-secondary'>{editUser.portfolio.length}/{characterLimit}</Badge>
         </Form.Group>
         {alreadyInList &&
                 <h4 style={{color:'red'}}>Du har allerede denne skillen!</h4>}
@@ -119,7 +117,12 @@ const EditProfilePage = () => {
               <Form.Control type="text" id="Skills" onChange={handleChanges} placeholder="Legg til en skill" />
               <Button variant="secondary" style={{float:'right'}} onClick={handleAddSkill}>Add</Button>
               </InputGroup>
-              <ListGroup horizontal>
+              <ListGroup horizontal style={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+                flexWrap: "wrap"
+              }}>
                 {editUser.skills.map((skill, index) => (
                   <ListGroup.Item key={index} style={{display:'flex', justifyContent:'center', alignContent:'center'}}>
                     {skill}<CloseButton id={skill} onClick={handleRemoveItem} style={{width:'5px', height:'5px'}} />

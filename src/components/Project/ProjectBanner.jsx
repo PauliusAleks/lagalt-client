@@ -39,7 +39,7 @@ const ProjectBanner = ({projects}) => {
             if (user.skills.includes(skill)) {
                 return (
                     <div key={key} className="p-1 d-inline">
-                        <Button variant="success" size="sm" disabled>
+                        <Button className="mt-2" variant="success" size="sm" disabled>
                             {skill}
                         </Button>
                     </div>
@@ -48,7 +48,7 @@ const ProjectBanner = ({projects}) => {
             else {
                 return (
                     <div key={key} className="p-1 d-inline">
-                        <Button variant="secondary" size="sm" disabled>
+                        <Button className="mt-2" variant="secondary" size="sm" disabled>
                             {skill}
                         </Button>
                     </div>
@@ -58,9 +58,9 @@ const ProjectBanner = ({projects}) => {
         if (project.name.toLowerCase().includes(search.text.toLowerCase()) || search === "") {
             if (project.category === category || category === "Alle" || category === "Velg kategori") {
                 return (
-                    <Container key={key} fluid="p-3 m-3 bg-light border border-2 border-grey rounded" style={{filter: 'drop-shadow(8px 8px 5px grey)', zIndex:'-1'}}>
+                    <Container key={key} fluid="p-3 m-5 bg-light border border-2 border-grey rounded" style={{filter: 'drop-shadow(8px 8px 5px grey)', zIndex:'-1'}}>
                         <Row className="d-flex flex-row p-3" >
-                            <Col xs={6} md={2} lg={2} xl={2} xxl={1}>
+                            <Col xs={6} md={2} lg={2} xl={2} xxl={1} >
                                 {project.bannerImage === null || project.bannerImage === "" || project.bannerImage.trim().includes(" ") ?
                                     <div className="p-2">
                                         <img className="img-fluid rounded" alt="Project"
@@ -89,7 +89,7 @@ const ProjectBanner = ({projects}) => {
                                 <p className="p-2">{project.description}</p>
                             </Col>
                             <Col>
-                                <div className="p-2">{skillsTest}</div>
+                                <div className="p-2 mt-2">{skillsTest}</div>
                             </Col>
                             {SkillCompare(project.neededSkills, user.skills) &&
                                 <Col xs={2} md={2} lg={2} xl={2} xxl={1}>

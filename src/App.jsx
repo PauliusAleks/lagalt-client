@@ -12,6 +12,7 @@ import './App.css';
 import { useState, useCallback } from 'react';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './keycloak';
+import ViewedProfilePage from './pages/ViewedProfilePage';
 
 function App() {
   const [, setTokenUpdateCount] = useState(0);
@@ -37,6 +38,10 @@ function App() {
               <Route path="/profile" element={
                 <KeycloakRoute role={ ROLES.User }>                   
                     <ProfilePage /> 
+                </KeycloakRoute>} />
+                <Route path="/viewedProfile" element={
+                <KeycloakRoute role={ ROLES.User }>                   
+                    <ViewedProfilePage /> 
                 </KeycloakRoute>} />
                 <Route path="/editProfilePage" element={
                 <KeycloakRoute role={ ROLES.User }> 

@@ -4,6 +4,7 @@ import { Button, ProgressBar, Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom"
 import { setSearchShowFalse } from '../reduxParts/searchReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { getViewedUserAsync } from "../reduxParts/viewedUserReducer";
 import { PROGRESS } from "../const/progress";
 import { Carousel } from "react-bootstrap";
 import ApplyProject from "../components/Project/ApplyProject";
@@ -48,6 +49,12 @@ function ProjectPage() {
         element.scroll(scrollAmountRight,0)
     }
 
+    let contributors = project.contributors.map((contributor, key) => {
+        return (
+            <li><NavLink to="/viewedProfile" onClick={() => dispatch(getViewedUserAsync(contributor))}>{contributor}</NavLink></li>
+        )
+    })
+
     let images = project.imageUrls.map((image, key) => {
         if(project.imageUrls.length > 0) { 
             return (
@@ -88,15 +95,22 @@ function ProjectPage() {
 
     return (
         
-        <div style={{ backgroundColor: '#EEEEEE', padding:'16px'}}>
-        <div className="p-2 container rounded" style={{fontFamily: 'Arial, sans-serif', backgroundColor: '#F8F9FA'}} >
+        <div style={{ backgroundColor: '#EEEEEE', fontFamily: 'Arial, sans-serif'}}>
+            <Container>
+                <div>
+                    <h1 className="mr-1 p-3">Prosjekt </h1>
+                    <div style={{backgroundColor:'#000000', height:'2px', width:'97%', marginLeft:'15px', marginBottom:'10px'}}></div>
+                </div>
+         <div className="container p-2 mt-5 rounded" style={{ backgroundColor: '#F8F9FA'}} >
             <NavLink to="/"><BackArrowSVG/></NavLink>
+            {!checkProjectAdmin(project.id) &&
             <div className="p-2" style={{float:'right'}}>
                 <ApplyProject/>
             </div>
+            }
             <div className="p-2" style={{float:'right'}}>
                 {checkProjectAdmin(project.id) && (
-                <h1>Hei {user.username}, du er administrator!</h1>
+                <h4>Hei {user.username}, du er administrator!</h4>
                 )}
             </div>
             <div className="p-3">
@@ -118,20 +132,23 @@ function ProjectPage() {
                      </div>
                 </div>
                 }
+                <h4 className="p-2">Ferdigheter vi trenger:</h4>
+                <div className="p-2"><ProjectSkills/></div>
+                <h3 className="p-2">Om prosjektet:</h3>
+                <p className="p-2">{project.description}</p>
+                <h3>Contributors: </h3>
+                    <ul>{contributors}</ul>
+                <h3 className="p-2">GitURL:</h3>
+                <a href={project.gitURL} className="p-2">{project.gitURL}</a>
                 <div className="p-2" style={{float:'right'}}>
                     {checkProjectAdmin(project.id) && (
                     <AdminProjectHandler/>
                     )}
                 </div>
-                <h4 className="p-2">Ferdigheter vi trenger:</h4>
-                <div className="p-2"><ProjectSkills/></div>
-                <h3 className="p-2">Om prosjektet:</h3>
-                <p className="p-2">{project.description}</p>
-                <h3 className="p-2">GitURL:</h3>
-                <a href={project.gitURL} className="p-2">{project.gitURL}</a>
             </div>
 
         </div>
+        </Container>
         </div>
     )
 }

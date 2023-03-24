@@ -35,18 +35,21 @@ function ProjectBannerPage() {
 
     return (
         <div className="projectPage" style={{fontFamily: 'Arial, sans-serif',  backgroundColor: '#EEEEEE', zIndex:'-2'}}>
-            <Container>
-            <div className="d-flex justify-content-between">
+            <Container >
+            <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex">
                 <h1 className="mr-1 p-3">Prosjektoversikt</h1>
                 {keycloak.authenticated &&
-                    <CreateProject />
-                }</div>
-                <div className="ml-auto p-3">
+                    <div className="mt-3">
+                        <CreateProject />
+                    </div>
+                }
+                </div>
+                <div className=" p-3">
                     <CategoryDropdown/>
                 </div>
             </div>
-            <div style={{backgroundColor:'#000000', height:'2px', width:'95%', marginLeft:'25px'}}></div>
+            <div style={{backgroundColor:'#000000', height:'2px', width:'97%', marginLeft:'15px'}}></div>
                 <ProjectBanner projects={projects}/>
             </Container>
         </div>

@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react'
 import keycloak from '../keycloak'
-import { Button, Form, Alert } from 'react-bootstrap'
+import { Button, Form, Alert, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { changeIsHidden, checkForUserAsync, getUserAsync, loginUserAsync, createUserAsync, setUpdated } from '../reduxParts/userReducer';
 import  ProfileInfo  from '../components/Profile/ProfileInfo'
@@ -14,7 +14,7 @@ import { getContributorProjectsAsync } from '../reduxParts/userProjectsReducer';
 
 const ProfilePage =() => {
     const user = useSelector((state) => state.user)
-    const contributorProjects = useSelector((state => state.userProjects.project))
+    const contributorProjects = useSelector((state => state.userProjects))
     const projects = useSelector((state => state.banners.project))
 
     const dispatch = useDispatch();
@@ -23,11 +23,6 @@ const ProfilePage =() => {
         dispatch(getContributorProjectsAsync(user.id))
         dispatch(setSearchShowFalse())
     },[])
-
-    
-    const handleLogout = () => {
-        keycloak.logout()
-    }
 
     const tokenLog = () => {
         console.log("cons",contributorProjects)
@@ -43,7 +38,7 @@ const ProfilePage =() => {
     }
 
     return (
-        <div style={{ backgroundColor: '#EEEEE', padding:'16px'}}>
+        <div style={{ backgroundColor: '#EEEEE', fontFamily: 'Arial, sans-serif',}}>
         {user.updated &&
         <div className="d-flex justify-content-center p-3">
             <Alert variant="success" 
@@ -58,7 +53,12 @@ const ProfilePage =() => {
             </Alert>
             </div>
             }
-            <div className="container p-3 rounded" style={{fontFamily: 'Arial, sans-serif', backgroundColor: '#F8F9FA'}}>
+            <Container>
+                <div>
+                    <h1 className="mr-1 p-3">Din Profil</h1>
+                    <div style={{backgroundColor:'#000000', height:'2px', width:'97%', marginLeft:'15px', marginBottom:'10px'}}></div>
+                </div>
+            <div className="container mt-5 p-3 rounded" style={{fontFamily: 'Arial, sans-serif', backgroundColor: '#F8F9FA'}}>
             <NavLink to="/"><BackArrowSVG/></NavLink>
             <NavLink to="/EditProfilePage" onClick={() => dispatch(setUpdated(false))} >
                     <Button className="rounded-circle" variant="light" style={{ alignItems:'center',
@@ -86,10 +86,8 @@ const ProfilePage =() => {
                 alt="offentlig" width="200" className="rounded-circle"/>}
                
                 <ProfileInfo user={user} contributorProjects={contributorProjects}></ProfileInfo>
-                <div style={{marginBottom:'40px'}}>
-                    <Button variant="danger" style={{float:'right'}} onClick={handleLogout}>Logg ut</Button>
-                </div>
             </div>
+            </Container>
         </div>
         
         )
