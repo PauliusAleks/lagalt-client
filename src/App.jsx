@@ -10,13 +10,12 @@ import EditProfilePage from './pages/EditProfilePage'
 import { ROLES } from './const/roles';
 import './App.css';
 import { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './keycloak';
 
 function App() {
   const [, setTokenUpdateCount] = useState(0);
-    
+  
     const onUpdateToken = useCallback(() => {
         setTokenUpdateCount((value) => value + 1);
     }, []);

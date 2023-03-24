@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button, Badge, Alert, CloseButton, InputGroup, ListGroup } from 'react-bootstrap'
 import { NavLink } from "react-router-dom"
 import { updateUserAsync, setUser , setUpdated } from '../reduxParts/userReducer';
-import  ProfileInfo  from '../components/Profile/ProfileInfo'
 
 
 const EditProfilePage = () => {
@@ -115,7 +114,7 @@ const EditProfilePage = () => {
             <Badge className='mt-2 bg-secondary'>{inputText.length}/{characterLimit}</Badge>
         </Form.Group>
         {alreadyInList &&
-                <h4 style={{color:'red'}}>Du har allerede denne skillen!!!</h4>}
+                <h4 style={{color:'red'}}>Du har allerede denne skillen!</h4>}
         <InputGroup>
               <Form.Control type="text" id="Skills" onChange={handleChanges} placeholder="Legg til en skill" />
               <Button variant="secondary" style={{float:'right'}} onClick={handleAddSkill}>Add</Button>
