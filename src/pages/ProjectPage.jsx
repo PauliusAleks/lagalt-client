@@ -51,7 +51,10 @@ function ProjectPage() {
 
     let contributors = project.contributors.map((contributor, key) => {
         return (
-            <li><NavLink to="/viewedProfile" onClick={() => dispatch(getViewedUserAsync(contributor))}>{contributor}</NavLink></li>
+            <li><Button variant="light"><NavLink to="/viewedProfile" className="link-dark" style={{ height: '12px',
+            textDecoration: 'none',
+            color: '#393E46',
+            }} onClick={() => dispatch(getViewedUserAsync(contributor))}><h4>{contributor}</h4></NavLink></Button></li>
         )
     })
 
@@ -136,8 +139,8 @@ function ProjectPage() {
                 <div className="p-2"><ProjectSkills/></div>
                 <h3 className="p-2">Om prosjektet:</h3>
                 <p className="p-2">{project.description}</p>
-                <h3>Contributors: </h3>
-                    <ul>{contributors}</ul>
+                <h3 className="pb-2">Contributors: </h3>
+                    <ul style={{listStyleType: 'none'}}>{contributors}</ul>
                 <h3 className="p-2">GitURL:</h3>
                 <a href={project.gitURL} className="p-2">{project.gitURL}</a>
                 <div className="p-2" style={{float:'right'}}>
