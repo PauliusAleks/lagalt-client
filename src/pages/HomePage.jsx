@@ -9,6 +9,7 @@ import { getProjectBannersAsync } from "../reduxParts/projectBannersReducer";
 import { getUserAsync, createUserAsync, checkForUserAsync } from '../reduxParts/userReducer';
 import CreateProject from '../components/Project/CreateProject';
 import { Container } from "react-bootstrap";
+import './IconAnimations.css'
 
 
 function ProjectBannerPage() {

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button, ListGroup, Modal, InputGroup, CloseButton, Badge } from 'react-bootstrap';
 import { createProjectAsync } from '../../reduxParts/projectReducer';
 import PlussSVG from './PlussSVG';
+import '../../pages/IconAnimations.css'
 
 
 function CreateProject() {
@@ -93,7 +94,7 @@ function CreateProject() {
  
   return (
     <div style={{height:'50px', width:'300px', display:'flex'}}>
-      <Button variant="white" onClick={handleshow}> <PlussSVG/>  
+      <Button variant="white" onClick={handleshow}> <PlussSVG className="createProject"/>  
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

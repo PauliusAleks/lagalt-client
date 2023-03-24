@@ -1,0 +1,7 @@
+.scribble-text-fx--v1 .scribble-text-fx__decoration {
+  width: calc(100% + 24px);
+  height: calc(100% + 12px);
+}
+.scribble-text-fx--v1 .scribble-text-fx__decoration > * {
+  stroke-width: 2px;
+}

@@ -1,0 +1,9 @@
+.banner {
+    will-change: transform;
+    transition: transform 450ms;
+  }
+  
+  .banner:hover {
+    transition: transform 125ms;
+    transform: translateX(-10px);
+  }

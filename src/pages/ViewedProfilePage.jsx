@@ -5,6 +5,7 @@ import { setSearchShowFalse } from '../reduxParts/searchReducer';
 import { NavLink } from "react-router-dom";
 import BackArrowSVG from './BackArrowSVG';
 import ViewedProfileInfo from '../components/Profile/ViewedProfileInfo';
+import './IconAnimations.css'
 
 
 const ViewedProfilePage =() => {
@@ -25,7 +26,7 @@ const ViewedProfilePage =() => {
                     <div style={{backgroundColor:'#000000', height:'2px', width:'97%', marginLeft:'15px', marginBottom:'10px'}}></div>
                 </div>
             <div className="container mt-5 p-3 rounded" style={{fontFamily: 'Arial, sans-serif', backgroundColor: '#F8F9FA'}}>
-            <NavLink to="/project"><BackArrowSVG/></NavLink> 
+            <NavLink to="/project"><BackArrowSVG className="backarrow"/></NavLink> 
             {viewedUser.isHidden && 
             <div>
                 <img src="https://icon-library.com/images/incognito-icon/incognito-icon-19.jpg"

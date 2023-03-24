@@ -1,0 +1,20 @@
+.backarrow {
+    transition: transform 250ms;
+}
+.backarrow:hover {
+    transform: translateX(-10px);
+}
+
+.createProject {
+    transition: transform .3s ease-in-out;
+}
+.createProject:hover {
+    transform: rotate(90deg);
+}
+
+.settings {
+  transition: transform .3s ease-in-out;
+}
+.settings:hover {
+  transform: rotate(90deg);
+}

@@ -7,6 +7,7 @@ import { PROGRESS } from "../../const/progress"
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import SkillCompare from "./SkillCompare";
+import './BannerAnimation.css'
 
 
 
@@ -21,6 +22,7 @@ const ProjectBanner = ({projects}) => {
         dispatch(getProjectBannersAsync())
     },[])
     */
+
     let testProject = projects.project.map((project,key) => {
         //if stalled progress equal to 0
         let progress = 0;
@@ -55,7 +57,7 @@ const ProjectBanner = ({projects}) => {
         if (project.name.toLowerCase().includes(search.text.toLowerCase()) || search === "") {
             if (project.category === category || category === "Alle" || category === "Velg kategori") {
                 return (
-                    <Container key={key} fluid="p-3 m-5 bg-light border border-2 border-grey rounded" style={{filter: 'drop-shadow(8px 8px 5px grey)', zIndex:'-1'}}>
+                    <Container key={key} className="banner" fluid="p-3 m-5 bg-light border border-2 border-grey rounded" style={{filter: 'drop-shadow(8px 8px 5px grey)', zIndex:'-1'}}>
                         <Row className="d-flex flex-row p-3" >
                             <Col xs={6} md={2} lg={2} xl={2} xxl={1} >
                                 {project.bannerImage === null || project.bannerImage === "" || project.bannerImage.trim().includes(" ") ?

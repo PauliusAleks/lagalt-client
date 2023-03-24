@@ -12,6 +12,7 @@ import ImageArrowSVG from "./ImageArrowSVG";
 import AdminProjectHandler from "../components/Project/AdminProjectHandler";
 import BackArrowSVG from "./BackArrowSVG";
 import './ScrollBar.css'
+import './IconAnimations.css'
 
 function ProjectPage() {
     const project = useSelector((state) => state.project)
@@ -103,8 +104,8 @@ function ProjectPage() {
                     <h1 className="mr-1 p-3">Prosjekt </h1>
                     <div style={{backgroundColor:'#000000', height:'2px', width:'97%', marginLeft:'15px', marginBottom:'10px'}}></div>
                 </div>
-         <div className="container p-2 mt-5 rounded" style={{ backgroundColor: '#F8F9FA'}} >
-            <NavLink to="/"><BackArrowSVG/></NavLink>
+         <div className="container p-3 mt-5 rounded" style={{ backgroundColor: '#F8F9FA'}} >
+            <NavLink to="/"><BackArrowSVG className="backarrow"/></NavLink>
             {!checkProjectAdmin(project.id) &&
             <div className="p-2" style={{float:'right'}}>
                 <ApplyProject/>

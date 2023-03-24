@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import SettingsSVG from '../components/Profile/SettingsSVG';
 import BackArrowSVG from './BackArrowSVG';
 import { getContributorProjectsAsync } from '../reduxParts/userProjectsReducer';
+import './IconAnimations.css'
 
 
 const ProfilePage =() => {
@@ -55,14 +56,9 @@ const ProfilePage =() => {
                     <div style={{backgroundColor:'#000000', height:'2px', width:'97%', marginLeft:'15px', marginBottom:'10px'}}></div>
                 </div>
             <div className="container mt-5 p-3 rounded" style={{fontFamily: 'Arial, sans-serif', backgroundColor: '#F8F9FA'}}>
-            <NavLink to="/"><BackArrowSVG/></NavLink>
-            <NavLink to="/EditProfilePage" onClick={() => dispatch(setUpdated(false))} >
-                    <Button className="rounded-circle" variant="light" style={{ alignItems:'center',
-                    float:'right',
-                    width:'60px',
-                    height:'60px',
-                    padding: '0px',
-                    marginLeft: '30px'}}><SettingsSVG/></Button>
+                <NavLink to="/"><BackArrowSVG className="backarrow"/></NavLink>
+                <NavLink to="/EditProfilePage" onClick={() => dispatch(setUpdated(false))} >
+                    <SettingsSVG style={{float:'right'}} className="settings"/>
                 </NavLink>
                 <Form>
                     
