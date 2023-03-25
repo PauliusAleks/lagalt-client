@@ -6,6 +6,7 @@ import Actions from "./Actions";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import './Navbar.css'
+import { Button } from 'react-bootstrap';
 
 const NavbarHeader = () => {
     const search = useSelector((state) => state.search)
@@ -22,7 +23,7 @@ const NavbarHeader = () => {
             <Logo />
             {search.show === true && <Searchbar /> }
             {!keycloak.authenticated && <Actions />}
-            {/* {keycloak.authenticated && <NavLink to="/chat" style={{padding: '20px'}}><Button>Chat</Button></NavLink>} */}
+            {keycloak.authenticated && <NavLink to="/chat" style={{padding: '20px'}}><Button>Chat</Button></NavLink>}
             {keycloak.authenticated && 
                 <NavLink to="/profile" className="link-dark" style={{ padding: '16px',
                 textDecoration: 'none',

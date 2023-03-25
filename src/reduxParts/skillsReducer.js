@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-
+const baseURL = "https://lagaltapi.azurewebsites.net";
+const debugBaseURL = "https://localhost:7125";
 
 export const getSkillsAsync = createAsyncThunk(
     'project/getSkillsAsync',
     async () => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/skills`)
+        const response = await fetch(`${baseURL}/api/skills`)
         if(response.ok){
             const result = response.json()
             return result;

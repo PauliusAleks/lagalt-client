@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+const baseURL = "https://lagaltapi.azurewebsites.net";
+const debugBaseURL = "https://localhost:7125";
 export const getProjectApplicationAsync = createAsyncThunk(
     'project/getProjectApplicationAsync',
     async (id) => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/applications/getAllApplicationsInProject/${id}`)
+        const response = await fetch(baseURL+`/api/applications/getAllApplicationsInProject/${id}`)
         if(response.ok){
             const result = response.json()
             return result;
