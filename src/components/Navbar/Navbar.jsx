@@ -6,6 +6,7 @@ import Actions from "./Actions";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import './Navbar.css'
+import { Button } from 'react-bootstrap';
 
 const NavbarHeader = () => {
     const search = useSelector((state) => state.search)
