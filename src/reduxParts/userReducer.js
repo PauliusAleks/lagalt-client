@@ -12,7 +12,7 @@ const debugBaseURL = "https://localhost:7125";
 export const getUserAsync = createAsyncThunk(
     'user/getUserAsync',
     async (username) => {
-        const response = await fetch(debugBaseURL+`/api/users/username/${username}`)
+        const response = await fetch(baseURL+`/api/users/username/${username}`)
         if(response.ok){
             const result = response.json()
             return result;
@@ -24,7 +24,7 @@ export const getUserAsync = createAsyncThunk(
 export const checkForUserAsync = createAsyncThunk(
     'user/checkForUser',
      async (username) => {
-            const response = await fetch(debugBaseURL+`/api/users/username/${username}`)
+            const response = await fetch(baseURL+`/api/users/username/${username}`)
             if(response.ok){
                 return false;
             }
@@ -41,7 +41,7 @@ export const createUserAsync = createAsyncThunk(
         
             const checkError = await dispatch(checkForUserAsync(token.preferred_username));
             if (checkError.payload) {
-            const response = await fetch(`${debugBaseURL}/api/users/CreateUser`, {
+            const response = await fetch(`${baseURL}/api/users/CreateUser`, {
                 method: 'POST',
                 headers: createHeaders(),
                 body: JSON.stringify({
@@ -66,7 +66,7 @@ export const createUserAsync = createAsyncThunk(
 export const updateUserAsync = createAsyncThunk(
     'user/updateUserAsync',
     async (user) => {
-        const response = await fetch(`${debugBaseURL}/api/users/editWithUsername/${user.username}`, {
+        const response = await fetch(`${baseURL}/api/users/editWithUsername/${user.username}`, {
             method: 'PUT',
             headers: createHeaders(),
             body: JSON.stringify({

@@ -6,7 +6,7 @@ const debugBaseURL = "https://localhost:7125";
 export const getProjectBannersAsync = createAsyncThunk(
     'projects/getProjectBannersAsync',
     async () => {
-        const response = await fetch(`${debugBaseURL}/api/projects/banners`)
+        const response = await fetch(`${baseURL}/api/projects/banners`)
         if(response.ok){
             const result = response.json()
             return result;

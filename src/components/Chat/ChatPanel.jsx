@@ -9,7 +9,7 @@ function useSignalRConnection() {
 
   useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl("https://localhost:7125/chathub")
+      .withUrl("https://lagaltapi.azurewebsites.net/chathub")
       .build();
     setConnection(newConnection);
     return () => {
@@ -49,7 +49,7 @@ function ChatPanel() {
   }, [dispatch]);
 
   useEffect(() => {
-    fetch("https://localhost:7125/api/UserMessage")
+    fetch("https://lagaltapi.azurewebsites.net/api/UserMessage")
       .then((response) => response.json())
       .then((data) => {
         setMessages(data.map((data) => data.username+": "+data.message));
@@ -68,7 +68,7 @@ function ChatPanel() {
     e.preventDefault();
     const msg = e.target[0].value; 
     const usernameAndMessage = userState.username + ": " + msg;
-    fetch("https://localhost:7125/api/UserMessage", {
+    fetch("https://lagaltapi.azurewebsites.net/api/UserMessage", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

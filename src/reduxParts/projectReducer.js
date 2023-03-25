@@ -14,7 +14,7 @@ export const createHeaders = () => {
 export const createProjectAsync = createAsyncThunk(
     'project/createProjectAsync',
     async (projectData) => {
-        const response = await fetch(`${debugBaseURL}/api/projects/createProject`, {
+        const response = await fetch(`${baseURL}/api/projects/createProject`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export const createProjectAsync = createAsyncThunk(
 export const deleteProjectAsync = createAsyncThunk(
     'project/deleteProjectAsync',
     async ({projectId, adminId}, thunkAPI) => {
-        const response = await fetch(`${debugBaseURL}/aspi/project/${projectId}`,{
+        const response = await fetch(`${baseURL}/aspi/project/${projectId}`,{
             method: 'DELETE',
             headers:{
                 'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ export const updateProjectAsync = createAsyncThunk(
 export const getAdminProjectAsync = createAsyncThunk(
     'project/getProjectAsync',
     async (id) => {
-        const response = await fetch(`${debugBaseURL}/api/projects/admin/${id}`)
+        const response = await fetch(`${baseURL}/api/projects/admin/${id}`)
         if(response.ok){
             const result = response.json()
             return result;
@@ -84,7 +84,7 @@ export const getAdminProjectAsync = createAsyncThunk(
 export const getContributorProjectAsync = createAsyncThunk(
     'project/getProjectAsync',
     async (id) => {
-        const response = await fetch(`${debugBaseURL}/api/projects/contributor/${id}`)
+        const response = await fetch(`${baseURL}/api/projects/contributor/${id}`)
         if(response.ok){
             const result = response.json()
             return result;
