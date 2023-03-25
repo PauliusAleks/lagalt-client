@@ -40,3 +40,13 @@
 .custom-shape-divider-top-1679663728 .shape-fill {
     fill: #449DD1;
 }
+
+.profileImage{
+    will-change: transform;
+    transition: transform 450ms;
+  }
+  
+  .profileImage:hover {
+    transition: transform 125ms;
+    transform: scale(0.9);
+  }

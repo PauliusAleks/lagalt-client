@@ -58,7 +58,7 @@ const ProjectBanner = ({projects}) => {
             if (project.category === category || category === "Alle" || category === "Velg kategori") {
                 return (
                     <Container key={key} className="banner" fluid="p-3 m-5 bg-light border border-2 border-grey rounded" style={{filter: 'drop-shadow(8px 8px 5px grey)', zIndex:'-1'}}>
-                        <Row className="d-flex flex-row p-3" >
+                        <Row className="d-flex flex-row p-3">
                             <Col xs={6} md={2} lg={2} xl={2} xxl={1} >
                                 {project.bannerImage === null || project.bannerImage === "" || project.bannerImage.trim().includes(" ") ?
                                     <div className="p-2">

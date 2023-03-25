@@ -1,7 +1,42 @@
-.scribble-text-fx--v1 .scribble-text-fx__decoration {
-  width: calc(100% + 24px);
-  height: calc(100% + 12px);
+
+.logo {
+  display: inline-block;
+  color: white;
+  min-width: 154px;
+  text-decoration: none;
+  margin-right: 50px;
+  padding: 20px;
+  position: relative;
+  text-align: center;
 }
-.scribble-text-fx--v1 .scribble-text-fx__decoration > * {
-  stroke-width: 2px;
+.logo:hover .button-stroke:nth-child(2) {
+  stroke-dashoffset: 0;
+}
+.button-stroke {
+  display: block;
+  width: calc(100% - 40px);
+  height: 20px;
+  position: absolute;
+  left: -5px;
+  bottom: 10px;
+  stroke-width: 4;
+}
+.button-stroke:nth-child(2) {
+  stroke-dasharray: 650px;
+  stroke-dashoffset: 650px;
+  stroke: #212529;
+  stroke-width: 4;
+  transition: stroke-dashoffset 800ms ease-out;
+}
+
+.pen{
+  will-change: transform;
+  transition: transform 450ms;
+}
+
+
+
+.logo:hover .pen {
+  transition: transform 125ms;
+  transform: translateY(-10px);
 }

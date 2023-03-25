@@ -30,18 +30,22 @@ const NavbarHeader = () => {
                 textAlign: 'center'}}>
                     {!user.isHidden &&
                     <div>
+                    <div className="profileImage">
                     <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" 
                     alt="..." 
                     width="50"
                     className="rounded-circle border border-2 border-dark"/>
+                    </div>
                     <h4>{keycloak.tokenParsed.preferred_username}</h4>
                     </div>}
                     {user.isHidden &&
-                    <div>
-                    <img src="https://icon-library.com/images/incognito-icon/incognito-icon-19.jpg" 
-                    alt="..." 
-                    width="50"
-                    className="rounded-circle border border-2 border-dark"/>
+                    <div >
+                    <div className="profileImage">
+                        <img src="https://icon-library.com/images/incognito-icon/incognito-icon-19.jpg" 
+                        alt="..." 
+                        width="50"
+                        className="rounded-circle border border-2 border-dark"/>
+                    </div>
                     <h4>{keycloak.tokenParsed.preferred_username}</h4>
                     </div>}
                 </NavLink>}      

@@ -109,7 +109,9 @@ const EditProfilePage = () => {
               defaultValue={editUser.portfolio}
               maxLength={characterLimit}
               onChange={handlePortfolioChange}/>
-            <Badge className='mt-2 bg-secondary'>{editUser.portfolio.length}/{characterLimit}</Badge>
+              {editUser.portfolio !== null && 
+                 <Badge className='mt-2 bg-secondary'>{editUser.portfolio.length}/{characterLimit}</Badge>
+              }
         </Form.Group>
         {alreadyInList &&
                 <h4 style={{color:'red'}}>Du har allerede denne skillen!</h4>}
