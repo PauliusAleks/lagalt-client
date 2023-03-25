@@ -1,61 +1,73 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Form, Button, ListGroup, Modal, InputGroup } from 'react-bootstrap';
-import { setProject } from '../../reduxParts/projectReducer';
-import { createProjectAsync, addAdmin } from '../../reduxParts/projectReducer';
-import { getSkillsAsync } from '../../reduxParts/skillsReducer'
-import { storageSave, storageRead } from '../../utils/storage';
-import DatalistInput from 'react-datalist-input';
+import { Form, Button, ListGroup, Modal, InputGroup, CloseButton, Badge } from 'react-bootstrap';
+import { createProjectAsync } from '../../reduxParts/projectReducer';
 import PlussSVG from './PlussSVG';
+import '../../pages/IconAnimations.css'
 
 
 function CreateProject() {
-  const [show, setShow] = useState(false);
-  const project = useSelector((state) => state.project)
+  const [show, setshow] = useState(false);
   const user = useSelector((state) => state.user)
-  const skills = useSelector((state) => state.skills);
   const dispatch = useDispatch();
-  const [project1, setProject1] = useState({
+  const [characterLimit] = useState(250);
+
+  const [createProject, setCreateProject] = useState({
     name:"",
-    category:0,
+    category: null,
     progress:0,
     description:"",
     gitUrl:"",
     imageUrls:[],
     NeededSkills:[],
-    adminId: -1
+    adminId: -1,
+    contributorId:-1,
   })
  
   // useEffect(() => {
   //   dispatch(getSkillsAsync())
   // },[])
  
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleSubmit = () => {
-   
-    // handle form submission
-    dispatch(createProjectAsync(project1));
-    handleClose();
-  };
-  const handleAddSkillsToSessionStorage =() => {
-    storageSave("skills",skills)
+  const handleClose = () => setshow(false);
+  const handleshow = () => {
+     //for resetting state
+     setCreateProject( {name:"",
+     category:null,
+     progress:0,
+     description:"",
+     gitUrl:"",
+     imageUrls:[],
+     NeededSkills:[],
+     adminId: -1,
+     contributorId:-1})
+     setshow(true);
   }
+
+  const handleSubmit = () => {
+        // handle form submission
+    if(createProject.name === "" || createProject.description === "" || createProject.category === null) {
+      window.alert("Du må fylle ut feltene som har en stjerne")
+    } else {
+      dispatch(createProjectAsync(createProject));
+      handleClose();
+    }
+  };
+  
   const handleChange1 = (event) => {
     let propertyName = event.target.name;
     let propertyValue= event.target.value;
     if(propertyName === "category" || propertyName === 'progress'){
       propertyValue = parseInt(propertyValue)
     }
-    setProject1({...project1, [propertyName] : propertyValue})
+    setCreateProject({...createProject, [propertyName] : propertyValue})
   };
 
 
  
   const handleAddImage = () => {
     let newUrl = document.getElementById('imageUrls').value.trim()
-    if(!project1.imageUrls.includes(newUrl)){
-      setProject1({...project1, adminId: user.id, imageUrls: [...project1.imageUrls,newUrl]})
+    if(!createProject.imageUrls.includes(newUrl)){
+      setCreateProject({...createProject, adminId: user.id, contributorId: user.id, imageUrls: [...createProject.imageUrls,newUrl]})
     }
     document.getElementById('imageUrls').value = "";
   }
@@ -63,25 +75,27 @@ function CreateProject() {
 
   const handleAddSkill = () => {
     let newSkill = document.getElementById('neededSkills').value.trim()
-    if(!project1.NeededSkills.includes(newSkill)){
-      setProject1({...project1, NeededSkills: [...project1.NeededSkills,newSkill]})
+    if(!createProject.NeededSkills.includes(newSkill)){
+      setCreateProject({...createProject, NeededSkills: [...createProject.NeededSkills, newSkill]})
     }
     document.getElementById('neededSkills').value = "";
   }
 
 
+  const handleRemoveSkill = (event) => {
+    setCreateProject({...createProject, NeededSkills: createProject.NeededSkills.filter(skill=>skill !== event.target.id)})
+  }
+
+  const handleRemoveImage = (event) => {
+    setCreateProject({...createProject, imageUrls: createProject.imageUrls.filter(url=>url !== event.target.id)})
+  }
+
  
  
   return (
-    <>
-      <Button variant="white" onClick={handleShow}> <PlussSVG/>
-            Opprett prosjekt
+    <div style={{height:'50px', width:'300px', display:'flex'}}>
+      <Button variant="white" onClick={handleshow}> <PlussSVG className="createProject"/>  
       </Button>
-      {/* <Button variant="primary" onClick={handleAddSkillsToSessionStorage}>
-        SkillsSessionStorage
-      </Button> */}
-
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Opprett prosjekt</Modal.Title>
@@ -89,41 +103,42 @@ function CreateProject() {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="required">
-              <Form.Label>Tittel *</Form.Label>
+              <Form.Label><div className="d-flex">Tittel<p style={{color:'red'}}>*</p></div></Form.Label>
               <Form.Control
                 type="title"
                 placeholder="Prosjekttittel"
                 onChange={handleChange1}
                 name="name"
               />
-              <Form.Label className="mt-3">Kategori *</Form.Label>
+              <Form.Label className="mt-3"><div className="d-flex">Kategori<p style={{color:'red'}}>*</p></div></Form.Label>
               <Form.Select className="mb-3 mt-2" onChange={handleChange1} name="category">
                 <option hidden>Velg en kategori</option>
                 <option value={0}>Musikk</option>
                 <option value={1}>Film</option>
-                <option value={2}>SpillUtvikling</option>
-                <option value={3}>NettUtvikling</option>
+                <option value={2}>Spillutvikling</option>
+                <option value={3}>Nettutvikling</option>
               </Form.Select>
 
 
-              <Form.Label>Status *</Form.Label>
+              <Form.Label>Status</Form.Label>
               <Form.Select className="mb-3 mt-2"  onChange={handleChange1} name="progress">
-                <option hidden>Velg prosjekt status</option>
-                <option value={0}>Utsatt</option>
-                <option value={1}>Oppstart</option>
-                <option value={2}>Under Utvikling</option>
+                <option hidden>Oppstart</option>
+                <option value={0}>Oppstart</option>
+                <option value={1}>Under Utvikling</option>
+                <option value={2}>Utsatt</option>
                 <option value={3}>Ferdig</option>
               </Form.Select>
              
-              <Form.Label>Beskrivelse *</Form.Label>
-              <Form.Control as="textarea" rows={3} placeholder="Hva går prosjektet ut på?
+              <Form.Label><div className="d-flex">Beskrivelse<p style={{color:'red'}}>*</p></div></Form.Label>
+              <Form.Control as="textarea" maxLength={characterLimit} rows={3} placeholder="Hva går prosjektet ut på?
               Hva ser du etter? ..."
               onChange={handleChange1} name="description"
-              />
+              /><Badge className='mt-2 bg-secondary'>{createProject.description.length}/{characterLimit}</Badge>
+              </Form.Group> 
                        
-              <Form.Label>GitURL</Form.Label>
+              <Form.Label className="mb-3">GitURL</Form.Label>
               <Form.Control type="text" placeholder="https://gitlab.com/brukernavn/prosjektnavn"  onChange={handleChange1} name="gitUrl" />
-              </Form.Group>            
+                       
             <Form.Group className="mb-3">
               <Form.Label>Bilder</Form.Label>
               <InputGroup>
@@ -131,13 +146,12 @@ function CreateProject() {
                 <Button variant="secondary" onClick={handleAddImage}>Add</Button>
               </InputGroup>
               <ul>
-                {project1.imageUrls.map((url, index) => (
+                {createProject.imageUrls.map((url, index) => (
                   <li key={index}>
-                    <a href={url}>{url}</a>
+                    <a href={url}>{url}</a> <CloseButton id={url} onClick={handleRemoveImage} style={{width:'5px', height:'5px'}}/>
                   </li>
                 ))}
               </ul>
-
 
               <Form.Label>Ferdigheter prosjektet ser etter</Form.Label>
               <InputGroup>
@@ -145,15 +159,13 @@ function CreateProject() {
               <Button variant="secondary" style={{float:'right'}} onClick={handleAddSkill}>Add</Button>
               </InputGroup>
               <ListGroup horizontal>
-                {project1.NeededSkills.map((skill, index) => (
+                {createProject.NeededSkills.map((skill, index) => (
                   <ListGroup.Item key={index}>
-                    {skill}
+                    {skill} <CloseButton id={skill} onClick={handleRemoveSkill} style={{width:'5px', height:'5px'}} />
                   </ListGroup.Item>
                 ))}
               </ListGroup>
-             
             </Form.Group>
-           
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -161,13 +173,8 @@ function CreateProject() {
           <Button variant="primary" onClick={handleSubmit}>Opprett prosjekt</Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 }
-
-
-
-
-
 
 export default CreateProject

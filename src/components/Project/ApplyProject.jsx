@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -18,7 +18,6 @@ function ApplyProject({projectID}) {
   
   const handleMotivationLetterChange = (event) => {
     setApplicationToCreate({...applicationToCreate, motivationLetter : event.target.value})
-    //  console.log(applicationToCreate)
   }
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -28,7 +27,6 @@ function ApplyProject({projectID}) {
   };
 
   const handleSubmit = () => {
-    console.log(applicationToCreate)
     dispatch(createApplicationAsync(applicationToCreate))
     handleClose();
   }
@@ -39,7 +37,6 @@ function ApplyProject({projectID}) {
       <Button variant="primary" onClick={handleShow}>
         Send søknad
       </Button>
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Send søknad til {project.name} </Modal.Title>
@@ -55,10 +52,8 @@ function ApplyProject({projectID}) {
               controlId="exampleForm.ControlTextarea1">
               <Form.Label>Mine ferdigheter</Form.Label>
               <h4> <UserSkills /></h4>
-
               <Form.Label>Motivasjonsbrev *</Form.Label>
               <Form.Control as="textarea" rows={5} onChange={handleMotivationLetterChange} placeholder="Hvorfor vil du bli med ..."/>
-
             </Form.Group>
           </Form>
         </Modal.Body>

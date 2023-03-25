@@ -7,11 +7,15 @@ import searchReducer from "./searchReducer";
 import skillsReducer from "./skillsReducer";
 import applicationsReducer from "./applicationsReducer"
 import applicationReducer from "./applicationReducer"
+import userProjectsReducer from "./userProjectsReducer";
+import viewedUserReducer from "./viewedUserReducer";
 
 
 export default configureStore({
     reducer: {
         user: userReducer,
+        userProjects: userProjectsReducer,
+        viewedUser: viewedUserReducer,
         project: projectReducer,
         banners: projectBannersReducer,
         category: categoryReducer,

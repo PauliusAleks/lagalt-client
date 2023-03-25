@@ -1,36 +1,41 @@
-import { React, useEffect, useState } from 'react'
+import { React, useEffect } from 'react'
 import keycloak from '../keycloak'
-import { Button, Form, Alert } from 'react-bootstrap'
+import { Button, Form, Alert, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-import { changeIsHidden, checkForUserAsync, getUserAsync, loginUserAsync, createUserAsync, setUpdated } from '../reduxParts/userReducer';
+import {  setUpdated } from '../reduxParts/userReducer';
 import  ProfileInfo  from '../components/Profile/ProfileInfo'
 import { setSearchShowFalse } from '../reduxParts/searchReducer';
 import { NavLink } from "react-router-dom";
 import SettingsSVG from '../components/Profile/SettingsSVG';
 import BackArrowSVG from './BackArrowSVG';
-// import Modal from 'react-bootstrap/Modal';
+import { getContributorProjectsAsync } from '../reduxParts/userProjectsReducer';
+import './IconAnimations.css'
 
 
 const ProfilePage =() => {
     const user = useSelector((state) => state.user)
+    const contributorProjects = useSelector((state => state.userProjects))
+    const projects = useSelector((state => state.banners.project))
+
     const dispatch = useDispatch();
 
     useEffect(()=> {
+        dispatch(getContributorProjectsAsync(user.id))
         dispatch(setSearchShowFalse())
     })
-    const handleLogout = () => {
-        keycloak.logout()
-    }
 
     const tokenLog = () => {
-        console.log(keycloak.token)
+        console.log("cons",contributorProjects)
+        console.log("projects",projects)
+
+        //console.log(keycloak.token)
     }
     const tokenParsed = () => {
         console.log(keycloak.tokenParsed)
     }
 
     return (
-        <div className="p-3" style={{ backgroundColor: '#EEEEEE'}}>
+        <div style={{ backgroundColor: '#EEEEE', fontFamily: 'Arial, sans-serif',}}>
         {user.updated &&
         <div className="d-flex justify-content-center p-3">
             <Alert variant="success" 
@@ -45,15 +50,15 @@ const ProfilePage =() => {
             </Alert>
             </div>
             }
-            <div className="container p-3 rounded" style={{fontFamily: 'Arial, sans-serif', backgroundColor: '#F8F9FA'}}>
-            <NavLink to="/"><BackArrowSVG/></NavLink>
-            <NavLink to="/EditProfilePage" onClick={() => dispatch(setUpdated(false))} >
-                    <Button className="rounded-circle" variant="light" style={{ alignItems:'center',
-                    float:'right',
-                    width:'60px',
-                    height:'60px',
-                    padding: '0px',
-                    marginLeft: '30px'}}><SettingsSVG/></Button>
+            <Container>
+                <div>
+                    <h1 className="mr-1 p-3">Din Profil</h1>
+                    <div style={{backgroundColor:'#000000', height:'2px', width:'97%', marginLeft:'15px', marginBottom:'10px'}}></div>
+                </div>
+            <div className="container mt-5 p-3 rounded" style={{fontFamily: 'Arial, sans-serif', backgroundColor: '#F8F9FA'}}>
+                <NavLink to="/"><BackArrowSVG className="backarrow"/></NavLink>
+                <NavLink to="/EditProfilePage" onClick={() => dispatch(setUpdated(false))} >
+                    <SettingsSVG style={{float:'right'}} className="settings"/>
                 </NavLink>
                 <Form>
                     
@@ -67,17 +72,14 @@ const ProfilePage =() => {
                 <img src="https://icon-library.com/images/incognito-icon/incognito-icon-19.jpg"
                 alt="privat" width="200" className="rounded-circle"/>
                     }
-                
                 {!user.isHidden && 
                 <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" 
                 alt="offentlig" width="200" className="rounded-circle"/>}
-                
-        
-                <ProfileInfo user={user}></ProfileInfo>
-            
-                <Button variant="danger" style={{float:'right', marginBottom:'-50px'}} onClick={handleLogout}>Logg ut</Button>
+                <ProfileInfo user={user} contributorProjects={contributorProjects}></ProfileInfo>
             </div>
+            </Container>
         </div>
+        
         )
 }
 

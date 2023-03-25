@@ -4,13 +4,15 @@ import { Button, ProgressBar, Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom"
 import { setSearchShowFalse } from '../reduxParts/searchReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { getViewedUserAsync } from "../reduxParts/viewedUserReducer";
 import { PROGRESS } from "../const/progress";
-import { Carousel } from "react-bootstrap";
 import ApplyProject from "../components/Project/ApplyProject";
 import ProjectSkills from "../components/Project/ProjectSkills";
 import ImageArrowSVG from "./ImageArrowSVG";
-import DeleteProject from "../components/Project/DeleteProject";
+import AdminProjectHandler from "../components/Project/AdminProjectHandler";
 import BackArrowSVG from "./BackArrowSVG";
+import './ScrollBar.css'
+import './IconAnimations.css'
 
 function ProjectPage() {
     const project = useSelector((state) => state.project)
@@ -46,6 +48,15 @@ function ProjectPage() {
         element.scroll(scrollAmountRight,0)
     }
 
+    let contributors = project.contributors.map((contributor, key) => {
+        return (
+            <li><Button variant="light"><NavLink to="/viewedProfile" className="link-dark" style={{ height: '12px',
+            textDecoration: 'none',
+            color: '#393E46',
+            }} onClick={() => dispatch(getViewedUserAsync(contributor))}><h4>{contributor}</h4></NavLink></Button></li>
+        )
+    })
+
     let images = project.imageUrls.map((image, key) => {
         if(project.imageUrls.length > 0) { 
             return (
@@ -80,13 +91,30 @@ function ProjectPage() {
     const checkProjectAdmin = () => {
         return project.admins.includes(user.username)
     }
+    /*
+    const checkProjectContributor = () => {
+        return project.contributors.includes(user.username)
+    }*/
 
     return (
-        <div style={{ backgroundColor: '#EEEEEE', padding:'16px'}}>
-        <div className="p-2 container rounded" style={{fontFamily: 'Arial, sans-serif', backgroundColor: '#F8F9FA'}} >
-            <NavLink to="/"><BackArrowSVG/></NavLink>
+        
+        <div style={{ backgroundColor: '#EEEEEE', fontFamily: 'Arial, sans-serif'}}>
+            <Container>
+                <div>
+                    <h1 className="mr-1 p-3">Prosjekt </h1>
+                    <div style={{backgroundColor:'#000000', height:'2px', width:'97%', marginLeft:'15px', marginBottom:'10px'}}></div>
+                </div>
+         <div className="container p-3 mt-5 rounded" style={{ backgroundColor: '#F8F9FA'}} >
+            <NavLink to="/"><BackArrowSVG className="backarrow"/></NavLink>
+            {!checkProjectAdmin(project.id) &&
             <div className="p-2" style={{float:'right'}}>
                 <ApplyProject/>
+            </div>
+            }
+            <div className="p-2" style={{float:'right'}}>
+                {checkProjectAdmin(project.id) && (
+                <h4>Hei {user.username}, du er administrator!</h4>
+                )}
             </div>
             <div className="p-3">
                 <h1 className="text-center p-2">{project.name}</h1>
@@ -97,7 +125,7 @@ function ProjectPage() {
                 <div style={{padding: '0px', margin:'0px', boxSizing:'border-box',}}>
                     <div style={{ display:'flex', justifyContent:'center', alignItems:'center'}}>
                         <Button variant="light" style={{float:'left', height:'50px', transform:'rotate(-180deg)'}} onClick={handleClickLeft}><ImageArrowSVG/></Button>
-                                <div id="MAIN" style={{display:'flex',
+                                <div id="MAIN" className="scrollbar" style={{display:'flex',
                                 overflowX:'scroll', padding:'24px',
                                 width:'400px', height:'400px',
                                 scrollSnapType:'x mandatory', scrollPadding:'24px',
@@ -107,20 +135,23 @@ function ProjectPage() {
                      </div>
                 </div>
                 }
-                <div className="p-2" style={{float:'right'}}>
-                    {checkProjectAdmin(project.id) && (
-                    <DeleteProject/>
-                    )}
-                </div>
                 <h4 className="p-2">Ferdigheter vi trenger:</h4>
                 <div className="p-2"><ProjectSkills/></div>
                 <h3 className="p-2">Om prosjektet:</h3>
                 <p className="p-2">{project.description}</p>
+                <h3 className="pb-2">Contributors: </h3>
+                    <ul style={{listStyleType: 'none'}}>{contributors}</ul>
                 <h3 className="p-2">GitURL:</h3>
                 <a href={project.gitURL} className="p-2">{project.gitURL}</a>
+                <div className="p-2" style={{float:'right'}}>
+                    {checkProjectAdmin(project.id) && (
+                    <AdminProjectHandler/>
+                    )}
+                </div>
             </div>
 
         </div>
+        </Container>
         </div>
     )
 }

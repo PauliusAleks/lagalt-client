@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { storageSave } from "../utils/storage";
 
 const baseURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";

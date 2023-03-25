@@ -6,16 +6,37 @@
     overflow: hidden;
     line-height: 0;
     position: sticky;
-    z-index: 50;   
+    z-index: 2;
 }
 
 .custom-shape-divider-top-1679594416 svg {
-    position: relative;
     display: block;
     width: calc(100% + 1.3px);
     height: 28px;
 }
 
 .custom-shape-divider-top-1679594416 .shape-fill {
+    fill: #449DD1;
+}
+
+.custom-shape-divider-top-1679663728 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    position: sticky;
+    z-index: 2;
+}
+
+.custom-shape-divider-top-1679663728 svg {
+    position: relative;
+    display: block;
+    width: calc(118% + 1.3px);
+    height: 28px;
+}
+
+.custom-shape-divider-top-1679663728 .shape-fill {
     fill: #449DD1;
 }

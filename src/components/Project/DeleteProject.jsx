@@ -23,11 +23,6 @@ function DeleteProject() {
   };
 
 
-    // const handleDeleteProject = (projectId, adminId) => {
-    //     dispatch(deleteProjectAsync({projectId, adminId}));
-    // }
-
-
     const handleSubmit = () => {
         dispatch(deleteProjectAsync(projectToDelete))
             .then((result) => {

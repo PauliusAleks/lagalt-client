@@ -4,7 +4,7 @@ import axios from "axios";
 const baseURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
 export const getProjectBannersAsync = createAsyncThunk(
-    'project/getProjectBannersAsync',
+    'projects/getProjectBannersAsync',
     async () => {
         const response = await fetch(`${debugBaseURL}/api/projects/banners`)
         if(response.ok){
@@ -13,7 +13,16 @@ export const getProjectBannersAsync = createAsyncThunk(
         }
     }
 )
-
+export const getContributorProjectsAsync = createAsyncThunk(
+    'user/getContributorProjectsAsync',
+    async (id) => {
+        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/users/${id}/contributorProjects`)
+        if(response.ok){
+            const result = response.json()
+            return result;
+        }
+    }
+)
 export const projectSlice = createSlice({
     name: 'projects',
     initialState: {

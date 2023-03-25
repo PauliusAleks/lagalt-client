@@ -5,7 +5,7 @@ function KeycloakConnectingPage() {
  
 
 return (
-    <div className="text-center pt-5">
+    <div className="text-center" style={{paddingTop:'200px'}}>
         <h1>Connecting to keycloak ...</h1>
         <div className="p-5">
             <Spinner animation="grow" role="status">
