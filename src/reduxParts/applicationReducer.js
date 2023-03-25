@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { storageSave } from "../utils/storage";
 
+const baseURL = "https://lagaltapi.azurewebsites.net";
+const debugBaseURL = "https://localhost:7125";
+
 export const createApplicationAsync = createAsyncThunk(
     'project/createApplicationAsync',
     async (applicationData) => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/applications/createApplication`, {
+        const response = await fetch(debugBaseURL+ `/api/applications/createApplication`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -22,7 +25,7 @@ export const createApplicationAsync = createAsyncThunk(
 export const setApplicationToAcceptedAsync = createAsyncThunk(
     'project/setApplicationToAcceptedAsync',
     async (id) => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/applications/accept/${id}`)
+        const response = await fetch(debugBaseURL + `/api/applications/accept/${id}`)
         if(response.ok){
             const result = response.json()
             return result;
@@ -32,7 +35,7 @@ export const setApplicationToAcceptedAsync = createAsyncThunk(
 export const setApplicationToRejectedAsync = createAsyncThunk(
     'project/setApplicationToRejectedAsync',
     async (id) => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/applications/reject/${id}`)
+        const response = await fetch(debugBaseURL + `/api/applications/reject/${id}`)
         if(response.ok){
             const result = response.json()
             return result;

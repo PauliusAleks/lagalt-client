@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { storageSave } from "../utils/storage";
 import axios from "axios";
-
+const baseURL = "https://lagaltapi.azurewebsites.net";
+const debugBaseURL = "https://localhost:7125";
 export const getProjectBannersAsync = createAsyncThunk(
     'project/getProjectBannersAsync',
     async () => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/banners`)
+        const response = await fetch(`${debugBaseURL}/api/projects/banners`)
         if(response.ok){
             const result = response.json()
             return result;
