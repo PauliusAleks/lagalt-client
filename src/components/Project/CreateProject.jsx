@@ -2,13 +2,16 @@ import React, { useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button, ListGroup, Modal, InputGroup, CloseButton, Badge } from 'react-bootstrap';
 import { createProjectAsync } from '../../reduxParts/projectReducer';
+import { addProject } from '../../reduxParts/projectBannersReducer';
 import PlussSVG from './PlussSVG';
 import '../../pages/IconAnimations.css'
+import { parseCategory, parseProgress } from '../../const/parseCategoryProgress';
 
 
 function CreateProject() {
   const [show, setshow] = useState(false);
   const user = useSelector((state) => state.user)
+  const projects = useSelector((state) => state.banners)
   const dispatch = useDispatch();
   const [characterLimit] = useState(250);
 
@@ -19,7 +22,7 @@ function CreateProject() {
     description:"",
     gitUrl:"",
     imageUrls:[],
-    NeededSkills:[],
+    neededSkills:[],
     adminId: -1,
     contributorId:-1,
   })
@@ -37,7 +40,7 @@ function CreateProject() {
      description:"",
      gitUrl:"",
      imageUrls:[],
-     NeededSkills:[],
+     neededSkills:[],
      adminId: -1,
      contributorId:-1})
      setshow(true);
@@ -49,6 +52,9 @@ function CreateProject() {
       window.alert("Du må fylle ut feltene som har en stjerne")
     } else {
       dispatch(createProjectAsync(createProject));
+      dispatch(addProject(
+        [...projects.project,
+           {...createProject, category:parseCategory(createProject.category), progress:parseProgress(createProject.progress)}]))
       handleClose();
     }
   };
@@ -75,15 +81,15 @@ function CreateProject() {
 
   const handleAddSkill = () => {
     let newSkill = document.getElementById('neededSkills').value.trim()
-    if(!createProject.NeededSkills.includes(newSkill)){
-      setCreateProject({...createProject, NeededSkills: [...createProject.NeededSkills, newSkill]})
+    if(!createProject.neededSkills.includes(newSkill)){
+      setCreateProject({...createProject, neededSkills: [...createProject.neededSkills, newSkill]})
     }
     document.getElementById('neededSkills').value = "";
   }
 
 
   const handleRemoveSkill = (event) => {
-    setCreateProject({...createProject, NeededSkills: createProject.NeededSkills.filter(skill=>skill !== event.target.id)})
+    setCreateProject({...createProject, neededSkills: createProject.neededSkills.filter(skill=>skill !== event.target.id)})
   }
 
   const handleRemoveImage = (event) => {
@@ -106,7 +112,7 @@ function CreateProject() {
               <Form.Label><div className="d-flex">Tittel<p style={{color:'red'}}>*</p></div></Form.Label>
               <Form.Control
                 type="title"
-                placeholder="Prosjekttittel"
+                placeholder="Tittel på prosjektet"
                 onChange={handleChange1}
                 name="name"
               />
@@ -143,7 +149,7 @@ function CreateProject() {
               <Form.Label>Bilder</Form.Label>
               <InputGroup>
                 <Form.Control type="text" id="imageUrls" placeholder="Legg til en link" />
-                <Button variant="secondary" onClick={handleAddImage}>Add</Button>
+                <Button variant="secondary" onClick={handleAddImage}>Legg til</Button>
               </InputGroup>
               <ul>
                 {createProject.imageUrls.map((url, index) => (
@@ -155,11 +161,11 @@ function CreateProject() {
 
               <Form.Label>Ferdigheter prosjektet ser etter</Form.Label>
               <InputGroup>
-              <Form.Control type="text" id="neededSkills" placeholder="Legg til en skill" />
-              <Button variant="secondary" style={{float:'right'}} onClick={handleAddSkill}>Add</Button>
+              <Form.Control type="text" id="neededSkills" placeholder="Legg til en ferdighet" />
+              <Button variant="secondary" style={{float:'right'}} onClick={handleAddSkill}>Legg til</Button>
               </InputGroup>
               <ListGroup horizontal>
-                {createProject.NeededSkills.map((skill, index) => (
+                {createProject.neededSkills.map((skill, index) => (
                   <ListGroup.Item key={index}>
                     {skill} <CloseButton id={skill} onClick={handleRemoveSkill} style={{width:'5px', height:'5px'}} />
                   </ListGroup.Item>

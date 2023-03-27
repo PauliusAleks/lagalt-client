@@ -7,6 +7,7 @@ import DeleteProject from "./DeleteProject";
 import EditProjectList from "./EditProjectList";
 import EditProjectText from "./EditProjectText";
 import EditProjectSelect from "./EditProjectSelect";
+import { parseCategory, parseProgress } from "../../const/parseCategoryProgress";
 
 
 
@@ -33,15 +34,7 @@ function AdminProjectHandler() {
       dispatch(updateProjectAsync(editProject))
       handleClose();
     }
-    /*
-    const handleApplicationAccept = () => {
-
-    }
-    const handleApplicationDenied = () => {
-
-    }
- */
-
+    
     return(
         <div>
             <Button variant="danger" onClick={handleShow}>Rediger prosjekt</Button>

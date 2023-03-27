@@ -1,4 +1,5 @@
 import keycloak from "../../keycloak"
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
@@ -8,6 +9,8 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import SkillCompare from "./SkillCompare";
 import './BannerAnimation.css'
+import { getUserAsync } from "../../reduxParts/userReducer";
+import { getProjectBannersAsync } from "../../reduxParts/projectBannersReducer";
 
 
 
@@ -17,12 +20,12 @@ const ProjectBanner = ({projects}) => {
     const category = useSelector((state) => state.category)
     const search = useSelector((state) => state.search)
     const user = useSelector((state) => state.user)
-    /*
+    
     useEffect(()=> {
         dispatch(getProjectBannersAsync())
     },[])
-    */
-
+    
+    if (user.skills !== null) {
     let testProject = projects.project.map((project,key) => {
         //if stalled progress equal to 0
         let progress = 0;
@@ -35,25 +38,29 @@ const ProjectBanner = ({projects}) => {
         }
 
         let skillsTest = project.neededSkills.map((skill, key) => {
-            if (user.skills.includes(skill)) {
-                return (
-                    <div key={key} className="p-1 d-inline">
-                        <Button className="mt-2" variant="success" size="sm" disabled>
-                            {skill}
-                        </Button>
-                    </div>
-                )
+            if(user.skills !== null) {
+                if (user.skills.includes(skill)) {
+                    return (
+                        <div key={key} className="p-1 d-inline">
+                            <Button className="mt-2" variant="success" size="sm" disabled>
+                                {skill}
+                            </Button>
+                        </div>
+                    )
+                }
+                else {
+                    return (
+                        <div key={key} className="p-1 d-inline">
+                            <Button className="mt-2" variant="secondary" size="sm" disabled>
+                                {skill}
+                            </Button>
+                        </div>
+                    )
+                }
             }
-            else {
-                return (
-                    <div key={key} className="p-1 d-inline">
-                        <Button className="mt-2" variant="secondary" size="sm" disabled>
-                            {skill}
-                        </Button>
-                    </div>
-                )
-            }
+           
         })
+        
         if (project.name.toLowerCase().includes(search.text.toLowerCase()) || search === "") {
             if (project.category === category || category === "Alle" || category === "Velg kategori") {
                 return (
@@ -119,17 +126,32 @@ const ProjectBanner = ({projects}) => {
                                 </div>
                             </Col>
                             }
+                        
                         </Row>
                     </Container>
                 );
             }
         }
     return <> </>
+
 });
     return (
         <div>
                 {testProject}
         </div>
     )
+    }
+    else {
+        return (
+            <div style={{ display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center', top:'250px'}}>
+                <div style={{display: 'flex',
+                justifyContent: 'center'}}>
+                    <NavLink to="/profile" className="text-decoration-none text-dark" onClick={() => dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))}><h1>Trykk her for å fullføre profilen din</h1></NavLink>
+                </div>
+            </div>
+        )
+    }
 }
 export default ProjectBanner

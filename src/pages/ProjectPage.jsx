@@ -11,8 +11,11 @@ import ProjectSkills from "../components/Project/ProjectSkills";
 import ImageArrowSVG from "./ImageArrowSVG";
 import AdminProjectHandler from "../components/Project/AdminProjectHandler";
 import BackArrowSVG from "./BackArrowSVG";
+import ChatIconSVG from "../components/Chat/ChatIconSVG";
+import '../components/Chat/ChatIcon.css'
 import './ScrollBar.css'
 import './IconAnimations.css'
+import ApplicationHandler from "../components/Project/ApplicationHandler";
 
 function ProjectPage() {
     const project = useSelector((state) => state.project)
@@ -91,29 +94,33 @@ function ProjectPage() {
     const checkProjectAdmin = () => {
         return project.admins.includes(user.username)
     }
-    /*
+    
     const checkProjectContributor = () => {
         return project.contributors.includes(user.username)
-    }*/
+    }
 
     return (
         
-        <div style={{ backgroundColor: '#EEEEEE', fontFamily: 'Arial, sans-serif'}}>
+        <div style={{ backgroundColor: '#EEEEEE', fontFamily: 'Arial, sans-serif',  height:'100vh', minHeight: '100vh'}}>
             <Container>
                 <div>
-                    <h1 className="mr-1 p-3">Prosjekt </h1>
+                    <h1 className="mr-1 p-3">Prosjekt </h1> 
                     <div style={{backgroundColor:'#000000', height:'2px', width:'97%', marginLeft:'15px', marginBottom:'10px'}}></div>
                 </div>
          <div className="container p-3 mt-5 rounded" style={{ backgroundColor: '#F8F9FA'}} >
             <NavLink to="/"><BackArrowSVG className="backarrow"/></NavLink>
-            {!checkProjectAdmin(project.id) &&
+         {!checkProjectAdmin(project.id) && !checkProjectContributor(project.id) &&
             <div className="p-2" style={{float:'right'}}>
                 <ApplyProject/>
             </div>
             }
+            {checkProjectContributor(project.id) && checkProjectContributor(project.id) &&
+                <NavLink to="/chat" style={{padding: '20px', float:'right'}}><ChatIconSVG className="chat" /></NavLink>
+            }
             <div className="p-2" style={{float:'right'}}>
                 {checkProjectAdmin(project.id) && (
-                <h4>Hei {user.username}, du er administrator!</h4>
+                // <h4>Hei {user.username}, du er administrator!</h4>,
+                <ApplicationHandler project={project}/>
                 )}
             </div>
             <div className="p-3">

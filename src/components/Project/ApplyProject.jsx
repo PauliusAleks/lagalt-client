@@ -34,9 +34,7 @@ function ApplyProject({projectID}) {
   
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Send søknad
-      </Button>
+      <Button variant="success" onClick={handleShow}>Send søknad</Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Send søknad til {project.name} </Modal.Title>
