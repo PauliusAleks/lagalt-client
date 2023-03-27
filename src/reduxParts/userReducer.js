@@ -7,7 +7,7 @@ export const createHeaders = () => {
         //Authorization: `Bearer ${keycloak.token}` FOR AUTH
     }
 }
-const baseURL = "https://lagaltapi.azurewebsites.net";
+const deployURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
 
 export const getUserAsync = createAsyncThunk(
