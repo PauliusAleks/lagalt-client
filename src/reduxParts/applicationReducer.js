@@ -4,7 +4,7 @@ const baseURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
 
 export const createApplicationAsync = createAsyncThunk(
-    'project/createApplicationAsync',
+    'application/createApplicationAsync',
     async (applicationData) => {
         const response = await fetch(baseURL+ `/api/applications/createApplication`, {
             method: 'POST',
@@ -22,9 +22,14 @@ export const createApplicationAsync = createAsyncThunk(
 
 
 export const setApplicationToAcceptedAsync = createAsyncThunk(
-    'project/setApplicationToAcceptedAsync',
+    'application/setApplicationToAcceptedAsync',
     async (id) => {
-        const response = await fetch(baseURL + `/api/applications/accept/${id}`)
+        const response = await fetch(baseURL + `/api/applications/accept/${id}`,{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
         if(response.ok){
             const result = response.json()
             return result;
@@ -32,9 +37,14 @@ export const setApplicationToAcceptedAsync = createAsyncThunk(
     }
 )
 export const setApplicationToRejectedAsync = createAsyncThunk(
-    'project/setApplicationToRejectedAsync',
+    'application/setApplicationToRejectedAsync',
     async (id) => {
-        const response = await fetch(baseURL + `/api/applications/reject/${id}`)
+        const response = await fetch(baseURL + `/api/applications/reject/${id}`,{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
         if(response.ok){
             const result = response.json()
             return result;
@@ -42,16 +52,24 @@ export const setApplicationToRejectedAsync = createAsyncThunk(
     }
 )
 
+
 export const applicationSlice = createSlice({
-    name: 'appliction',
+    name: 'application',
     initialState: {
         id: null,
         userId: null,
         projectId: null, //enum
-        motivationLetter: "", //enum
-        state: ""
+        motivationLetter: "",
+        state: null //enum
     },
     reducers: {
+        setApplication: (state, action) => {
+            state.id = action.payload.id;
+            state.userId = action.payload.userId;
+            state.projectId = action.payload.projectId;
+            state.motivationLetter = action.payload.motivationLetter;
+            state.state = action.payload.state;
+        }
     },
     extraReducers: {
         [createApplicationAsync.rejected] : (state, action) => {
@@ -59,5 +77,5 @@ export const applicationSlice = createSlice({
         }
     }
 })
-
+export const {setApplication} = applicationSlice.actions
 export default applicationSlice.reducer

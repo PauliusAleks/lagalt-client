@@ -54,9 +54,12 @@ export const createUserAsync = createAsyncThunk(
                 if (!response.ok) {
                     throw new Error("Could not create user with username ")
                 }
-                const data = await response.json()
+                if (response.ok ) {
+                    await dispatch(getUserAsync(token.preferred_username))
+                }
+                const result = await response.json()
                 
-                return [null, data]
+                return result
             }
         }
         
@@ -86,16 +89,16 @@ export const updateUserAsync = createAsyncThunk(
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        id: null,
-        username: "",
-        firstName: "",
-        lastName: "",
+        id: 0,
+        username: "initUser",
+        firstName: "initUser",
+        lastName: "initUser",
         isHidden: false, 
         email: "",
         portfolio: "",
-        skills: [],
-        contributorProjects:[],
-        adminProjects:[],
+        skills: ["initSkill", "initSkill2"],
+        contributorProjects:[1],
+        adminProjects:[1],
         updated: false
     },
     reducers: {
