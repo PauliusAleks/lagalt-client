@@ -8,18 +8,19 @@ export const getProjectApplicationAsync = createAsyncThunk(
         const response = await fetch(baseURL+`/api/Applications/getAllApplicationsInProject/${project.id}`)
         if(response.ok){
             const result = await response.json()
-            return result;
+            // return result;
             //test below:
-            /*
+            
             const applicationUserPromises = result.map(async (application) => {
                 const userResponse = await fetch(baseURL+`/api/Users/${application.userId}`);
                 const userData = await userResponse.json();
-                return { ...application, user: userData }; */
-        };
-        /*
+                return { ...application, user: userData }; 
+        });
+        
         const applicationsWithUser = await Promise.all(applicationUserPromises);
-        return applicationsWithUser; */
-    });
+        return applicationsWithUser; 
+    };
+});
 
 export const applicationsSlice = createSlice({
     name: 'applications',

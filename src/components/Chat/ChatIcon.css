@@ -1,0 +1,9 @@
+.chat{
+    will-change: transform;
+    transition: transform 450ms;
+  }
+  
+  .chat:hover {
+    transition: transform 325ms;
+    transform:  scale(1.3);
+  }

@@ -1,10 +1,17 @@
 import React from "react";
 import keycloak from "../../keycloak";
 import { Button } from "react-bootstrap";
+import { setTrue } from '../../reduxParts/loggedInReducer'
+import { useDispatch, useSelector } from "react-redux";
 function Actions() {
 
+  const dispatch = useDispatch()
+  const loggedIn = useSelector((state) => state.loggedIn)
+
     function handleLogin() {
+        dispatch(setTrue())
         keycloak.login()
+        
     }
     
     return(

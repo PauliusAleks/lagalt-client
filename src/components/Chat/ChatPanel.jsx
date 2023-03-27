@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import * as signalR from "@microsoft/signalr";
 import { useDispatch,useSelector } from "react-redux";
 import { getUserAsync } from "../../reduxParts/userReducer";
+import keycloak from "../../keycloak";
 
 
 function useSignalRConnection() {
@@ -40,13 +41,13 @@ function ChatPanel() {
   const userState = useSelector((state) => state.user);
   const connection = useSignalRConnection();
   
-  console.dir(userState);
+  //console.dir(userState);
 
   useEffect(() => {
-    dispatch(getUserAsync())
+    dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
       .then((user) => setUser(user))
       .catch((error) => console.error(error));
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     fetch("https://lagaltapi.azurewebsites.net/api/UserMessage")

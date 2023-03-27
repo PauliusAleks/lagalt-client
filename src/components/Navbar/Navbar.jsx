@@ -4,11 +4,16 @@ import Logo from "./logo/Logo";
 import Searchbar from "./searchbar/Searchbar";
 import Actions from "./Actions";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import './Navbar.css'
+import ChatIconSVG from "../Chat/ChatIconSVG";
 import { Button } from 'react-bootstrap';
+import { setTrue } from '../../reduxParts/loggedInReducer'
+import { getUserAsync } from "../../reduxParts/userReducer";
+import '../Chat/ChatIcon.css'
 
 const NavbarHeader = () => {
+    const dispatch = useDispatch()
     const search = useSelector((state) => state.search)
     const user = useSelector((state) => state.user)
 
@@ -23,9 +28,8 @@ const NavbarHeader = () => {
             <Logo />
             {search.show === true && <Searchbar /> }
             {!keycloak.authenticated && <Actions />}
-            {keycloak.authenticated && <NavLink to="/chat" style={{padding: '20px'}}><Button>Chat</Button></NavLink>}
             {keycloak.authenticated && 
-                <NavLink to="/profile" className="link-dark" style={{ padding: '16px',
+                <NavLink to="/profile" onClick={() => dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))} className="link-dark" style={{ padding: '16px',
                 textDecoration: 'none',
                 color: '#393E46',
                 textAlign: 'center'}}>
