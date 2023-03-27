@@ -9,6 +9,7 @@ import applicationsReducer from "./applicationsReducer"
 import applicationReducer from "./applicationReducer"
 import userProjectsReducer from "./userProjectsReducer";
 import viewedUserReducer from "./viewedUserReducer";
+import loggedInReducer from "./loggedInReducer"
 
 
 export default configureStore({
@@ -23,5 +24,6 @@ export default configureStore({
         skills: skillsReducer,
         applications: applicationsReducer,
         application: applicationReducer,
+        loggedIn: loggedInReducer
     }
 })

@@ -3,8 +3,10 @@ import { storageSave } from "../utils/storage";
 import axios from "axios";
 const baseURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
+
 export const getProjectBannersAsync = createAsyncThunk(
     'projects/getProjectBannersAsync',
+
     async () => {
         const response = await fetch(`${baseURL}/api/projects/banners`)
         if(response.ok){
@@ -28,7 +30,12 @@ export const projectSlice = createSlice({
     initialState: {
         project: []
     },
-    reducers: {},
+    reducers: {
+        addProject: (state, action) => {
+            console.log(action.payload)
+           //state.project = action.payload
+        }
+    },
     extraReducers: {
         [getProjectBannersAsync.fulfilled] : (state, {payload}) => {
             state.project = payload;
@@ -41,5 +48,5 @@ export const projectSlice = createSlice({
     }
 })
 
-export const {setProject} = projectSlice.actions
+export const {setProject, addProject} = projectSlice.actions
 export default projectSlice.reducer
