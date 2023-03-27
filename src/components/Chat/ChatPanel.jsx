@@ -3,6 +3,11 @@ import * as signalR from "@microsoft/signalr";
 import { useDispatch,useSelector } from "react-redux";
 import { getUserAsync } from "../../reduxParts/userReducer";
 import keycloak from "../../keycloak";
+import { Container } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import ChatSendSVG from "./ChatSendSVG";
+import BackArrowSVG from "../../pages/BackArrowSVG";
+import '../../pages/IconAnimations.css'
 
 
 function useSignalRConnection() {
@@ -38,10 +43,16 @@ function ChatPanel() {
   const [user, setUser] = useState({});
   const [messages, setMessages] = useState([]);
   const dispatch = useDispatch();
+  const project = useSelector((state) => state.project)
   const userState = useSelector((state) => state.user);
   const connection = useSignalRConnection();
   
   //console.dir(userState);
+
+  const scrollToBottom = (id) => {
+    const element = document.getElementById(id);
+    element.scrollTop = element.scrollHeight;
+}
 
   useEffect(() => {
     dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
@@ -64,6 +75,11 @@ function ChatPanel() {
       });
     }
   }, [connection]);
+
+  useEffect(()=> {
+    scrollToBottom("chats")
+    window.scrollTo(0, 0)
+})
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -92,9 +108,23 @@ function ChatPanel() {
   };
 
   return (
-    <div className="w-50">
+    <div style={{height: '100vh', backgroundColor: '#EEEEEE',fontFamily: 'Arial, sans-serif'}}>
+    <Container className="p-2">
+    <div >
+          <h1 className="mr-1 p-3">Chat</h1>
+          <div style={{backgroundColor:'#000000', height:'2px', width:'97%', marginLeft:'15px', marginBottom:'10px'}}></div>
+      </div>
+    <div className="rounded p-3 mt-3" style={{backgroundColor: 'white', textAlign:'center'}}>
+    <NavLink to="/project" style={{float:'left'}}><BackArrowSVG className="backarrow"/></NavLink>
+        <div className="rounded p-2 border-dark border border-2 d-inline-block" style={{width:'auto', backgroundColor:'#449DD1'}}>
+        <div className="d-flex justify-content-center">
+          <h2>{project.name} Chat</h2>
+        </div>
+    <div className="d-flex justify-content-center p-3">
       <div className="messages">
         <ul className="list-group list-group-flush">
+        <div id="chats" className="bg-light w-100 rounded ml-5 border border-1 border-dark" 
+            style={{overflowY: 'scroll', maxHeight: '500px', maxWidth:'500px', textAlign:'start'}}>
           {messages.map((msg, i) => (
             <li className="list-group-item" key={i}>
               <p>
@@ -102,16 +132,22 @@ function ChatPanel() {
               </p>
             </li>
           ))}
+          </div>
         </ul>
-      </div>
-      <div className="message-input">
-        <form name="form" onSubmit={handleSubmit} className="form ">
-          <label htmlFor="message-input-form">Melding</label>
-          <input placeholder={"Skriv her"} />
-          <button>Send</button>
-        </form>
-      </div>
+        </div>
     </div>
+    <div className="d-flex justify-content-center">
+     <div className="message-input">
+          <form name="form" onSubmit={handleSubmit} className="form p-2">
+            <input className="rounded" style={{marginLeft:'20px', width:'450px'}} placeholder={"Skriv her"} />
+              <button style={{padding:'0', border:'none', background:'none', marginLeft:'20px'}}><ChatSendSVG className="send"/></button>
+          </form>
+          </div>
+        </div>
+        </div>
+        </div>
+        </Container>
+      </div>
   );
 }
 
