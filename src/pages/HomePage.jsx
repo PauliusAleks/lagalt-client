@@ -14,23 +14,55 @@ import './IconAnimations.css'
 
 function ProjectBannerPage() {
     const dispatch = useDispatch();
+    const projects = useSelector((state) => state.banners)
+    const user = useSelector((state) => state.user)
+    const loggedIn = useSelector((state) => state.loggedIn)
+
+    /*
+    useEffect(()=> {
+        dispatch(getProjectBannersAsync())
+        dispatch(setSearchShowTrue())
+        if(keycloak.authenticated) {
+            const checkError =  dispatch(checkForUserAsync(keycloak.tokenParsed.preferred_username));
+            
+            if(!checkError.payload) {
+                dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
+            }
+            if(keycloak.preferred_username === undefined){
+                console.log()
+            }
+            else {   
+                console.log("yeah")
+                if(checkError.payload) {
+                    dispatch(createUserAsync(keycloak.tokenParsed))
+                }
+            }
+        }
+    },[]) */
+
     useEffect(()=> {
         dispatch(setSearchShowTrue())
         if(keycloak.authenticated) {
             const checkError =  dispatch(checkForUserAsync(keycloak.tokenParsed.preferred_username));
             checkError.then(error => {
-                dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
                 if(error.payload) {
                     dispatch(createUserAsync(keycloak.tokenParsed))
                 }
+                else {
+                    dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
+                }
             }) 
         }
-    })
-    const projects = useSelector((state) => state.banners)
-
+    },[keycloak.authenticated])
+    
     useEffect(()=> {
         dispatch(getProjectBannersAsync())
-    })
+     },[])
+     
+
+     
+
+
     
     return (
         <div className="projectPage" style={{fontFamily: 'Arial, sans-serif',  backgroundColor: '#EEEEEE', zIndex:'-2'}}>

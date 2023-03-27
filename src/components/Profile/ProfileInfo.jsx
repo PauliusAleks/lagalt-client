@@ -10,7 +10,7 @@ const handleLogout = () => {
 
 const ProfileInfo = ({user, contributorProjects}) => {
   return (
-    <div className="p-2">
+    <div className="p-2" style={{ height:'100vh'}}>
         <h1>{user.firstName} {user.lastName}</h1>
         <h5 style= {{paddingTop:30}}><b>E-post: </b></h5>
         <p>{user.email}</p>

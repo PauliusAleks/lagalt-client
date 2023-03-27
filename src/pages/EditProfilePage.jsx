@@ -66,23 +66,23 @@ const EditProfilePage = () => {
 
 
   return (
-    <div className="p-3" style={{ backgroundColor: '#EEEEEE'}}>
+    <div className="p-3" style={{ backgroundColor: '#EEEEEE', height:'100vh'}}>
       <div className="p-3 container rounded" style={{ backgroundColor: '#F8F9FA'}}>
         <div className="d-flex justify-content-end">
           <NavLink to="/profile">
             <CloseButton  />
           </NavLink>
         </div>
-        <h1>Rediger {user.username}'s profil:</h1>
+        <h1>Rediger {user.username} sin profil:</h1>
         <div className="p-3 text-center">
-          <h4>Profil status:</h4>
+          <h4>Profilstatus:</h4>
           <div className="d-flex justify-content-center align-items-center">
 
 
-            {user.isHidden &&
+            {editUser.isHidden &&
                <Button className='m-2' variant='danger'>Privat</Button>
             }
-            {!user.isHidden &&
+            {!editUser.isHidden &&
                <Button className='m-2' disabled variant='danger'>Privat</Button>
             }
             <div className="form-check form-switch ">
@@ -94,10 +94,10 @@ const EditProfilePage = () => {
                           checked={!editUser.isHidden}
                           onChange={handleIsHidden}/>
             </div>
-            {user.isHidden &&
+            {editUser.isHidden &&
                <Button className='m-2' variant='success' disabled>Offentlig</Button>
             }
-            {!user.isHidden &&
+            {!editUser.isHidden &&
                <Button className='m-2' variant='success'>Offentlig</Button>
             }
           </div>
@@ -116,8 +116,8 @@ const EditProfilePage = () => {
         {alreadyInList &&
                 <h4 style={{color:'red'}}>Du har allerede denne skillen!</h4>}
         <InputGroup>
-              <Form.Control type="text" id="Skills" onChange={handleChanges} placeholder="Legg til en skill" />
-              <Button variant="secondary" style={{float:'right'}} onClick={handleAddSkill}>Add</Button>
+              <Form.Control type="text" id="Skills" onChange={handleChanges} placeholder="Legg til en ferdighet" />
+              <Button variant="secondary" style={{float:'right'}} onClick={handleAddSkill}>Legg til</Button>
               </InputGroup>
               <ListGroup horizontal style={{
                 display: "flex",

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 export const UserSkills = () => {
 
     const user = useSelector((state) => state.user)
-    
+    if (user.skills !== null ){
     let skills = user.skills.map((skill) => {
         return (
             <div key={skill} className="p-1 d-inline">
@@ -20,6 +20,7 @@ export const UserSkills = () => {
             {skills}
         </div>
     )
+}
 }
 export default UserSkills
 

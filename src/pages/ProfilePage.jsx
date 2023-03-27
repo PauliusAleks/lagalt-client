@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import SettingsSVG from '../components/Profile/SettingsSVG';
 import BackArrowSVG from './BackArrowSVG';
 import { getContributorProjectsAsync } from '../reduxParts/userProjectsReducer';
+import { getUserAsync } from '../reduxParts/userReducer';
 import './IconAnimations.css'
 
 
@@ -22,7 +23,7 @@ const ProfilePage =() => {
     useEffect(()=> {
         dispatch(getContributorProjectsAsync(user.id))
         dispatch(setSearchShowFalse())
-    })
+    },[])
 
     const tokenLog = () => {
         console.log("cons",contributorProjects)
@@ -35,7 +36,7 @@ const ProfilePage =() => {
     }
 
     return (
-        <div style={{ backgroundColor: '#EEEEE', fontFamily: 'Arial, sans-serif',}}>
+        <div style={{ backgroundColor: '#EEEEE', fontFamily: 'Arial, sans-serif',  }}>
         {user.updated &&
         <div className="d-flex justify-content-center p-3">
             <Alert variant="success" 

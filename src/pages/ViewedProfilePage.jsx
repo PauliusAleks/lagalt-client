@@ -19,7 +19,7 @@ const ViewedProfilePage =() => {
 
     return (
         <div>
-        <div style={{ backgroundColor: '#EEEEE', fontFamily: 'Arial, sans-serif',}}>
+        <div style={{ backgroundColor: '#EEEEE', fontFamily: 'Arial, sans-serif', width:'100vw', height:'100vh'}}>
             <Container>
                 <div>
                     <h1 className="mr-1 p-3">{viewedUser.username} sin Profil</h1>
