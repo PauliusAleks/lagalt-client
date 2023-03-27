@@ -21,6 +21,7 @@ const ProfilePage =() => {
     const dispatch = useDispatch();
 
     useEffect(()=> {
+        window.scrollTo(0, 0)
         dispatch(getContributorProjectsAsync(user.id))
         dispatch(setSearchShowFalse())
     },[])
@@ -71,8 +72,7 @@ const ProfilePage =() => {
                 </Form>
                 {user.isHidden && 
                 <img src="https://icon-library.com/images/incognito-icon/incognito-icon-19.jpg"
-                alt="privat" width="200" className="rounded-circle"/>
-                    }
+                alt="privat" width="200" className="rounded-circle" />}
                 {!user.isHidden && 
                 <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" 
                 alt="offentlig" width="200" className="rounded-circle"/>}

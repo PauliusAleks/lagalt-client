@@ -8,9 +8,8 @@ import '../../pages/IconAnimations.css'
 import { parseCategory, parseProgress } from '../../const/parseCategoryProgress';
 
 
-function CreateProject() {
+function CreateProject({user}) {
   const [show, setshow] = useState(false);
-  const user = useSelector((state) => state.user)
   const projects = useSelector((state) => state.banners)
   const dispatch = useDispatch();
   const [characterLimit] = useState(250);
@@ -23,8 +22,8 @@ function CreateProject() {
     gitUrl:"",
     imageUrls:[],
     neededSkills:[],
-    adminId: -1,
-    contributorId:-1,
+    adminId: user.id,
+    contributorId: user.id,
   })
  
   // useEffect(() => {
@@ -41,13 +40,14 @@ function CreateProject() {
      gitUrl:"",
      imageUrls:[],
      neededSkills:[],
-     adminId: -1,
-     contributorId:-1})
+     adminId: user.id,
+     contributorId: user.id})
      setshow(true);
   }
 
   const handleSubmit = () => {
         // handle form submission
+        console.log(user)
     if(createProject.name === "" || createProject.description === "" || createProject.category === null) {
       window.alert("Du må fylle ut feltene som har en stjerne")
     } else {
@@ -58,7 +58,7 @@ function CreateProject() {
       handleClose();
     }
   };
-  
+
   const handleChange1 = (event) => {
     let propertyName = event.target.name;
     let propertyValue= event.target.value;
@@ -73,11 +73,10 @@ function CreateProject() {
   const handleAddImage = () => {
     let newUrl = document.getElementById('imageUrls').value.trim()
     if(!createProject.imageUrls.includes(newUrl)){
-      setCreateProject({...createProject, adminId: user.id, contributorId: user.id, imageUrls: [...createProject.imageUrls,newUrl]})
+      setCreateProject({...createProject, imageUrls: [...createProject.imageUrls,newUrl]})
     }
     document.getElementById('imageUrls').value = "";
   }
-
 
   const handleAddSkill = () => {
     let newSkill = document.getElementById('neededSkills').value.trim()
@@ -142,7 +141,7 @@ function CreateProject() {
               /><Badge className='mt-2 bg-secondary'>{createProject.description.length}/{characterLimit}</Badge>
               </Form.Group> 
                        
-              <Form.Label className="mb-3">GitURL</Form.Label>
+              <Form.Label className="mb-3 d-flex">GitURL</Form.Label>
               <Form.Control type="text" placeholder="https://gitlab.com/brukernavn/prosjektnavn"  onChange={handleChange1} name="gitUrl" />
                        
             <Form.Group className="mb-3">

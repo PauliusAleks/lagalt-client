@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button, Badge, CloseButton, InputGroup, ListGroup } from 'react-bootstrap'
 import { NavLink } from "react-router-dom"
@@ -15,8 +15,9 @@ const EditProfilePage = () => {
 
     const [characterLimit] = useState(1250);
 
-
-
+    useEffect(()=> {
+      window.scrollTo(0, 0)
+    })
 
     const handlePortfolioChange = event => {
       setEditUser({...editUser, portfolio:event.target.value})

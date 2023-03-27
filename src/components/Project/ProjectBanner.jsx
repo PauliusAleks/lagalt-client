@@ -22,6 +22,7 @@ const ProjectBanner = ({projects}) => {
     const user = useSelector((state) => state.user)
     
     useEffect(()=> {
+        window.scrollTo(0, 0)
         dispatch(getProjectBannersAsync())
     },[])
     

@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProjectBanner from "../components/Project/ProjectBanner";
 import CategoryDropdown from "../components/Project/CategoryDropdown";
 import { setSearchShowTrue } from "../reduxParts/searchReducer";
@@ -17,29 +17,6 @@ function ProjectBannerPage() {
     const projects = useSelector((state) => state.banners)
     const user = useSelector((state) => state.user)
     const loggedIn = useSelector((state) => state.loggedIn)
-
-    /*
-    useEffect(()=> {
-        dispatch(getProjectBannersAsync())
-        dispatch(setSearchShowTrue())
-        if(keycloak.authenticated) {
-            const checkError =  dispatch(checkForUserAsync(keycloak.tokenParsed.preferred_username));
-            
-            if(!checkError.payload) {
-                dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
-            }
-            if(keycloak.preferred_username === undefined){
-                console.log()
-            }
-            else {   
-                console.log("yeah")
-                if(checkError.payload) {
-                    dispatch(createUserAsync(keycloak.tokenParsed))
-                }
-            }
-        }
-    },[]) */
-
     useEffect(()=> {
         dispatch(setSearchShowTrue())
         if(keycloak.authenticated) {
@@ -55,15 +32,11 @@ function ProjectBannerPage() {
         }
     },[keycloak.authenticated])
     
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(getProjectBannersAsync())
      },[])
      
 
-     
-
-
-    
     return (
         <div className="projectPage" style={{fontFamily: 'Arial, sans-serif',  backgroundColor: '#EEEEEE', zIndex:'-2'}}>
             <Container >
@@ -72,7 +45,7 @@ function ProjectBannerPage() {
                 <h1 className="mr-1 p-3">Prosjektoversikt</h1>
                 {keycloak.authenticated &&
                     <div className="mt-3">
-                        <CreateProject />
+                        <CreateProject user={user}/>
                     </div>
                 }
                 </div>

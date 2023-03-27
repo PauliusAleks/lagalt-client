@@ -17,6 +17,7 @@ import './ScrollBar.css'
 import './IconAnimations.css'
 import ApplicationHandler from "../components/Project/ApplicationHandler";
 
+
 function ProjectPage() {
     const project = useSelector((state) => state.project)
     const user = useSelector((state) => state.user)
@@ -28,6 +29,7 @@ function ProjectPage() {
 
 
     useEffect(()=> {
+        window.scrollTo(0, 0)
         dispatch(setSearchShowFalse())
     })
 
@@ -125,7 +127,7 @@ function ProjectPage() {
             </div>
             <div className="p-3">
                 <h1 className="text-center p-2">{project.name}</h1>
-                <ProgressBar variant="info" label={project.progress} now={progress} max={4}/>
+                <ProgressBar variant="primary" label={project.progress} now={progress} max={4}  />
                 <h5 className="p-4">Kategori: {project.category} </h5>
                 {project.imageUrls.length > 0 && 
                 

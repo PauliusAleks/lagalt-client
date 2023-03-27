@@ -37,7 +37,7 @@ function SearchBar() {
                 onChange={e => setQuery(e.target.value)} 
                 onKeyPress={e => e.key === "Enter" && handleSearch()} 
                 placeholder="Søk etter prosjekt"/>
-                <Button size="lg" variant="primary" onClick={handleSearch}  style={{fontFamily: 'Arial, sans-serif'}}>Søk</Button>
+                <Button size="lg"  onClick={handleSearch} id="searchButton" style={{fontFamily: 'Arial, sans-serif', backgroundColor:'#393E46', border:'none'}}>Søk</Button>
             </InputGroup>
             {query.length > 0 && (
             <div id="results" className="bg-light w-50 rounded ml-5 position-absolute border border-1 border-dark" 
