@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { storageSave } from "../utils/storage";
-const baseURL = "https://lagaltapi.azurewebsites.net";
+const deployURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
-
+const baseURL = debugBaseURL;
 //for auth???
 export const createHeaders = () => {
     return {
@@ -48,7 +48,7 @@ export const deleteProjectAsync = createAsyncThunk(
 export const updateProjectAsync = createAsyncThunk(
     'project/updateProjectAsync',
     async (project) => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/updateProject/${project.id}`, {
+        const response = await fetch(baseURL+`/api/projects/updateProject/${project.id}`, {
             method: 'PUT',
             headers: createHeaders(),
             body: JSON.stringify({

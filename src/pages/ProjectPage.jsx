@@ -115,7 +115,7 @@ function ProjectPage() {
             </div>
             }
             {checkProjectContributor(project.id) && checkProjectContributor(project.id) &&
-                <NavLink to="/chat" style={{padding: '20px', float:'right'}}><ChatIconSVG className="chat" /></NavLink>
+                <NavLink to={{pathname:"/chat", state:{projectId:project.id} }} style={{padding: '20px', float:'right'}}><ChatIconSVG className="chat" /></NavLink>
             }
             <div className="p-2" style={{float:'right'}}>
                 {checkProjectAdmin(project.id) && (

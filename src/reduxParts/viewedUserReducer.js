@@ -1,9 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+const delpoyURL = "https://lagaltapi.azurewebsites.net";
+const debugBaseURL = "https://localhost:7125";
+const baseURL = debugBaseURL;
+
 // wow  funker update? ska se
 export const getViewedUserAsync = createAsyncThunk(
     'viewedUser/getViewedUserAsync',
     async (username) => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/users/username/${username}`)
+        const response = await fetch(`${baseURL}/api/users/username/${username}`)
         if(response.ok){
             const result = response.json()
             return result;

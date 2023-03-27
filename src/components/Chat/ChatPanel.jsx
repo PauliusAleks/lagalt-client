@@ -3,14 +3,19 @@ import * as signalR from "@microsoft/signalr";
 import { useDispatch,useSelector } from "react-redux";
 import { getUserAsync } from "../../reduxParts/userReducer";
 import keycloak from "../../keycloak";
+import { useLocation } from "react-router-dom";
+import { getContributorProjectAsync } from "../../reduxParts/projectReducer";
 
+const deployURL = "https://lagaltapi.azurewebsites.net";
+const debugBaseURL = "https://localhost:7125";
+const baseURL = debugBaseURL;
 
 function useSignalRConnection() {
   const [connection, setConnection] = useState(null);
 
   useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl("https://lagaltapi.azurewebsites.net/chathub")
+      .withUrl(baseURL+"/chathub")
       .build();
     setConnection(newConnection);
     return () => {
@@ -33,24 +38,20 @@ function useSignalRConnection() {
 
   return connection;
 }
+ 
 
 function ChatPanel() {
-  const [user, setUser] = useState({});
-  const [messages, setMessages] = useState([]);
-  const dispatch = useDispatch();
+  const projectState = useSelector((state) => state.project);
   const userState = useSelector((state) => state.user);
-  const connection = useSignalRConnection();
-  
-  //console.dir(userState);
+  const [messages, setMessages] = useState([]);
+  const connection = useSignalRConnection(); 
 
   useEffect(() => {
-    dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
-      .then((user) => setUser(user))
-      .catch((error) => console.error(error));
-  }, []);
-
-  useEffect(() => {
-    fetch("https://lagaltapi.azurewebsites.net/api/UserMessage")
+    console.info("INFO ABOUT USER SLICE: ");
+    console.dir(userState);
+    console.info("INFO ABOUT PROJECT SLICE: ");
+    console.dir(projectState);
+    fetch(baseURL+"/api/UserMessage/"+JSON.stringify(projectState.id))
       .then((response) => response.json())
       .then((data) => {
         setMessages(data.map((data) => data.username+": "+data.message));
@@ -59,8 +60,10 @@ function ChatPanel() {
 
   useEffect(() => {
     if (connection) {
-      connection.on("ReceiveMessage", (message) => {
-        setMessages((msgs) => [...msgs, message]);
+      connection.on("ReceiveMessage", (projectId, message) => {
+        if(projectState.id === parseInt(projectId)){
+          setMessages((msgs) => [...msgs, message]);
+        }
       });
     }
   }, [connection]);
@@ -69,20 +72,24 @@ function ChatPanel() {
     e.preventDefault();
     const msg = e.target[0].value; 
     const usernameAndMessage = userState.username + ": " + msg;
-    fetch("https://lagaltapi.azurewebsites.net/api/UserMessage", {
+    fetch(baseURL+"/api/UserMessage", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        projectId: parseInt(projectState.id),
         userId: parseInt(userState.id), 
         message: msg,
       }),
     })
-      .then((response) => {
-        console.dir(response);
-        if (connection && connection.state === signalR.HubConnectionState.Connected) {
-          connection.send("SendMessage", usernameAndMessage);
+      .then((response) => {  
+        if (connection && connection.state === signalR.HubConnectionState.Connected) { 
+          try{
+            connection.invoke("SendMessage", JSON.stringify(projectState.id), usernameAndMessage);
+          } catch(err){
+            console.error("Error invoking sendmessage: " + err );
+          }
         } else {
           console.warn("SignalR connection is not established.");
         }

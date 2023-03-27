@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { storageSave } from "../utils/storage";
 import axios from "axios";
-const baseURL = "https://lagaltapi.azurewebsites.net";
+const deployURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
-
+const baseURL = debugBaseURL;
 export const getProjectBannersAsync = createAsyncThunk(
     'projects/getProjectBannersAsync',
 
@@ -18,7 +18,7 @@ export const getProjectBannersAsync = createAsyncThunk(
 export const getContributorProjectsAsync = createAsyncThunk(
     'user/getContributorProjectsAsync',
     async (id) => {
-        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/users/${id}/contributorProjects`)
+        const response = await fetch(baseURL+`/api/users/${id}/contributorProjects`)
         if(response.ok){
             const result = response.json()
             return result;

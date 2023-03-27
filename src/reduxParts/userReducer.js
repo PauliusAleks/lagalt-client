@@ -7,8 +7,9 @@ export const createHeaders = () => {
         //'x-api-key': "???"
     }
 }
-const baseURL = "https://lagaltapi.azurewebsites.net";
+const deployURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
+const baseURL = debugBaseURL;
 export const getUserAsync = createAsyncThunk(
     'user/getUserAsync',
     async (username) => {
