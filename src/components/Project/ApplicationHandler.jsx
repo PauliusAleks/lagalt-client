@@ -2,38 +2,34 @@ import React, { useState, useEffect } from "react";
 import {Button, Form, ListGroup, Modal} from 'react-bootstrap';
 import { useSelector, useDispatch } from "react-redux";
 import { setApplicationToAcceptedAsync, setApplicationToRejectedAsync, setApplication } from "../../reduxParts/applicationReducer";
-import {getProjectApplicationAsync} from "../../reduxParts/applicationsReducer";
-import { getUserAsync } from "../../reduxParts/userReducer";
+import {getProjectApplicationAsync, setApplications} from "../../reduxParts/applicationsReducer";
+import { getUserByIdAsync } from "../../reduxParts/viewedUserReducer";
+import ApplicationInfo from "./ApplicationInfo";
 
 
 function ApplicationHandler({project}) {
     const applications = useSelector((state) => state.applications.applications)
-    const user = useSelector((state) => state.user)
-    const [editApplications, setEditApplications] = useState(applications)
-    const [users, setUsers] = useState({});
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () =>{
-        setShow(true)
         dispatch(getProjectApplicationAsync(project))
-    };
-    
+        setShow(true)
+    }
+     
+
     const handleApplicationAccept = (id) => {
-        setEditApplications([editApplications.filter(application => application.id !== id)])
+        dispatch(setApplications(applications.filter(application => application.id !== id)))
         dispatch(setApplicationToAcceptedAsync(id));
     }
     const handleApplicationReject = (id) => {
-        setEditApplications([editApplications.filter(application => application.id !== id)])
+        dispatch(setApplications(applications.filter(application => application.id !== id)))
         dispatch(setApplicationToRejectedAsync(id));
     }
-    const handleSubmit = () => {
-        if(applications !== editApplications){
-            dispatch(setApplication(true))
-        }
-          console.log(editApplications)
-    }
     
+
+    
+
     return(
         <div>
             <Button variant="success" onClick={handleShow}>Behandle søknader</Button>
@@ -48,33 +44,30 @@ function ApplicationHandler({project}) {
                 <Form>
                     <Form.Group>
                         <ListGroup>
-                            {applications && editApplications
+                            {applications && applications
                             .filter(application=> application.state === 'Ventende')
                             .map(application => (
                                 <ListGroup.Item key={application.id}>
-                                    <h4>{application.motivationLetter}</h4>
-                                    {/* <h3>{application.user.username}</h3> */}
-                                    <Button variant="success" onClick={() => handleApplicationAccept(application.id)}>Aksepter</Button>
-                                    <Button variant="danger" onClick={() => handleApplicationReject(application.id)}>Avslå</Button>
+                                    <ApplicationInfo id={application.userId} motivationLetter= {application.motivationLetter}/>
+                                    <Button variant="success" onClick={() => handleApplicationAccept(application.id)} style={{float: "right"}}>Aksepter</Button>
+                                    <Button variant="danger" onClick={() => handleApplicationReject(application.id)} style={{float: "right"}}>Avslå</Button>
                                 </ListGroup.Item>
                             ))}
-                            {!applications
-                            }
+                            {applications.filter(app=> app.state === 'Ventende').length === 0  &&
+                            <h4>Du har ingen nye søknader å behandle😢</h4>}
                         </ListGroup>
                     </Form.Group>
                 </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
+                <Button variant="primary" onClick={handleClose}>
                     Lukk
-                </Button>
-                <Button variant="primary" onClick={handleSubmit}>
-                    Lagre endringer
                 </Button>
                 </Modal.Footer>
             </Modal>
         </div>
     )
 }
+
 
 export default ApplicationHandler;
