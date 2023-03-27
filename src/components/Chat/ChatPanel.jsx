@@ -11,7 +11,7 @@ import '../../pages/IconAnimations.css'
 
 const deployURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
-const baseURL = debugBaseURL;
+const baseURL = deployURL;
 
 function useSignalRConnection() {
   const [connection, setConnection] = useState(null);
@@ -47,7 +47,7 @@ function ChatPanel() {
   const [user, setUser] = useState({});
   const [messages, setMessages] = useState([]);
   const dispatch = useDispatch();
-  const project = useSelector((state) => state.project)
+  const projectState = useSelector((state) => state.project)
   const userState = useSelector((state) => state.user);
   const connection = useSignalRConnection();
   
@@ -57,7 +57,6 @@ function ChatPanel() {
     const element = document.getElementById(id);
     element.scrollTop = element.scrollHeight;
 }
-
   useEffect(() => {
     console.info("INFO ABOUT USER SLICE: ");
     console.dir(userState);
@@ -126,7 +125,7 @@ function ChatPanel() {
     <NavLink to="/project" style={{float:'left'}}><BackArrowSVG className="backarrow"/></NavLink>
         <div className="rounded p-2 border-dark border border-2 d-inline-block" style={{width:'auto', backgroundColor:'#449DD1'}}>
         <div className="d-flex justify-content-center">
-          <h2>{project.name} Chat</h2>
+          <h2>{projectState.name} Chat</h2>
         </div>
     <div className="d-flex justify-content-center p-3">
       <div className="messages">

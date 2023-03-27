@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { storageSave } from "../utils/storage";
 const deployURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
-const baseURL = debugBaseURL;
+const baseURL = deployURL;
 //for auth???
 export const createHeaders = () => {
     return {

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { storageSave } from "../utils/storage";
 import keycloak from "../keycloak";
 import axios from "axios";
-const deployURL = "https://lagaltapi.azurewebsites.net";
+const baseURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
 
 export const createHeaders = () => {
