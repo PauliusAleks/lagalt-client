@@ -6,7 +6,7 @@ const debugBaseURL = "https://localhost:7125";
 export const createApplicationAsync = createAsyncThunk(
     'application/createApplicationAsync',
     async (applicationData) => {
-        const response = await fetch(baseURL+ `/api/applications/createApplication`, {
+        const response = await fetch(`${baseURL}/api/applications/createApplication`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ export const createApplicationAsync = createAsyncThunk(
 export const setApplicationToAcceptedAsync = createAsyncThunk(
     'application/setApplicationToAcceptedAsync',
     async (id) => {
-        const response = await fetch(baseURL + `/api/applications/accept/${id}`,{
+        const response = await fetch(`${baseURL}/api/applications/accept/${id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ export const setApplicationToAcceptedAsync = createAsyncThunk(
 export const setApplicationToRejectedAsync = createAsyncThunk(
     'application/setApplicationToRejectedAsync',
     async (id) => {
-        const response = await fetch(baseURL + `/api/applications/reject/${id}`,{
+        const response = await fetch(`${baseURL}/api/applications/reject/${id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

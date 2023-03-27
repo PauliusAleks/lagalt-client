@@ -5,29 +5,22 @@ const debugBaseURL = "https://localhost:7125";
 export const getProjectApplicationAsync = createAsyncThunk(
     'applications/getProjectApplicationAsync',
     async (project) => {
-        const response = await fetch(baseURL+`/api/Applications/getAllApplicationsInProject/${project.id}`)
+        const response = await fetch(`${baseURL}/api/Applications/getAllApplicationsInProject/${project.id}`)
         if(response.ok){
             const result = await response.json()
-            // return result;
-            //test below:
-            
-            const applicationUserPromises = result.map(async (application) => {
-                const userResponse = await fetch(baseURL+`/api/Users/${application.userId}`);
-                const userData = await userResponse.json();
-                return { ...application, user: userData }; 
-        });
-        
-        const applicationsWithUser = await Promise.all(applicationUserPromises);
-        return applicationsWithUser; 
-    };
-});
+             return result;
+        }});
 
 export const applicationsSlice = createSlice({
     name: 'applications',
     initialState: {
         applications: []
     },
-    reducers: {},
+    reducers: {
+        setApplications: (state,action) => {
+            state.applications = action.payload
+        }
+    },
     extraReducers: {
         [getProjectApplicationAsync.fulfilled] : (state, action) => {
             console.log(action.payload)
@@ -36,4 +29,5 @@ export const applicationsSlice = createSlice({
     }
 })
 
+export const {setApplications} = applicationsSlice.actions
 export default applicationsSlice.reducer

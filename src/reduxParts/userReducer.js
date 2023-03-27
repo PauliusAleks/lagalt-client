@@ -4,15 +4,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const createHeaders = () => {
     return {
         'Content-Type': 'application/json'
-        //'x-api-key': "???"
+        //Authorization: `Bearer ${keycloak.token}` FOR AUTH
     }
 }
 const baseURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
+
 export const getUserAsync = createAsyncThunk(
     'user/getUserAsync',
     async (username) => {
-        const response = await fetch(baseURL+`/api/users/username/${username}`)
+        const response = await fetch(`${baseURL}/api/users/username/${username}`)
         if(response.ok){
             const result = response.json()
             return result;
@@ -24,7 +25,7 @@ export const getUserAsync = createAsyncThunk(
 export const checkForUserAsync = createAsyncThunk(
     'user/checkForUser',
      async (username) => {
-            const response = await fetch(baseURL+`/api/users/username/${username}`)
+            const response = await fetch(`${baseURL}/api/users/username/${username}`)
             if(response.ok){
                 return false;
             }

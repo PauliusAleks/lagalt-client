@@ -1,14 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { storageSave } from "../utils/storage";
+import keycloak from "../keycloak";
 import axios from "axios";
 const baseURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
+
+export const createHeaders = () => {
+    return {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${keycloak.token}`
+    }
+}
 
 export const getProjectBannersAsync = createAsyncThunk(
     'projects/getProjectBannersAsync',
 
     async () => {
-        const response = await fetch(`${baseURL}/api/projects/banners`)
+        const response = await fetch(`${baseURL}/api/projects/banners`, {
+            headers: createHeaders()
+        })
         if(response.ok){
             const result = response.json()
             return result;
