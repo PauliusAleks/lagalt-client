@@ -3,6 +3,7 @@ import {  Button } from "react-bootstrap"
 import UserSkills from './UserSkills'
 import ProjectBanner from '../Project/ProjectBanner'
 import keycloak from '../../keycloak'
+import NavLink from 'react-bootstrap'
 
 const handleLogout = () => {
     keycloak.logout()
@@ -23,7 +24,7 @@ const ProfileInfo = ({user, contributorProjects}) => {
         </h5>
             <UserSkills/>
         <div style={{marginBottom:'30px'}}>
-            <Button variant="danger" style={{float:'right'}} onClick={handleLogout}>Logg ut</Button>
+            <NavLink to="/"><Button variant="danger" style={{float:'right'}} onClick={handleLogout}>Logg ut</Button></NavLink>
         </div> 
         <h2 style= {{paddingTop:40, display:'flex', justifyContent:'center'}}>
             <b>Tidligere prosjekter</b>
