@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Form, Button} from 'react-bootstrap'
 import { useSelector, useDispatch } from "react-redux";
-import { updateProjectAsync, setProject, setUpdated } from '../../reduxParts/projectReducer';
-import DeleteProject from "./DeleteProject";
+import { updateProjectAsync, setProject, setUpdated, deleteProjectAsync } from '../../reduxParts/projectReducer';
 import EditProjectList from "./EditProjectList";
 import EditProjectText from "./EditProjectText";
 import EditProjectSelect from "./EditProjectSelect";
 import { parseCategory, parseProgress } from "../../const/parseCategoryProgress";
+import { storageRead, storageSave } from "../../utils/storage";
+import { useNavigate } from "react-router-dom";
 
 
 
 function AdminProjectHandler() {
     const dispatch = useDispatch();
     const project = useSelector((state) => state.project);
+    const navigate = useNavigate();
 
     const [editProject, setEditProject] = useState(project)
 
@@ -25,15 +27,23 @@ function AdminProjectHandler() {
     
 
     const handleSubmit = () => {
-      console.log(editProject)
-      console.log("project",project)
       if(project !== editProject){
         dispatch(setUpdated(true))
       }
       dispatch(setProject(editProject))
       dispatch(updateProjectAsync(editProject))
+      storageSave('projects', storageRead('projects').map(pr=> pr.id === editProject.id ? pr = editProject : pr))
       handleClose();
     }
+
+    const handleDelete = () => {
+        if (window.confirm(`Du er i ferd med å slette "${project.name}", bekreft med Ok!`)){
+            dispatch(deleteProjectAsync(project.id));
+            storageSave('projects', storageRead('projects').filter(pr=> pr.id !== editProject.id))
+            handleClose();
+            navigate(-1);
+
+    }}
     
     return(
         <div>
@@ -56,7 +66,8 @@ function AdminProjectHandler() {
                 </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                <DeleteProject style={{float: 'left'}}/>
+                {/* <DeleteProject /> */}
+                <Button variant="danger" onClick={handleDelete}>Slett prosjekt</Button>
                 <Button variant="secondary" onClick={handleClose}>
                     Lukk
                 </Button>
