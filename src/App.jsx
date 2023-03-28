@@ -30,6 +30,7 @@ function App() {
           <ReactKeycloakProvider authClient={keycloak} onTokens={onUpdateToken}>
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/homepage" element={<HomePage />} />
               <Route
                 path="/project"
                 element={
