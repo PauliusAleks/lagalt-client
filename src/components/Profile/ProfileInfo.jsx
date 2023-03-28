@@ -1,12 +1,12 @@
 import React from 'react'
-import {  Button } from "react-bootstrap"
+import { Button } from "react-bootstrap"
 import UserSkills from './UserSkills'
 import ProjectBanner from '../Project/ProjectBanner'
 import keycloak from '../../keycloak'
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate } from  'react-router-dom'
 
 const ProfileInfo = ({user, contributorProjects}) => {
+
     const navigate = useNavigate()
 
     const handleLogout = () => {
@@ -17,7 +17,7 @@ const ProfileInfo = ({user, contributorProjects}) => {
   return (
     <div className="p-2" style={{ height:'100vh'}}>
         <h1>{user.firstName} {user.lastName}</h1>
-        <h5 style= {{paddingTop:30}}><b>E-post: </b></h5>
+        <h5 style= {{paddingTop:30}}><b>E-post</b></h5>
         <p>{user.email}</p>
         <h5 style= {{paddingTop:30}}><b>Beskrivelse</b></h5>
             <p>
@@ -31,7 +31,7 @@ const ProfileInfo = ({user, contributorProjects}) => {
             <Button variant="danger" style={{float:'right'}} onClick={handleLogout}>Logg ut</Button>
         </div> 
         <h2 style= {{paddingTop:40, display:'flex', justifyContent:'center'}}>
-            <b>Tidligere prosjekter</b>
+            <b>Dine prosjekter</b>
         </h2>
         
         <div>

@@ -69,7 +69,7 @@ const EditProfilePage = () => {
 
 
   return (
-    <div className="p-3" style={{ backgroundColor: '#EEEEEE', height:'100vh'}}>
+    <div className="p-3" style={{ backgroundColor: '#EEF2F5', height:'100vh'}}>
       <div className="p-3 container rounded" style={{ backgroundColor: '#F8F9FA'}}>
         <div className="d-flex justify-content-end">
           <NavLink to="/profile">
@@ -106,7 +106,7 @@ const EditProfilePage = () => {
           </div>
         </div>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <h4>Beskrivelse:</h4>
+            <h5>Beskrivelse:</h5>
             <Form.Control style={{width:'100%', height:'200px'}}
               as="textarea"
               defaultValue={editUser.portfolio}
@@ -117,7 +117,7 @@ const EditProfilePage = () => {
               }
         </Form.Group>
         {alreadyInList &&
-                <h4 style={{color:'red'}}>Du har allerede denne skillen!</h4>}
+                <h5 style={{color:'red'}}>Du har allerede denne ferdigheten!</h5>}
         <InputGroup>
               <Form.Control type="text" id="Skills" onChange={handleChanges} placeholder="Legg til en ferdighet" />
               <Button variant="secondary" style={{float:'right'}} onClick={handleAddSkill}>Legg til</Button>

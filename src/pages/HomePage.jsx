@@ -5,7 +5,7 @@ import CategoryDropdown from "../components/Project/CategoryDropdown";
 import { setSearchShowTrue } from "../reduxParts/searchReducer";
 import { useSelector, useDispatch } from "react-redux";
 import keycloak from "../keycloak"
-import { getProjectBannersAsync } from "../reduxParts/projectBannersReducer";
+import { getProjectBannersAsync, setProjects } from "../reduxParts/projectBannersReducer";
 import { getUserAsync, createUserAsync, checkForUserAsync, setUser } from '../reduxParts/userReducer';
 import CreateProject from '../components/Project/CreateProject';
 import { Container } from "react-bootstrap";
@@ -17,13 +17,15 @@ function ProjectBannerPage() {
     const dispatch = useDispatch();
     const projects = useSelector((state) => state.banners)
     const user = useSelector((state) => state.user)
-    const userFound = useSelector((state)=> state.found)
     const isLoggedIn = keycloak.authenticated
     
     useEffect(() => {
         dispatch(setSearchShowTrue())
-        dispatch(getProjectBannersAsync())
-        //keycloak.logout()
+        if(storageRead('projects') !== null){
+            dispatch(setProjects(storageRead('projects')))
+        }else {
+            dispatch(getProjectBannersAsync())
+        }
         if(isLoggedIn) {
             if(storageRead('user') !== null){
                 dispatch(setUser(storageRead('user')))
@@ -35,8 +37,7 @@ function ProjectBannerPage() {
                         dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
                     } else {
                         dispatch(createUserAsync(keycloak.tokenParsed))
-                    }
-                                   
+                    }                  
                  })  
             }                              
         }
@@ -44,7 +45,7 @@ function ProjectBannerPage() {
         
 
     return (
-        <div className="projectPage" style={{fontFamily: 'Arial, sans-serif',  backgroundColor: '#EEEEEE', zIndex:'-2'}}>
+        <div className="projectPage" style={{fontFamily: 'Arial, sans-serif',  backgroundColor: '#EEF2F5', zIndex:'-2'}}>
             <Container >
             <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex">

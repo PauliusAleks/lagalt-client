@@ -9,7 +9,7 @@ const CategoryDropdown = () => {
     const dispatch = useDispatch()
 
     return(
-        <Dropdown >
+        <Dropdown className="dropdownCategory">
             <Dropdown.Toggle variant="white" id="dropdown-basic">{category}</Dropdown.Toggle>
             <Dropdown.Menu>
                 <Dropdown.Item as="button" onClick={() => dispatch(setMusic())}>Musikk</Dropdown.Item>

@@ -1,12 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { storageSave, storageRead } from "../utils/storage";
+import keycloak from "../keycloak";
 
-
-//for auth???
 export const createHeaders = () => {
     return {
-        'Content-Type': 'application/json'
-        //Authorization: `Bearer ${keycloak.token}` FOR AUTH
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${keycloak.token}` 
     }
 }
 const baseURL = "https://lagaltapi.azurewebsites.net";
@@ -15,7 +14,9 @@ const debugBaseURL = "https://localhost:7125";
 export const getUserAsync = createAsyncThunk(
     'user/getUserAsync',
     async (username) => {
-           await fetch(`${baseURL}/api/users/username/${username}`).then(async response => {
+           await fetch(`${baseURL}/api/users/username/${username}`, {
+            headers: createHeaders()
+           }).then(async response => {
                 if(response.ok){
                     storageSave('user', await response.json())
                     const result = response.json()
@@ -24,7 +25,6 @@ export const getUserAsync = createAsyncThunk(
             })
         }        
 )
-
 
 export const checkForUserAsync = createAsyncThunk(
     'user/checkForUser',
@@ -41,7 +41,9 @@ export const checkForUserAsync = createAsyncThunk(
 export const checkIfUserExistsAsync = createAsyncThunk(
     'user/checkIfUserExistsAsync',
      async (username) => {
-            const response = await fetch(`${baseURL}/api/users/userExists/${username}`)
+            const response = await fetch(`${baseURL}/api/users/userExists/${username}`, {
+                headers: createHeaders()
+            })
             if(response.ok){
                 const result = response.json()
                 return result;
@@ -52,7 +54,6 @@ export const checkIfUserExistsAsync = createAsyncThunk(
 export const createUserAsync = createAsyncThunk(
     'user/createUserAsync',
     async (token) => {
-        
             const response = await fetch(`${baseURL}/api/users/CreateUser`, {
                 method: 'POST',
                 headers: createHeaders(),
