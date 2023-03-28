@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, InputGroup, Button, CloseButton } from "react-bootstrap";
+import SearchSVG from "./SearchSVG";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { search } from "../../../reduxParts/searchReducer";
@@ -7,6 +8,7 @@ import { useSelector } from "react-redux";
 
 function SearchBar() {
     const [query, setQuery] = useState("");
+    const [optQuery, setOptQuery] = useState("")
     const [toggle, setToggle] = useState(true);
     const projects = useSelector((state) => state.banners)
     const dispatch = useDispatch()
@@ -19,6 +21,10 @@ function SearchBar() {
     }
     const handleSearch = () =>  {
         dispatch(search(query))
+        setToggle(false)
+    }
+    const handleOptionSearch = () => {
+        dispatch(search(optQuery))
     }
     return(
         <div className="my-auto w-50">
@@ -27,14 +33,15 @@ function SearchBar() {
                     <SearchSVG/>
                 </Button> */}
                 <Form.Control type="text"
+                id="sub"
                 style ={{fontFamily: 'Arial, sans-serif'}} 
                 onClick={handleSetToggleTrue} 
-                onChange={e => setQuery(e.target.value)} 
+                onChange={e => setQuery(e.target.value) && setToggle(true)} 
                 onKeyPress={e => e.key === "Enter" && handleSearch()} 
                 placeholder="Søk etter prosjekt"/>
-                <Button size="lg"  onClick={handleSearch} id="searchButton" style={{fontFamily: 'Arial, sans-serif', backgroundColor:'#393E46', border:'none'}}>Søk</Button>
+                <Button size="lg"  onClick={handleSearch} id="searchButton" style={{fontFamily: 'Arial, sans-serif', backgroundColor:'#D9D9D9', border:'none', color:'black'}}>Søk</Button>
             </InputGroup>
-            {query.length > 0 && (
+            {query.length > 0 && toggle && (
             <div id="results" className="bg-light w-50 rounded ml-5 position-absolute border border-1 border-dark" 
             style={{overflowY: 'auto', maxHeight: '500px', zIndex:'10'}}>
                {toggle && 

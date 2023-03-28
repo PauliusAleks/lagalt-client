@@ -1,22 +1,21 @@
 import React from "react";
 import keycloak from "../../keycloak";
 import { Button } from "react-bootstrap";
-import { setTrue } from '../../reduxParts/loggedInReducer'
 import { useDispatch, useSelector } from "react-redux";
+import { storageDelete } from "../../utils/storage";
 function Actions() {
 
   const dispatch = useDispatch()
-  const loggedIn = useSelector((state) => state.loggedIn)
 
     function handleLogin() {
-        dispatch(setTrue())
+        storageDelete('user')
         keycloak.login()
         
     }
     
     return(
       <div className="p-3">
-          <Button size="lg" variant="outline-dark" onClick={handleLogin}>Logg inn</Button>
+          <Button size="lg" variant="outline-light" onClick={handleLogin}>Logg inn</Button>
         <div className="profile">
         </div>
       </div>
