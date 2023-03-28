@@ -9,14 +9,15 @@ import './Navbar.css'
 import ChatIconSVG from "../Chat/ChatIconSVG";
 import { Button } from 'react-bootstrap';
 import { setTrue } from '../../reduxParts/loggedInReducer'
-import { getUserAsync } from "../../reduxParts/userReducer";
+import { getUserAsync, setUser } from "../../reduxParts/userReducer";
 import '../Chat/ChatIcon.css'
+import { storageRead } from "../../utils/storage";
 
 const NavbarHeader = () => {
     const dispatch = useDispatch()
     const search = useSelector((state) => state.search)
     const user = useSelector((state) => state.user)
-
+    
     return(
        <div className="sticky-top">
         <div className= "d-flex justify-content-between align-items-center p-3 sticky-top" style={{
@@ -29,7 +30,7 @@ const NavbarHeader = () => {
             {search.show === true && <Searchbar /> }
             {!keycloak.authenticated && <Actions />}
             {keycloak.authenticated && 
-                <NavLink to="/profile" onClick={() => dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))} className="link-dark" style={{ padding: '16px',
+                <NavLink to="/profile" onClick={() => dispatch(setUser(storageRead('user')))} className="link-dark" style={{ padding: '16px',
                 textDecoration: 'none',
                 color: '#393E46',
                 textAlign: 'center'}}>

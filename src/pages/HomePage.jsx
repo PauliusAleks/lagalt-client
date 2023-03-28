@@ -6,36 +6,42 @@ import { setSearchShowTrue } from "../reduxParts/searchReducer";
 import { useSelector, useDispatch } from "react-redux";
 import keycloak from "../keycloak"
 import { getProjectBannersAsync } from "../reduxParts/projectBannersReducer";
-import { getUserAsync, createUserAsync, checkForUserAsync } from '../reduxParts/userReducer';
+import { getUserAsync, createUserAsync, checkForUserAsync, setUser } from '../reduxParts/userReducer';
 import CreateProject from '../components/Project/CreateProject';
 import { Container } from "react-bootstrap";
 import './IconAnimations.css'
+import { storageRead, storageSave } from "../utils/storage";
 
 
 function ProjectBannerPage() {
     const dispatch = useDispatch();
     const projects = useSelector((state) => state.banners)
     const user = useSelector((state) => state.user)
-    const loggedIn = useSelector((state) => state.loggedIn)
-    useEffect(()=> {
-        dispatch(setSearchShowTrue())
-        if(keycloak.authenticated) {
-            const checkError =  dispatch(checkForUserAsync(keycloak.tokenParsed.preferred_username));
-            checkError.then(error => {
-                if(error.payload) {
-                    dispatch(createUserAsync(keycloak.tokenParsed))
-                }
-                else {
-                    dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
-                }
-            }) 
-        }
-    },[keycloak.authenticated])
+    const userFound = useSelector((state)=> state.found)
+    const isLoggedIn = keycloak.authenticated
     
     useEffect(() => {
+        dispatch(setSearchShowTrue())
         dispatch(getProjectBannersAsync())
-     },[])
-     
+        //keycloak.logout()
+        if(isLoggedIn) {
+            if(storageRead('user') !== null){
+                dispatch(setUser(storageRead('user')))
+            } else {
+                fetch(`https://lagaltapi.azurewebsites.net/api/users/userExists/${keycloak.tokenParsed.preferred_username}`)
+                .then(async (response) => {
+                    const exists = await response.json()
+                    if(exists){ 
+                        dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))
+                    } else {
+                        dispatch(createUserAsync(keycloak.tokenParsed))
+                    }
+                                   
+                 })  
+            }                              
+        }
+        },[isLoggedIn])
+        
 
     return (
         <div className="projectPage" style={{fontFamily: 'Arial, sans-serif',  backgroundColor: '#EEEEEE', zIndex:'-2'}}>

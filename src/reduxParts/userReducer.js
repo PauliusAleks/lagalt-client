@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { storageSave, storageRead } from "../utils/storage";
+
 
 //for auth???
 export const createHeaders = () => {
@@ -13,12 +15,14 @@ const debugBaseURL = "https://localhost:7125";
 export const getUserAsync = createAsyncThunk(
     'user/getUserAsync',
     async (username) => {
-        const response = await fetch(`${baseURL}/api/users/username/${username}`)
-        if(response.ok){
-            const result = response.json()
-            return result;
-        }
-    }
+           await fetch(`${baseURL}/api/users/username/${username}`).then(async response => {
+                if(response.ok){
+                    storageSave('user', await response.json())
+                    const result = response.json()
+                    return result;
+                }
+            })
+        }        
 )
 
 
@@ -33,15 +37,22 @@ export const checkForUserAsync = createAsyncThunk(
                 return true;
             }
         }
-    
+)
+export const checkIfUserExistsAsync = createAsyncThunk(
+    'user/checkIfUserExistsAsync',
+     async (username) => {
+            const response = await fetch(`${baseURL}/api/users/userExists/${username}`)
+            if(response.ok){
+                const result = response.json()
+                return result;
+            }
+        }
 )
 
 export const createUserAsync = createAsyncThunk(
     'user/createUserAsync',
-    async (token, { dispatch }) => {
+    async (token) => {
         
-            const checkError = await dispatch(checkForUserAsync(token.preferred_username));
-            if (checkError.payload) {
             const response = await fetch(`${baseURL}/api/users/CreateUser`, {
                 method: 'POST',
                 headers: createHeaders(),
@@ -52,19 +63,11 @@ export const createUserAsync = createAsyncThunk(
                     email: token.email
                     })
                 })
-                if (!response.ok) {
-                    throw new Error("Could not create user with username ")
+                if(response.ok){
+                    const result = response.json()
+                    return result;
                 }
-                if (response.ok ) {
-                    await dispatch(getUserAsync(token.preferred_username))
-                }
-                const result = await response.json()
-                
-                return result
-            }
-        }
-        
-    
+            }   
 )
 
 export const updateUserAsync = createAsyncThunk(
@@ -100,7 +103,7 @@ export const userSlice = createSlice({
         skills: ["initSkill", "initSkill2"],
         contributorProjects:[1],
         adminProjects:[1],
-        updated: false
+        updated: false,
     },
     reducers: {
         setUser: (state, action) => {
@@ -127,20 +130,17 @@ export const userSlice = createSlice({
         
     },
     extraReducers: {
-        [checkForUserAsync.fulfilled] : (state, action) => {
-            state.username = action.payload.username;
-        },
         [createUserAsync.fulfilled] : (state, action) => {
             state.id = action.payload.id;
             state.username = action.payload.username;
             state.firstName = action.payload.firstName;
             state.lastName = action.payload.lastName;
             state.email = action.payload.email;
-            state.portfolio = action.payload.portfolio;
-            state.isHidden = action.payload.isHidden;
-            state.skills = action.payload.skills;
-            state.contributorProjects = action.payload.contributorProjects;
-            state.adminProjects = action.payload.adminProjects;
+            //state.portfolio = action.payload.portfolio;
+            //state.isHidden = action.payload.isHidden;
+            //state.skills = action.payload.skills;
+            //state.contributorProjects = action.payload.contributorProjects;
+            //state.adminProjects = action.payload.adminProjects;
         },
         [getUserAsync.fulfilled] : (state, action) => {
             state.id = action.payload.id;

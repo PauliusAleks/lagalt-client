@@ -40,7 +40,7 @@ const ProjectBanner = ({projects}) => {
 
         let skillsTest = project.neededSkills.map((skill, key) => {
             if(user.skills !== null) {
-                if (user.skills.includes(skill)) {
+                if (keycloak.authenticated && user.skills.includes(skill)) {
                     return (
                         <div key={key} className="p-1 d-inline">
                             <Button className="mt-2" variant="success" size="sm" disabled>
@@ -98,7 +98,7 @@ const ProjectBanner = ({projects}) => {
                             <Col>
                                 <div className="p-2 mt-2">{skillsTest}</div>
                             </Col>
-                            {SkillCompare(project.neededSkills, user.skills) &&
+                            {keycloak.authenticated && SkillCompare(project.neededSkills, user.skills) &&
                                 <Col xs={2} md={2} lg={2} xl={2} xxl={1}>
                                     <h3 className="text-center text-success">Match!</h3>
                                 <div className="p-2">
@@ -113,7 +113,7 @@ const ProjectBanner = ({projects}) => {
                                 </div>
                             </Col>
                             }
-                            {!SkillCompare(project.neededSkills, user.skills) &&
+                            {keycloak.authenticated && !SkillCompare(project.neededSkills, user.skills) &&
                             <Col xs={2} md={2} lg={2} xl={2} xxl={1}>
                                 <div className="p-2">
                                 <CircularProgressbar value={progress} maxValue={4} 
@@ -141,7 +141,7 @@ const ProjectBanner = ({projects}) => {
                 {testProject}
         </div>
     )
-    }
+    }/*
     else {
         return (
             <div style={{ display: 'flex',
@@ -153,6 +153,6 @@ const ProjectBanner = ({projects}) => {
                 </div>
             </div>
         )
-    }
+    }*/
 }
 export default ProjectBanner

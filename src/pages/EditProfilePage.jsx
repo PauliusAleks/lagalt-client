@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button, Badge, CloseButton, InputGroup, ListGroup } from 'react-bootstrap'
 import { NavLink } from "react-router-dom"
 import { updateUserAsync, setUser , setUpdated } from '../reduxParts/userReducer';
+import { storageSave } from '../utils/storage';
 
 
 const EditProfilePage = () => {
@@ -28,6 +29,7 @@ const EditProfilePage = () => {
       if(user !== editUser){
         dispatch(setUpdated(true))
       }
+      storageSave('user',editUser)
       dispatch(setUser(editUser))
       dispatch(updateUserAsync(editUser))
     }

@@ -25,7 +25,6 @@ initialize()
   })
   .catch((error) => {
     root.render(<p>Not connected to keycloak ...</p>)
-    console.log(error)
   });
 
 // If you want to start measuring performance in your app, pass a function
