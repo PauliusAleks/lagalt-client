@@ -3,7 +3,7 @@ import {  Button } from "react-bootstrap"
 import UserSkills from './UserSkills'
 import ProjectBanner from '../Project/ProjectBanner'
 import keycloak from '../../keycloak'
-import NavLink from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
 
 const handleLogout = () => {
     keycloak.logout()
