@@ -1,7 +1,7 @@
 import * as React from "react";
 const PenLogoSVG = (props) => (
   <svg
-    fill="#212529"
+    fill="#FFFFFF"
     width="40px"
     height="40px"
     viewBox="0 0 24 24"

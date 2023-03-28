@@ -27,14 +27,14 @@ const Logo = () => {
       <div className="p-3 d-flex " style={{ display: 'flex', top:'-5px'}}>
   
         <NavLink className="logo" to="/" onClick={handleSearchReset} style={{ textDecoration: 'none' }}>
-          <h1 className="text-decoration-none text-dark" style={{display:'flex', color:'#393E46'}} >Lagalt  
+          <h1 className="text-decoration-none " style={{display:'flex', color:'#FFFFFF'}} >Lagalt  
           <svg className="button-stroke" viewBox="0 0 154 13">
 			<use href="#line"></use>
 		</svg>
 		<svg className="button-stroke" viewBox="0 0 154 13">
 			<use href="#line"></use>
 		</svg>
-          <PenLogoSVG className="pen" style={{ padding:'10px', marginTop:'-20px', width:'50px', height:'50px', color:'#393E46'}}/></h1>
+          <PenLogoSVG className="pen" style={{ padding:'10px', marginTop:'-20px', width:'50px', height:'50px', color:'white'}}/></h1>
       
     </NavLink>
     
