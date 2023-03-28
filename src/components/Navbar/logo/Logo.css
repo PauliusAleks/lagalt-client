@@ -24,7 +24,7 @@
 .button-stroke:nth-child(2) {
   stroke-dasharray: 650px;
   stroke-dashoffset: 650px;
-  stroke: #212529;
+  stroke: white;
   stroke-width: 4;
   transition: stroke-dashoffset 800ms ease-out;
 }

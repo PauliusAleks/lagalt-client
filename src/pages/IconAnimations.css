@@ -1,7 +1,7 @@
 .backarrow {
     transition: transform 250ms;
 }
-.backarrow:hover {
+.back:hover .backarrow {
     transform: translateX(-10px);
 }
 
@@ -15,6 +15,6 @@
 .settings {
   transition: transform .3s ease-in-out;
 }
-.settings:hover {
+.setting:hover .settings{
   transform: rotate(90deg);
 }
