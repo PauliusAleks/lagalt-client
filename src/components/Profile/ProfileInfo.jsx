@@ -10,7 +10,7 @@ const ProfileInfo = ({user, contributorProjects}) => {
     const navigate = useNavigate()
 
     const handleLogout = () => {
-        navigate("/homepage")
+        navigate("/")
         keycloak.logout()
     }
 
