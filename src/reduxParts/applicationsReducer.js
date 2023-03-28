@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const delpoyURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
-const baseURL = debugBaseURL;
+const baseURL = delpoyURL;
 
 export const getProjectApplicationAsync = createAsyncThunk(
     'applications/getProjectApplicationAsync',

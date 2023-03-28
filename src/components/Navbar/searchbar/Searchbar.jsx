@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Form, InputGroup, Button, CloseButton } from "react-bootstrap";
-import SearchSVG from "./SearchSVG";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { search } from "../../../reduxParts/searchReducer";
@@ -8,7 +7,6 @@ import { useSelector } from "react-redux";
 
 function SearchBar() {
     const [query, setQuery] = useState("");
-    const [optQuery, setOptQuery] = useState("")
     const [toggle, setToggle] = useState(true);
     const projects = useSelector((state) => state.banners)
     const dispatch = useDispatch()
@@ -21,9 +19,6 @@ function SearchBar() {
     }
     const handleSearch = () =>  {
         dispatch(search(query))
-    }
-    const handleOptionSearch = () => {
-        dispatch(search(optQuery))
     }
     return(
         <div className="my-auto w-50">

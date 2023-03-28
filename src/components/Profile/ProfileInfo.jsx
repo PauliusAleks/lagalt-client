@@ -3,12 +3,17 @@ import {  Button } from "react-bootstrap"
 import UserSkills from './UserSkills'
 import ProjectBanner from '../Project/ProjectBanner'
 import keycloak from '../../keycloak'
+import { useNavigate } from 'react-router-dom'
 
-const handleLogout = () => {
-    keycloak.logout()
-}
 
 const ProfileInfo = ({user, contributorProjects}) => {
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        navigate("/")
+        keycloak.logout()
+    }
+
   return (
     <div className="p-2" style={{ height:'100vh'}}>
         <h1>{user.firstName} {user.lastName}</h1>
