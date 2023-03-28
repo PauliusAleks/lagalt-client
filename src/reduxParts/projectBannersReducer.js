@@ -8,7 +8,7 @@ const debugBaseURL = "https://localhost:7125";
 export const createHeaders = () => {
     return {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${keycloak.token}`
+        Authorization: `Bearer ${keycloak.token}` 
     }
 }
 
@@ -16,19 +16,23 @@ export const getProjectBannersAsync = createAsyncThunk(
     'projects/getProjectBannersAsync',
 
     async () => {
-        const response = await fetch(`${baseURL}/api/projects/banners`, {
+        await fetch(`${baseURL}/api/projects/banners`, {
             headers: createHeaders()
-        })
-        if(response.ok){
-            const result = response.json()
-            return result;
-        }
+        }).then(async response => {
+            if(response.ok){
+                storageSave('projects', await response.json())
+                const result = response.json()
+                return result;
+            }
+        }) 
     }
 )
 export const getContributorProjectsAsync = createAsyncThunk(
     'user/getContributorProjectsAsync',
     async (id) => {
-        const response = await fetch(baseURL+`/api/users/${id}/contributorProjects`)
+        const response = await fetch(baseURL+`/api/users/${id}/contributorProjects`, {
+            headers: createHeaders()
+        })
         if(response.ok){
             const result = response.json()
             return result;
@@ -42,8 +46,10 @@ export const projectSlice = createSlice({
     },
     reducers: {
         addProject: (state, action) => {
-            console.log(action.payload)
-           //state.project = action.payload
+          state.project = {...action.payload};
+        },
+        setProjects: (state,action) => {
+            state.project = action.payload
         }
     },
     extraReducers: {
@@ -58,5 +64,5 @@ export const projectSlice = createSlice({
     }
 })
 
-export const {setProject, addProject} = projectSlice.actions
+export const {setProject, addProject, setProjects} = projectSlice.actions
 export default projectSlice.reducer

@@ -2,10 +2,11 @@ import React, { useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Button, ListGroup, Modal, InputGroup, CloseButton, Badge } from 'react-bootstrap';
 import { createProjectAsync } from '../../reduxParts/projectReducer';
-import { addProject } from '../../reduxParts/projectBannersReducer';
+import { addProject, setProjects } from '../../reduxParts/projectBannersReducer';
 import PlussSVG from './PlussSVG';
 import '../../pages/IconAnimations.css'
 import { parseCategory, parseProgress } from '../../const/parseCategoryProgress';
+import { storageRead, storageSave } from '../../utils/storage';
 
 
 function CreateProject({user}) {
@@ -16,8 +17,8 @@ function CreateProject({user}) {
 
   const [createProject, setCreateProject] = useState({
     name:"",
-    category: null,
-    progress:0,
+    category: "",
+    progress:"",
     description:"",
     gitUrl:"",
     imageUrls:[],
@@ -25,10 +26,6 @@ function CreateProject({user}) {
     adminId: user.id,
     contributorId: user.id,
   })
- 
-  // useEffect(() => {
-  //   dispatch(getSkillsAsync())
-  // },[])
  
   const handleClose = () => setshow(false);
   const handleshow = () => {
@@ -47,14 +44,13 @@ function CreateProject({user}) {
 
   const handleSubmit = () => {
         // handle form submission
-        console.log(user)
-    if(createProject.name === "" || createProject.description === "" || createProject.category === null) {
+    if(createProject.name === "" || createProject.description === "" || createProject.category === null || createProject.progress === null) {
       window.alert("Du må fylle ut feltene som har en stjerne")
     } else {
       dispatch(createProjectAsync(createProject));
-      dispatch(addProject(
-        [...projects.project,
-           {...createProject, category:parseCategory(createProject.category), progress:parseProgress(createProject.progress)}]))
+      storageSave("projects", [...projects.project,createProject])
+      dispatch(setProjects(storageRead('projects')))      
+      window.alert(`Du har nå laget et prosjekt kalt "${createProject.name}"`)
       handleClose();
     }
   };
@@ -62,9 +58,6 @@ function CreateProject({user}) {
   const handleChange1 = (event) => {
     let propertyName = event.target.name;
     let propertyValue= event.target.value;
-    if(propertyName === "category" || propertyName === 'progress'){
-      propertyValue = parseInt(propertyValue)
-    }
     setCreateProject({...createProject, [propertyName] : propertyValue})
   };
 
@@ -116,22 +109,22 @@ function CreateProject({user}) {
                 name="name"
               />
               <Form.Label className="mt-3"><div className="d-flex">Kategori<p style={{color:'red'}}>*</p></div></Form.Label>
-              <Form.Select className="mb-3 mt-2" onChange={handleChange1} name="category">
+              <Form.Select required className="mb-3 mt-2" onChange={handleChange1} name="category">
                 <option hidden>Velg en kategori</option>
-                <option value={0}>Musikk</option>
-                <option value={1}>Film</option>
-                <option value={2}>Spillutvikling</option>
-                <option value={3}>Nettutvikling</option>
+                <option value={'Musikk'}>Musikk</option>
+                <option value={'Film'}>Film</option>
+                <option value={'SpillUtvikling'}>Spillutvikling</option>
+                <option value={'NettUtvikling'}>Nettutvikling</option>
               </Form.Select>
 
 
-              <Form.Label>Status</Form.Label>
-              <Form.Select className="mb-3 mt-2"  onChange={handleChange1} name="progress">
-                <option hidden>Oppstart</option>
-                <option value={0}>Oppstart</option>
-                <option value={1}>Under Utvikling</option>
-                <option value={2}>Utsatt</option>
-                <option value={3}>Ferdig</option>
+              <Form.Label>Status<p style={{color:'red'}}>*</p></Form.Label>
+              <Form.Select required className="mb-3 mt-2"  onChange={handleChange1} name="progress">
+                <option hidden>Velg prosjekt status</option>
+                <option value={'Oppstart'}>Oppstart</option>
+                <option value={'UnderUtvikling'}>Under Utvikling</option>
+                <option value={'Utsatt'}>Utsatt</option>
+                <option value={'Ferdig'}>Ferdig</option>
               </Form.Select>
              
               <Form.Label><div className="d-flex">Beskrivelse<p style={{color:'red'}}>*</p></div></Form.Label>

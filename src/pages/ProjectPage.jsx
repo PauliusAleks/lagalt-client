@@ -16,12 +16,13 @@ import '../components/Chat/ChatIcon.css'
 import './ScrollBar.css'
 import './IconAnimations.css'
 import ApplicationHandler from "../components/Project/ApplicationHandler";
+import { useNavigate } from "react-router-dom";
 
 
 function ProjectPage() {
     const project = useSelector((state) => state.project)
     const user = useSelector((state) => state.user)
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [scrollAmountLeft, setScrollAmountLeft] = useState(-500);
@@ -29,7 +30,6 @@ function ProjectPage() {
 
 
     useEffect(()=> {
-        window.scrollTo(0, 0)
         dispatch(setSearchShowFalse())
     })
 
@@ -55,7 +55,7 @@ function ProjectPage() {
 
     let contributors = project.contributors.map((contributor, key) => {
         return (
-            <li><Button variant="light"><NavLink to="/viewedProfile" className="link-dark" style={{ height: '12px',
+            <li key={key}><Button variant="light"><NavLink to="/viewedProfile" className="link-dark" style={{ height: '12px',
             textDecoration: 'none',
             color: '#393E46',
             }} onClick={() => dispatch(getViewedUserAsync(contributor))}><h4>{contributor}</h4></NavLink></Button></li>
@@ -65,7 +65,7 @@ function ProjectPage() {
     let images = project.imageUrls.map((image, key) => {
         if(project.imageUrls.length > 0) { 
             return (
-                <div style={{
+                <div key={key} style={{
                     flex:'0 0 100%',
                     padding:'24px',
                     borderRadius:'8px',
@@ -103,14 +103,14 @@ function ProjectPage() {
 
     return (
         
-        <div style={{ backgroundColor: '#EEEEEE', fontFamily: 'Arial, sans-serif',  height:'100vh', minHeight: '100vh'}}>
+        <div style={{ backgroundColor: '#EEF2F5', fontFamily: 'Arial, sans-serif',  height:'100vh', minHeight: '100vh'}}>
             <Container>
                 <div>
                     <h1 className="mr-1 p-3">Prosjekt </h1> 
                     <div style={{backgroundColor:'#000000', height:'2px', width:'97%', marginLeft:'15px', marginBottom:'10px'}}></div>
                 </div>
          <div className="container p-3 mt-5 rounded" style={{ backgroundColor: '#F8F9FA'}} >
-            <NavLink to="/"><BackArrowSVG className="backarrow"/></NavLink>
+         <NavLink onClick={()=> navigate(-1)} className="back" style={{textDecoration:'none', color:'black', display:'inline-block'}}><BackArrowSVG className="backarrow"/><p style={{marginTop:'5px'}}>Tilbake</p></NavLink>
          {!checkProjectAdmin(project.id) && !checkProjectContributor(project.id) &&
             <div className="p-2" style={{float:'right'}}>
                 <ApplyProject/>
@@ -144,13 +144,13 @@ function ProjectPage() {
                      </div>
                 </div>
                 }
-                <h4 className="p-2">Ferdigheter vi trenger:</h4>
+                <h5 className="p-2"><strong>Ferdigheter vi trenger:</strong></h5>
                 <div className="p-2"><ProjectSkills/></div>
-                <h3 className="p-2">Om prosjektet:</h3>
+                <h5 className="p-2"><strong>Om prosjektet:</strong></h5>
                 <p className="p-2">{project.description}</p>
-                <h3 className="pb-2">Contributors: </h3>
+                <h5 className="pb-2"><strong>Contributors:</strong> </h5>
                     <ul style={{listStyleType: 'none'}}>{contributors}</ul>
-                <h3 className="p-2">GitURL:</h3>
+                <h5 className="p-2"><strong>GitURL:</strong></h5>
                 <a href={project.gitURL} className="p-2">{project.gitURL}</a>
                 <div className="p-2" style={{float:'right'}}>
                     {checkProjectAdmin(project.id) && (

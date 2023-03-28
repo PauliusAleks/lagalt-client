@@ -9,14 +9,12 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import SkillCompare from "./SkillCompare";
 import './BannerAnimation.css'
-import { getUserAsync } from "../../reduxParts/userReducer";
 import { getProjectBannersAsync } from "../../reduxParts/projectBannersReducer";
 
 
 
 const ProjectBanner = ({projects}) => {
     const dispatch = useDispatch()
-    //const projects = useSelector((state) => state.banners)
     const category = useSelector((state) => state.category)
     const search = useSelector((state) => state.search)
     const user = useSelector((state) => state.user)
@@ -37,7 +35,6 @@ const ProjectBanner = ({projects}) => {
         } else if (project.progress === PROGRESS.completed) {
             progress = 4
         }
-
         let skillsTest = project.neededSkills.map((skill, key) => {
             if(user.skills !== null) {
                 if (keycloak.authenticated && user.skills.includes(skill)) {
@@ -68,7 +65,7 @@ const ProjectBanner = ({projects}) => {
                     <Container key={key} className="banner" fluid="p-3 m-5 bg-light border border-2 border-grey rounded" style={{filter: 'drop-shadow(8px 8px 5px grey)', zIndex:'-1'}}>
                         <Row className="d-flex flex-row p-3">
                             <Col xs={6} md={2} lg={2} xl={2} xxl={1} >
-                                {project.bannerImage === null || project.bannerImage === "" || project.bannerImage.trim().includes(" ") ?
+                                {project.bannerImage === null || project.bannerImage === "" ?
                                     <div className="p-2">
                                         <img className="img-fluid rounded" alt="Project"
                                         src="/templateImage.jpg" />
@@ -141,18 +138,6 @@ const ProjectBanner = ({projects}) => {
                 {testProject}
         </div>
     )
-    }/*
-    else {
-        return (
-            <div style={{ display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center', top:'250px'}}>
-                <div style={{display: 'flex',
-                justifyContent: 'center'}}>
-                    <NavLink to="/profile" className="text-decoration-none text-dark" onClick={() => dispatch(getUserAsync(keycloak.tokenParsed.preferred_username))}><h1>Trykk her for å fullføre profilen din</h1></NavLink>
-                </div>
-            </div>
-        )
-    }*/
+    }
 }
 export default ProjectBanner

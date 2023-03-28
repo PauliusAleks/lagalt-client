@@ -1,12 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { storageSave } from "../utils/storage";
-const deployURL = "https://lagaltapi.azurewebsites.net";
+import keycloak from "../keycloak";
+
+const baseURL = "https://lagaltapi.azurewebsites.net";
 const debugBaseURL = "https://localhost:7125";
-const baseURL = deployURL;
-//for auth???
+
+////for auth???
 export const createHeaders = () => {
     return {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${keycloak.token}`
         //'x-api-key': "???"
     }
 }
@@ -30,13 +33,12 @@ export const createProjectAsync = createAsyncThunk(
 
 export const deleteProjectAsync = createAsyncThunk(
     'project/deleteProjectAsync',
-    async ({projectId, adminId}, thunkAPI) => {
-        const response = await fetch(`${baseURL}/aspi/project/${projectId}`,{
+    async (projectId) => {
+        const response = await fetch(`${baseURL}/api/projects/${projectId}`,{
             method: 'DELETE',
             headers:{
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({adminId})
+            }
         })
         if(response.ok){
             const result = response.json()
@@ -48,7 +50,7 @@ export const deleteProjectAsync = createAsyncThunk(
 export const updateProjectAsync = createAsyncThunk(
     'project/updateProjectAsync',
     async (project) => {
-        const response = await fetch(baseURL+`/api/projects/updateProject/${project.id}`, {
+        const response = await fetch(`https://lagaltapi.azurewebsites.net/api/projects/updateProject/${project.id}`, {
             method: 'PUT',
             headers: createHeaders(),
             body: JSON.stringify({
@@ -74,7 +76,10 @@ export const updateProjectAsync = createAsyncThunk(
 export const getAdminProjectAsync = createAsyncThunk(
     'project/getProjectAsync',
     async (id) => {
-        const response = await fetch(`${baseURL}/api/projects/admin/${id}`)
+        const response = await fetch(`${baseURL}/api/projects/admin/${id}`, {
+            method: 'GET',
+            headers: createHeaders(),
+        })
         if(response.ok){
             const result = response.json()
             return result;
