@@ -120,7 +120,7 @@ if(createProject.name === "" || createProject.description === "" || createProjec
               </Form.Select>
 
 
-              <Form.Label className="mt-3">Status <div className='d-flex'><p style={{color:'red'}}>*</p></div></Form.Label>
+              <Form.Label className="mt-3"><div className='d-flex'>Status<p style={{color:'red'}}>*</p></div></Form.Label>
               <Form.Select required className="mb-3 mt-2" onChange={handleChange1} name="progress">
                 <option hidden>Velg prosjekt status</option>
                 <option value={'Oppstart'}>Oppstart</option>
