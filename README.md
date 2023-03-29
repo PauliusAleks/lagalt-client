@@ -20,17 +20,28 @@ Case assignment in the Noroff accelerate course.
   <ol>
     <li>
       <p>Description</p>
-      <p>Features</p>
+    </li>
+    <li>
+      <p>Features</p>
     </li>
     <li>
       <p>Project status</p>
-      <ul>
-        <li><p>Usage<p></li>
-      </ul>
+      <ul>
+        <p>Missing requirements</p>
+      </ul>
+    </li>
+    <li>
+        <p>Usage<p>
     </li>
-    <li><p>Technologies</p></li>
-    <li><p">Contributors</p></li>
-    <li><p>License</p></li>
+    <li>
+      <p>Technologies</p>
+    </li>
+    <li>
+      <p">Contributors</p>
+    </li>
+    <li>
+      <p>License</p>
+    </li>
   </ol>
 </details>
 
@@ -69,14 +80,18 @@ Missing: User history, git commits
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a52c407d-565a-4b4e-bb9e-d268ee4b7063/deploy-status)](https://app.netlify.com/sites/lagalt/deploys)
 
 ## Usage
- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ 
+  1. Clone the repo
+     ```sh
+     git clone https://gitlab.com/legalt-group/lagalt-front-end
+     ```
+  2. ``` npm install ``` inside the cloned repo
+  3. ``` npm start ``` to run the site locally
 
 ## Technologies
 * [![React][React.js]][React-url]
 * [![Redux][Redux.com]][Redux-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* 🔑Keycloak
-* ☁ Cloud Iam
 * [![JavaScript][JavaScript.com]][JavaScript-url]
 * [![HTML][HTML.com]][HTML-url]
 * [![CSS][CSS.com]][CSS-url]
@@ -84,6 +99,8 @@ Missing: User history, git commits
 * [![VSCode][VSCode.com]][VSCode-url]
 * [![Netlify][Netlify.com]][Netlify-url]
 * [![SQLServer][SQLServer.com]][SQLServer-url]
+* <a href="https://www.keycloak.org/"> 🔑Keycloak </a>
+* <a href="https://www.cloud-iam.com/"> ☁ Cloud Iam </a>
 
 ## Contributors
 * <a href="https://www.linkedin.com/in/jarand-larsen-58852a257/">Jarand Larsen</a>
