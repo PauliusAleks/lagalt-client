@@ -148,7 +148,7 @@ function ProjectPage() {
                 <div className="p-2"><ProjectSkills/></div>
                 <h5 className="p-2"><strong>Om prosjektet:</strong></h5>
                 <p className="p-2">{project.description}</p>
-                <h5 className="pb-2"><strong>Contributors:</strong> </h5>
+                <h5 className="p-2"><strong>Contributors:</strong> </h5>
                     <ul style={{listStyleType: 'none'}}>{contributors}</ul>
                 <h5 className="p-2"><strong>GitURL:</strong></h5>
                 <a href={project.gitURL} className="p-2">{project.gitURL}</a>

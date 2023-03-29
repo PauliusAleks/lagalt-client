@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { storageSave } from "../utils/storage";
+import { storageSave, storageRead } from "../utils/storage";
 import keycloak from "../keycloak";
 
 const baseURL = "https://lagaltapi.azurewebsites.net";
