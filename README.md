@@ -81,10 +81,8 @@ Missing: User history, git commits
 
 ## Usage
  
-  1. Clone the repo
-     ```sh
-     git clone git@gitlab.com:legalt-group/lagalt-front-end.git
-     ```
+  1. Clone the repo following this command:
+  ```git clone git@gitlab.com:legalt-group/lagalt-front-end.git```
   2. ``` npm install ``` inside the cloned repo
   3. ``` npm start ``` to run the site locally
 
