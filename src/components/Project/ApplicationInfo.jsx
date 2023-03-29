@@ -29,13 +29,7 @@ return (
         <h5><b>Epost: </b>{profile.email}</h5>
         <h5><b>Brukernavn: </b>{profile.username}</h5>
         <h5><b>Beskrivelse: </b>{profile.portfolio}</h5>
-        <h5><b>Ferdigheter: </b>{profile.skills.map((skill) => {
-            <div key={skill} className="p-1 d-inline">
-                <Button key={skill} variant="secondary" size="sm" disabled>
-                    {skill}
-                </Button>
-            </div> 
-    })}</h5>
+        <h5><b>Ferdigheter: </b>{profile.skills}</h5>
         <h5><b>Søknadsbrev: </b>{motivationLetter}</h5>
     </div>
 </div>

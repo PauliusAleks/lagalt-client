@@ -16,9 +16,9 @@ const EditProfilePage = () => {
 
     const [characterLimit] = useState(1250);
 
-    useEffect(()=> {
+    /*useEffect(()=> {
       window.scrollTo(0, 0)
-    })
+    })*/
 
     const handlePortfolioChange = event => {
       setEditUser({...editUser, portfolio:event.target.value})
