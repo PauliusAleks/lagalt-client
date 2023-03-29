@@ -27,7 +27,10 @@ function CreateProject({user}) {
     contributorId: user.id,
   })
  
-  const handleClose = () => setshow(false);
+  const handleClose = () => {
+    setshow(false);
+    window.location.reload()
+  } 
   const handleshow = () => {
      //for resetting state
      setCreateProject( {name:"",
@@ -50,7 +53,6 @@ if(createProject.name === "" || createProject.description === "" || createProjec
     dispatch(createProjectAsync(createProject))
     window.alert(`Du har nå laget et prosjekt kalt "${createProject.name}"`)
     dispatch(setProjects(storageRead("projects")))
-    window.location.reload()
     handleClose(); 
 }
 };
