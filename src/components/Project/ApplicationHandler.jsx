@@ -14,7 +14,6 @@ function ApplicationHandler({project}) {
 
     const handleClose = () => {
         setShow(false);
-        window.location.reload()
     }   
         
     const handleShow = () =>{
