@@ -43,17 +43,17 @@ function CreateProject({user}) {
   }
 
   const handleSubmit = () => {
-        // handle form submission
-    if(createProject.name === "" || createProject.description === "" || createProject.category === null || createProject.progress === null) {
-      window.alert("Du må fylle ut feltene som har en stjerne")
-    } else {
-      dispatch(createProjectAsync(createProject));
-      storageSave("projects", [...projects.project,createProject])
-      dispatch(setProjects(storageRead('projects')))      
-      window.alert(`Du har nå laget et prosjekt kalt "${createProject.name}"`)
-      handleClose();
-    }
-  };
+    // handle form submission
+if(createProject.name === "" || createProject.description === "" || createProject.category === null || createProject.progress === null) {
+    window.alert("Du må fylle ut feltene som har en stjerne")
+} else {
+    dispatch(createProjectAsync(createProject))
+    window.alert(`Du har nå laget et prosjekt kalt "${createProject.name}"`)
+    dispatch(setProjects(storageRead("projects")))
+    window.location.reload()
+    handleClose(); 
+}
+};
 
   const handleChange1 = (event) => {
     let propertyName = event.target.name;

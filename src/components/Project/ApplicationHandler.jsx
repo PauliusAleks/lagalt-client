@@ -11,7 +11,11 @@ function ApplicationHandler({project}) {
     const applications = useSelector((state) => state.applications.applications)
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+    setShow(false);
+    window.location.reload()
+    }   
+        
     const handleShow = () =>{
         dispatch(getProjectApplicationAsync(project))
         setShow(true)

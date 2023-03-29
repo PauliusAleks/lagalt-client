@@ -17,17 +17,21 @@ export const createHeaders = () => {
 export const createProjectAsync = createAsyncThunk(
     'project/createProjectAsync',
     async (projectData) => {
-        const response = await fetch(`${baseURL}/api/projects/createProject`, {
+        await fetch(`${baseURL}/api/projects/createProject`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(projectData)
+        }).then(async response =>{
+            if(response.ok){
+                const projectData = await response.json()
+                storageSave("projects", [...storageRead('projects'), projectData])
+                const result = response.json()
+                return result;  
+            } 
         })
-        if(response.ok){
-            const result = response.json()
-            return result;
-        }
+        
     }
 )
 
