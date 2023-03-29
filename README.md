@@ -1,7 +1,9 @@
+<a name="readme-top"></a>
+
 # Lagalt Frontend
 
 <!-- PROJECT LOGO -->
-<a name="readme-top"></a>
+
 <br />
 <div align="center">
     <img src="https://gitlab.com/legalt-group/lagalt-front-end/uploads/81662aed7406d8bbdb88f1b6450d3ba5/lagalt-logo.png" alt="Logo" width="80" height="80">
@@ -17,20 +19,18 @@ Case assignment in the Noroff accelerate course.
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
+      <p>Description</p>
+      <p>Features</p>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <p>Project status</p>
       <ul>
-        <li><a href="#installation">Installation</a></li>
+        <li><p>Usage<p></li>
       </ul>
     </li>
-    <li><a href="#maintainers">Maintainers</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
+    <li><p>Technologies</p></li>
+    <li><p">Contributors</p></li>
+    <li><p>License</p></li>
   </ol>
 </details>
 
@@ -40,40 +40,50 @@ A web application that allows people to register accounts, create and apply to p
 ## Features: 
 * Login
   * Keycloak
-* Search function
-* Create project
-* Chat function
-* Project list
+  * Register
+  * Identity providers
+    * Google
+    * LinkedIn
+    * Facebook
+    * Gitlab
+    * Github
+* Mainpage
+  * Search function
+  * Category filtering
+  * Create project
+  * Project list
 * Profile page
-* Edit profile page
-* Delete project
-* Apply to project
-
+  * Edit profile page
+* Project page
+  * Delete project
+  * Edit project
+  * Apply to project
+  * Chat function
 
 ## Project status
 All of the functionality is implemented, scalability on mobile devices could be improved and the files with redundant code can be cleaned up.
 
-### Missing requirements
+#### Missing requirements
 Missing: User history, git commits
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a52c407d-565a-4b4e-bb9e-d268ee4b7063/deploy-status)](https://app.netlify.com/sites/lagalt/deploys)
 
 ## Usage
-
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ## Technologies
-* Keycloak
-* Cloud Iam
+* [![React][React.js]][React-url]
+* [![Redux][Redux.com]][Redux-url]
+* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+* 🔑Keycloak
+* ☁ Cloud Iam
+* [![JavaScript][JavaScript.com]][JavaScript-url]
 * [![HTML][HTML.com]][HTML-url]
 * [![CSS][CSS.com]][CSS-url]
-* [![JavaScript][JavaScript.com]][JavaScript-url]
 * [![Azure][Azure.com]][Azure-url]
-* [![SQLServer][SQLServer.com]][SQLServer-url]
 * [![VSCode][VSCode.com]][VSCode-url]
 * [![Netlify][Netlify.com]][Netlify-url]
-* [![Redux][Redux.com]][Redux-url]
-* [![React][React.js]][React-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+* [![SQLServer][SQLServer.com]][SQLServer-url]
 
 ## Contributors
 * <a href="https://www.linkedin.com/in/jarand-larsen-58852a257/">Jarand Larsen</a>
