@@ -32,7 +32,7 @@ Case assignment in the Noroff accelerate course.
 </details>
 
 ## Description
-A web application that allows people to register accounts, create and apply to projects based on the user's skills and the project's needed/required skills. Users can set their profile status to hidden or public. These settings will affect what information other users can retrieve from your profile. When user's application has been accepted, they will join the project that they applied to, and become a contributor. Contributors will have access to a private live chat between the members / contributors of the group. 
+A web application that allows people to register accounts, create and apply to projects based on the user's skills and the project's needed/required skills. Users can set their profile status to hidden or public. These settings will affect what information other users can retrieve from your profile. When user's application has been accepted, they will join the project that they applied to, and become a contributor. Contributors will have access to a private live chat between the members / contributors of the group. When creating a project you become administrator over this specific project and can approve/decline applicants + edit the project info. In addition to all these features you can view other profiles based on their hidden status and also edit your own profile. On your profile you also have access to all of the projects you are currently in.
 
 ## Features: 
 * Login
@@ -58,17 +58,16 @@ A web application that allows people to register accounts, create and apply to p
   * Chat function
 
 ## Project status
-All of the functionality is implemented, scalability on mobile devices could be improved and the files with redundant code can be cleaned up.
+All of the functionality is implemented, scalability on mobile devices could be improved and the files with redundant code can be cleaned up. The styling can also be improved and page navigation can be improved.
 
 #### Missing requirements
-Missing: User history, git commits
+Missing: User history on the profile page, git commits on a project page if git is linked
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a52c407d-565a-4b4e-bb9e-d268ee4b7063/deploy-status)](https://app.netlify.com/sites/lagalt/deploys)
 
 ## Usage
  
-  1. Clone the repo following this command:
-  ```git clone git@gitlab.com:legalt-group/lagalt-front-end.git```
+  1. Clone the repo following this command: ```git clone git@gitlab.com:legalt-group/lagalt-front-end.git```
   2. ``` npm install ``` inside the cloned repo
   3. ``` npm start ``` to run the site locally
 
