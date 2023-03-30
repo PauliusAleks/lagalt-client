@@ -22,7 +22,7 @@ Case assignment in the Noroff accelerate course.
     <li>Features</li>
     <li>
         Project status
-          <ul> Missing requirements </ul>
+          <ul> <li>Missing requirements </li> </ul>
     </li>
     <li>Usage</li>
     <li>Technologies</li>
