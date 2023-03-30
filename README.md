@@ -18,30 +18,13 @@ Case assignment in the Noroff accelerate course.
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <p>Description</p>
-    </li>
-    <li>
-      <p>Features</p>
-    </li>
-    <li>
-      <p>Project status</p>
-      <ul>
-        <p>Missing requirements</p>
-      </ul>
-    </li>
-    <li>
-        <p>Usage<p>
-    </li>
-    <li>
-      <p>Technologies</p>
-    </li>
-    <li>
-      <p">Contributors</p>
-    </li>
-    <li>
-      <p>License</p>
-    </li>
+    <li>Description</li>
+    <li>Features</li>
+    <li>Project status<ul>Missing requirements</ul></li>
+    <li>Usage</li>
+    <li>Technologies</li>
+    <li>Contributors</li>
+    <li>License</li>
   </ol>
 </details>
 
