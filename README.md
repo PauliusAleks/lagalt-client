@@ -20,7 +20,10 @@ Case assignment in the Noroff accelerate course.
   <ol>
     <li>Description</li>
     <li>Features</li>
-    <li>Project status<ul>Missing requirements</ul></li>
+    <li>
+        Project status
+          * Missing requirements
+    </li>
     <li>Usage</li>
     <li>Technologies</li>
     <li>Contributors</li>
