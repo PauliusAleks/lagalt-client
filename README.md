@@ -35,7 +35,7 @@ Case assignment in the Noroff accelerate course.
 A web application that allows people to register accounts, create and apply to projects based on the user's skills and the project's needed/required skills. Users can set their profile status to hidden or public. These settings will affect what information other users can retrieve from your profile. When user's application has been accepted, they will join the project that they applied to, and become a contributor. Contributors will have access to a private live chat between the members / contributors of the group. When creating a project you become administrator over this specific project and can approve/decline applicants + edit the project info. In addition to all these features you can view other profiles based on their hidden status and also edit your own profile. On your profile you also have access to all of the projects you are currently in.
 
 ### High Fidelity Prototype
-<a href="https://www.figma.com/file/iVq5ac7PciftmmKwUl8nF1/lagalt.no?node-id=0%3A1&t=xxAZpbAN8fbXaC22-1"> Figma Prototype</a>
+<a href="https://www.figma.com/file/iVq5ac7PciftmmKwUl8nF1/lagalt.no?node-id=0%3A1&t=xxAZpbAN8fbXaC22-1"> <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figmalogo" width="80" height="80"></a>
 
 ## Features: 
 * Login
